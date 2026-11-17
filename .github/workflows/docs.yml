@@ -20,7 +20,8 @@ jobs:
           conda init
           git submodule update --init
           conda env create -n titan -f ./TITAN/titan_env.yml
-          conda activate titan
+          conda info         
+          $CONDA/bin/activate titan
       - name: Install sphinx
         run: |
           pip install sphinx sphinx-breeze-theme sphinx-autodoc2
