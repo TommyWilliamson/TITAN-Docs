@@ -18,9 +18,8 @@ jobs:
       - name: Install env
         run: |
           conda env create -n titan -f ./TITAN/titan_env.yml
-
           conda activate titan
-        name: Install sphinx
+      - name: Install sphinx
         run: |
           pip install sphinx sphinx-breeze-theme
       - name: Sphinx build
