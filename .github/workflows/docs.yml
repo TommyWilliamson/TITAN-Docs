@@ -22,6 +22,7 @@ jobs:
           conda env create -n titan -f ./TITAN/titan_env.yml
           conda info         
           $CONDA/bin/activate titan
+          pip install ./TITAN
       - name: Install sphinx
         run: |
           conda info         

@@ -1,4 +1,3 @@
-# Documentation example
+# TITAN Docs Repository
 
-We use this example in the lesson
-[How to document your research software](https://coderefinery.github.io/documentation/).
+Hosting of TITAN documentation, done through a personal repo for flexibility.
