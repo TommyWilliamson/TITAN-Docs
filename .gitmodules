@@ -1,0 +1,4 @@
+[submodule "TITAN"]
+	path = TITAN
+	url = https://github.com/strath-ace/TITAN/
+	branch = rc_v02_atlas
