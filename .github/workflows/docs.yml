@@ -17,13 +17,13 @@ jobs:
           activate-environment: ""
       - name: Install env
         run: |
-          ls
-          git submodule update --init --recursive
+          conda init
+          git submodule update --init
           conda env create -n titan -f ./TITAN/titan_env.yml
           conda activate titan
       - name: Install sphinx
         run: |
-          pip install sphinx sphinx-breeze-theme
+          pip install sphinx sphinx-breeze-theme sphinx-autodoc2
       - name: Sphinx build
         run: |
           sphinx-build ./TITAN/Docs/source _build
