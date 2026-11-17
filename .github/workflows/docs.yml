@@ -17,6 +17,8 @@ jobs:
           activate-environment: ""
       - name: Install env
         run: |
+          ls
+          git submodule update --init --recursive
           conda env create -n titan -f ../TITAN/titan_env.yml
           conda activate titan
       - name: Install sphinx
