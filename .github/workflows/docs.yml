@@ -24,9 +24,13 @@ jobs:
           $CONDA/bin/activate titan
       - name: Install sphinx
         run: |
+          conda info         
+          $CONDA/bin/activate titan
           pip install sphinx sphinx-breeze-theme sphinx-autodoc2
       - name: Sphinx build
         run: |
+          conda info         
+          $CONDA/bin/activate titan
           sphinx-build ./TITAN/Docs/source _build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
