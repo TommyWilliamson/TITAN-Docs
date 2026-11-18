@@ -10,20 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - uses: actions/setup-python@v5
       - uses: conda-incubator/setup-miniconda@v4
         with:
-          auto-activate: true
-          activate-environment: ""
-      - name: Install env
+          auto-activate-base: false
+          activate-environment: titan
+          environment-file: ./TITAN/titan_env.yml
+      - name: Install deps
         run: |
-          conda init
-          git submodule update --init
-          conda env create -n titan -f ./TITAN/titan_env.yml
-          conda info         
-          $CONDA/bin/activate titan
           pip install ./TITAN
           pip install sphinx sphinx-breeze-theme sphinx-autodoc2
+      - name: Build docs
+        run: |
           sphinx-build ./TITAN/Docs/source _build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
