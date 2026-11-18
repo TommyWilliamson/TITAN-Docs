@@ -8,23 +8,46 @@ permissions:
 jobs:
   docs:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0}
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-      - uses: actions/setup-python@v5
+          
       - uses: conda-incubator/setup-miniconda@v4
         with:
           auto-activate-base: false
           activate-environment: titan
           environment-file: ./TITAN/titan_env.yml
+          
+      - name: Debug Python
+        run: |
+          echo "Python executable:"
+          which python
+      
+          echo "Python version:"
+          python --version
+      
+          echo "Pip location:"
+          which pip
+      
+          echo "Conda environment:"
+          conda info --envs
+      
+          echo "Python prefix:"
+          python -c "import sys; print(sys.prefix)"
+          
       - name: Install deps
         run: |
           pip install ./TITAN
           pip install sphinx sphinx-breeze-theme sphinx-autodoc2
+          
       - name: Build docs
         run: |
           sphinx-build ./TITAN/Docs/source _build
+          
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
