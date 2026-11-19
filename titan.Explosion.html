@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Explosion" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="titan.Explosion.html" />
+<meta property="og:site_name" content="TITAN" />
+<meta property="og:description" content="Explosion module - fragmentation and explosion modeling Explosion Fragments: explosion_fragments module. Generate Seed Distribution: generate_seed_distribution module. Manifold Voronoi Fracture: ma..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="_images/social_previews/summary_titan.Explosion_d344f6d9.png" />
+<meta property="og:image:alt" content="Explosion module - fragmentation and explosion modeling Explosion Fragments: explosion_fragments module. Generate Seed Distribution: generate_seed_distribution module. Manifold Voronoi Fracture: ma..." />
+<meta name="description" content="Explosion module - fragmentation and explosion modeling Explosion Fragments: explosion_fragments module. Generate Seed Distribution: generate_seed_distribution module. Manifold Voronoi Fracture: ma..." />
+<meta name="twitter:card" content="summary_large_image" />
+<title>Explosion - TITAN v0.2 &#34;Atlas&#34; documentation</title><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Forces" href="titan.Forces.html"><link rel="prev" title="Dynamics" href="titan.Dynamics.html"><script data-cfasync="false">(function(){
+    const m = localStorage.getItem("breeze-mode") || "auto";
+    const d = document.documentElement.dataset;
+    d.mode = m;
+    d.theme = m === "auto"
+      ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : m;
+  })();
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" /><link rel="stylesheet" type="text/css" href="_static/custom.css?v=3b2811d2" /><link rel="stylesheet" type="text/css" href="_static/styles/breeze.css?v=7c62c100" /><script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><script defer="defer" src="_static/scripts/breeze.js?v=dac9f8c6"></script></head>
+<body>
+  
+  
+  <div class="bz-skip-to-content"><a href="#bz-main-content">Skip to main content</a></div><header class="bz-header-main">
+  <div class="bz-header-start"><a class="bz-header-brand" href="index.html">
+  <img class="only-light" src="_static/titan_icon_light.png" alt="TITAN" />
+  <img class="only-dark" src="_static/titan_icon_dark.png" alt="TITAN" />
+  <span>TITAN v0.2 "Atlas" documentation</span>
+</a>
+  </div>
+  <div class="bz-header-end"><div id="docsearch" class="bz-search-button">
+  <a
+    href="search.html#q"
+    aria-label="Search the docs"
+    data-tooltip="Search the docs"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 -1 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+      />
+    </svg>
+    <span>Search</span>
+    <kbd>Ctrl+K</kbd>
+  </a>
+</div><div class="bz-theme-switcher">
+  <button aria-label="Switch theme" data-tooltip="Switch theme">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-light" fill="currentColor">
+      <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061ZM2.343 2.343a.75.75 0 0 1 1.061 0l1.06 1.061a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-1.06-1.06a.75.75 0 0 1 0-1.06Z"></path>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-dark" fill="currentColor">
+      <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z"></path>
+    </svg>
+  </button>
+</div>
+  </div>
+</header><nav class="bz-header-tabs" aria-label="Primary Navigation"><label
+  class="bz-sidebar-primary-toggle"
+  for="bz-sidebar-primary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle site navigation"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h12.5"
+    />
+  </svg>
+</label><ul><li class="toctree-l1"><a class="reference internal" href="titan.html">Docs</a></li><li class="toctree-l1"><a class="reference internal" href="titan.html#module-titan.__main__">Main Functions</a></li><li class="toctree-l1 current"><a class="reference internal" href="titan.html#api-reference">API Reference</a></li></ul><div class="bz-dropdown">
+    <button aria-haspopup="true" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="1" />
+          <circle cx="19" cy="12" r="1" />
+          <circle cx="5" cy="12" r="1" />
+        </g>
+      </svg>
+    </button>
+    <ul role="menu" aria-hidden="true"></ul>
+  </div>
+</nav><hr class="bz-header-hr">
+  <div class="bz-content"><aside class="bz-sidebar-primary" data-drawer="bz-sidebar-primary">
+  
+  
+    <nav class="bz-sidebar-nav" aria-label="Section Navigation"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="titan.Aerothermo.html">Aerothermo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Dynamics.html">Dynamics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Explosion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Forces.html">Forces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Fragmentation.html">Fragmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Freestream.html">Freestream package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Geometry.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Material.html">Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Output.html">Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Postprocess.html">Postprocess</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Structural.html">Structural</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Thermal.html">Thermal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Uncertainty.html">Uncertainty</a></li>
+</ul>
+</nav>
+  
+
+</aside><main id="bz-main-content"><header class="bz-article-header">
+  
+  
+    <nav class="bz-breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li class="bz-breadcrumbs-home">
+      <a href="index.html" aria-label="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8.543 2.232a.75.75 0 0 0-1.085 0l-5.25 5.5A.75.75 0 0 0 2.75 9H4v4a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9h1.25a.75.75 0 0 0 .543-1.268l-5.25-5.5Z" />
+        </svg>
+      </a>
+    </li><li class="bz-breadcrumbs-parent">
+      <a href="titan.html">Docs</a>
+    </li><li class="bz-breadcrumbs-current">
+      <span>Explosion</span>
+    </li>
+  </ol>
+</nav>
+  
+<label
+  class="bz-sidebar-secondary-toggle"
+  for="bz-sidebar-secondary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle table of contents"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75H20.25 M11.25 12H20.25 M7.75 17.25H20.25"
+    />
+  </svg>
+</label></header><article class="bz-article-main" role="main"><div class="bz-page-actions" role="group" aria-label="Page actions">
+  <button data-copy-source="_sources/titan.Explosion.rst.txt">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+    <span>Copy page</span>
+  </button>
+  <div class="bz-dropdown">
+    <button
+      aria-label="More actions"
+      aria-haspopup="true"
+      aria-expanded="false"
+    ></button>
+    <ul role="menu" aria-hidden="true">
+      <li>
+        <a href="#" role="menuitem" data-copy-source="_sources/titan.Explosion.rst.txt">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+          <span>Copy page</span>
+        </a>
+      </li>
+      <li>
+        <a href="_sources/titan.Explosion.rst.txt" role="menuitem" class="bz-page-actions-external" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3a2 2 0 0 1 2-2h9.982a2 2 0 0 1 1.414.586l4.018 4.018A2 2 0 0 1 21 7.018V21a2 2 0 0 1-2 2H4.75a.75.75 0 0 1 0-1.5H19a.5.5 0 0 0 .5-.5V8.5h-4a2 2 0 0 1-2-2v-4H5a.5.5 0 0 0-.5.5v6.25a.75.75 0 0 1-1.5 0Zm12-.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 0-.146-.336l-4.018-4.018A.5.5 0 0 0 15 2.5Z"></path><path d="M4.53 12.24a.75.75 0 0 1-.039 1.06l-2.639 2.45 2.64 2.45a.75.75 0 1 1-1.022 1.1l-3.23-3a.75.75 0 0 1 0-1.1l3.23-3a.75.75 0 0 1 1.06.04Zm3.979 1.06a.75.75 0 1 1 1.02-1.1l3.231 3a.75.75 0 0 1 0 1.1l-3.23 3a.75.75 0 1 1-1.021-1.1l2.639-2.45-2.64-2.45Z"></path></svg>
+          <span>View source</span>
+        </a>
+      </li></ul>
+  </div>
+</div><section id="module-titan.Explosion">
+<span id="explosion"></span><h1>Explosion<a class="headerlink" href="#module-titan.Explosion" title="Link to this heading">#</a></h1>
+<p>Explosion module - fragmentation and explosion modeling</p>
+<section id="module-titan.Explosion.explosion_fragments">
+<span id="explosion-fragments"></span><h2>Explosion Fragments<a class="headerlink" href="#module-titan.Explosion.explosion_fragments" title="Link to this heading">#</a></h2>
+<p>explosion_fragments module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.explosion_fragments.build_new_assemblies">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.explosion_fragments.</span></span><span class="sig-name descname"><span class="pre">build_new_assemblies</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">fragment_list</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">i_parent</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">explosion_parameters</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.explosion_fragments.build_new_assemblies" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Takes a collection of fragments, builds each a new “assembly” and appends it to titan.assembly</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param fragment_list<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class AssemblyList, generated by fracture_object()</p>
+</dd>
+<dt class="field-even">type fragment_list<span class="colon">:</span></dt>
+<dd class="field-even"><p>list
+:param titan: Object of class AssemblyList
+:type titan: object
+:param options: Object of class Options
+:type options: Options</p>
+</dd>
+<dt class="field-odd">param i_parent<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Index of the parent assembly of pre-exploded object</p>
+</dd>
+<dt class="field-even">type i_parent<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param explosion_parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict of kinetic parameters, generated by fracture_object()</p>
+</dd>
+<dt class="field-even">type explosion_parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.explosion_fragments.calculate_fragment_dv">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.explosion_fragments.</span></span><span class="sig-name descname"><span class="pre">calculate_fragment_dv</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">fragment_assem</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">frag_id</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">explosion_parameters</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.explosion_fragments.calculate_fragment_dv" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Computes change in velocity for each fragment in an explosion</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param fragment_assem<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of Class Assembly</p>
+</dd>
+<dt class="field-even">type fragment_assem<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param frag_id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Index of fragment in explosion_parameters dict</p>
+</dd>
+<dt class="field-even">type frag_id<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">param explosion_parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict of kinetic parameters, generated by fracture_object()</p>
+</dd>
+<dt class="field-even">type explosion_parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of Class Options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.explosion_fragments.evolve_4_explosion_velocity">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.explosion_fragments.</span></span><span class="sig-name descname"><span class="pre">evolve_4_explosion_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area_mass_ratio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.explosion_fragments.evolve_4_explosion_velocity" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>NASA EVOLVE 4.0 Explosion Velocity Distribution Function</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param base_v<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Base velocity</p>
+</dd>
+<dt class="field-even">type base_v<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param area_mass_ratio<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Area to mass ratio of the fragment</p>
+</dd>
+<dt class="field-even">type area_mass_ratio<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.explosion_fragments.fracture_object">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.explosion_fragments.</span></span><span class="sig-name descname"><span class="pre">fracture_object</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">explobject</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">base_rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.explosion_fragments.fracture_object" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Takes a demising component and returns a collection of fragments to be added to the simulation</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param explobject<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class Component to fracture and disperse</p>
+</dd>
+<dt class="field-even">type explobject<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param parent_state<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object’s parent assembly</p>
+</dd>
+<dt class="field-even">type parent_state<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class Options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+<dt class="field-odd">param dt<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Duration of explosion in seconds</p>
+</dd>
+<dt class="field-even">type dt<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">param base_rng<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class numpy.random.RandomState defining global rng</p>
+</dd>
+<dt class="field-even">type base_rng<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.explosion_fragments.sample_fragment_velocities">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.explosion_fragments.</span></span><span class="sig-name descname"><span class="pre">sample_fragment_velocities</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">explosion_parameters</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">n_fragments</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.explosion_fragments.sample_fragment_velocities" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Select delta velocities assigned to fragments based upon a velocity method</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param explosion_parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict of kinetic parameters, generated by fracture_object()</p>
+</dd>
+<dt class="field-even">type explosion_parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param n_fragments<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of fragments</p>
+</dd>
+<dt class="field-even">type n_fragments<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of Class Options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+<dt class="field-odd">param dt<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Duration of explosion in seconds</p>
+</dd>
+<dt class="field-even">type dt<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-titan.Explosion.generate_seed_distribution">
+<span id="generate-seed-distribution"></span><h2>Generate Seed Distribution<a class="headerlink" href="#module-titan.Explosion.generate_seed_distribution" title="Link to this heading">#</a></h2>
+<p>generate_seed_distribution module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.SpiralSampler">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Explosion.generate_seed_distribution.</span></span><span class="sig-name descname"><span class="pre">SpiralSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.SpiralSampler" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Generate random points along a parameterized three-dimensional spiral.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.SpiralSampler.rvs">
+<span class="sig-name descname"><span class="pre">rvs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'xyz'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.SpiralSampler.rvs" title="Link to this definition">#</a></dt>
+<dd><p>Sample points from the configured spiral.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_samples</strong> (<em>int</em>) – Integer value for n samples.</p></li>
+<li><p><strong>kind</strong> (<em>Any</em>) – Output representation; <code class="docutils literal notranslate"><span class="pre">'polar'</span></code> returns spiral parameters,
+while other values return Cartesian coordinates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Sampled coordinates or spiral parameters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.distribution_generator">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.generate_seed_distribution.</span></span><span class="sig-name descname"><span class="pre">distribution_generator</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">desired_law</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">return_law</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.1,</span> <span class="pre">1,</span> <span class="pre">0.1]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">n_frags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">n_tests</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">parameter_vector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.distribution_generator" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param desired_law: Value for desired law.
+:type desired_law: Any
+:param return_law: Value for return law.
+:type return_law: Any
+:param weights: Value for weights.
+:type weights: Any
+:param n_frags: Integer value for n frags.
+:type n_frags: int
+:param n_tests: Integer value for n tests.
+:type n_tests: int
+:param parameter_vector: Value for parameter vector.
+:type parameter_vector: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.generate_seed_points">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.generate_seed_distribution.</span></span><span class="sig-name descname"><span class="pre">generate_seed_points</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">obj_half_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">0]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">law</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[6,</span> <span class="pre">-1.6]</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.generate_seed_points" title="Link to this definition">#</a></dt>
+<dd><p>Generate seed locations on concentric spherical shells.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_half_len</strong> (<em>Any</em>) – Characteristic half-length that sets the outer scale.</p></li>
+<li><p><strong>parameters</strong> (<em>Any</em>) – Three values controlling the point count, shell count,
+and innermost shell scale.</p></li>
+<li><p><strong>law</strong> (<em>Any</em>) – Coefficient and exponent defining the radial point-count law.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generated three-dimensional seed coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.get_dists">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.generate_seed_distribution.</span></span><span class="sig-name descname"><span class="pre">get_dists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.get_dists" title="Link to this definition">#</a></dt>
+<dd><p>Query each point’s nearest-neighbour distances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>float</em>) – Point coordinates with one point per row.</p></li>
+<li><p><strong>k</strong> (<em>Any</em>) – Number of nearest neighbours to query, including the point itself.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Distances returned by the spatial-tree query.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.get_law_from_points">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.generate_seed_distribution.</span></span><span class="sig-name descname"><span class="pre">get_law_from_points</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">ref_law</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[6,</span> <span class="pre">-1.6]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">return_law</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.1,</span> <span class="pre">1,</span> <span class="pre">0.1]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.get_law_from_points" title="Link to this definition">#</a></dt>
+<dd><p>Evaluate how closely point spacing matches a target power law.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ref_law</strong> (<em>Any</em>) – Target coefficient and exponent for the spacing law.</p></li>
+<li><p><strong>return_law</strong> (<em>Any</em>) – If true, return fitted law parameters instead of an error.</p></li>
+<li><p><strong>weights</strong> (<em>Any</em>) – Weights for coefficient, exponent, and fit-quality errors.</p></li>
+<li><p><strong>X</strong> (<em>float</em>) – Point coordinates to evaluate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Weighted fit error, or fitted coefficient, exponent, and <span class="math notranslate nohighlight">\(R^2\)</span>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float or list[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.get_seed_points">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.generate_seed_distribution.</span></span><span class="sig-name descname"><span class="pre">get_seed_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expl_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">law</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[6,</span> <span class="pre">-1.6]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.get_seed_points" title="Link to this definition">#</a></dt>
+<dd><p>Optimize and save a seed-point distribution for an object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>expl_dir</strong> (<em>str</em>) – Directory in which to write the generated <code class="docutils literal notranslate"><span class="pre">points.csv</span></code> file.</p></li>
+<li><p><strong>obj_len</strong> (<em>Any</em>) – Characteristic object length used to scale the distribution.</p></li>
+<li><p><strong>law</strong> (<em>Any</em>) – Coefficient and exponent of the target spacing law.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.law_linregress">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.generate_seed_distribution.</span></span><span class="sig-name descname"><span class="pre">law_linregress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dists</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.law_linregress" title="Link to this definition">#</a></dt>
+<dd><p>Fit a power law to the complementary distribution of neighbour distances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dists</strong> (<em>Any</em>) – Distances used to estimate the spacing distribution.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Linear regression result in log-log coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.stats.LinregressResult</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.log_spiral_3d">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.generate_seed_distribution.</span></span><span class="sig-name descname"><span class="pre">log_spiral_3d</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">desired_law</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">return_law</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.1,</span> <span class="pre">1,</span> <span class="pre">0.1]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">n_frags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">n_tests</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">parameter_vector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.log_spiral_3d" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param desired_law: Value for desired law.
+:type desired_law: Any
+:param return_law: Value for return law.
+:type return_law: Any
+:param weights: Value for weights.
+:type weights: Any
+:param n_frags: Integer value for n frags.
+:type n_frags: int
+:param n_tests: Integer value for n tests.
+:type n_tests: int
+:param rng: Value for rng.
+:type rng: Any
+:param parameter_vector: Value for parameter vector.
+:type parameter_vector: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.optimal_seeds">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.generate_seed_distribution.</span></span><span class="sig-name descname"><span class="pre">optimal_seeds</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">n_fragments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">24</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'anneal'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">desired_law</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[6,</span> <span class="pre">-1.6]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">obj_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">CoG</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">0]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">compute_budget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200000.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.optimal_seeds" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param n_fragments: Integer value for n fragments.
+:type n_fragments: int
+:param method: Value for method.
+:type method: Any
+:param desired_law: Value for desired law.
+:type desired_law: Any
+:param plot: Value for plot.
+:type plot: Any
+:param obj_len: Value for obj len.
+:type obj_len: Any
+:param CoG: Value for cog.
+:type CoG: Any
+:param compute_budget: Value for compute budget.
+:type compute_budget: Any
+:param rng: Value for rng.
+:type rng: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.plot_result">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.generate_seed_distribution.</span></span><span class="sig-name descname"><span class="pre">plot_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desired_law</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regress_law</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.plot_result" title="Link to this definition">#</a></dt>
+<dd><p>Plot seed locations and compare their spacing law with a target fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> (<em>list</em><em>[</em><em>float</em><em>]</em>) – Three-dimensional sample coordinates.</p></li>
+<li><p><strong>desired_law</strong> (<em>Any</em>) – Coefficient and exponent of the target spacing law.</p></li>
+<li><p><strong>regress_law</strong> (<em>Any</em>) – Regression result used to plot the fitted spacing law.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.generate_seed_distribution.trigonometric_2sphere_sampling">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.generate_seed_distribution.</span></span><span class="sig-name descname"><span class="pre">trigonometric_2sphere_sampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.generate_seed_distribution.trigonometric_2sphere_sampling" title="Link to this definition">#</a></dt>
+<dd><p>Sample points uniformly on the surface of a sphere.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rad</strong> (<em>Any</em>) – Sphere radius.</p></li>
+<li><p><strong>n_points</strong> (<em>int</em>) – Integer value for n points.</p></li>
+<li><p><strong>rng</strong> (<em>Any</em>) – Random-number generator, or <code class="docutils literal notranslate"><span class="pre">None</span></code> to create one.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Cartesian coordinates with shape <code class="docutils literal notranslate"><span class="pre">(n_points,</span> <span class="pre">3)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-titan.Explosion.manifold_voronoi_fracture">
+<span id="manifold-voronoi-fracture"></span><h2>Manifold Voronoi Fracture<a class="headerlink" href="#module-titan.Explosion.manifold_voronoi_fracture" title="Link to this heading">#</a></h2>
+<p>manifold_voronoi_fracture module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.manifold_voronoi_fracture.bb_check">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.manifold_voronoi_fracture.</span></span><span class="sig-name descname"><span class="pre">bb_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bb_candidate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb_to_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_any</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.manifold_voronoi_fracture.bb_check" title="Link to this definition">#</a></dt>
+<dd><p>Check whether candidate points overlap a query bounding box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bb_candidate</strong> (<em>Any</em>) – Candidate coordinates with one point per row.</p></li>
+<li><p><strong>bb_to_query</strong> (<em>Any</em>) – Lower and upper bounds for each coordinate dimension.</p></li>
+<li><p><strong>use_any</strong> (<em>bool</em>) – If true, accept a dimension when any candidate is inside;
+otherwise require all candidates to be inside each dimension.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether the candidate points satisfy the bounding-box test.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.manifold_voronoi_fracture.build_voro_prisms">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.manifold_voronoi_fracture.</span></span><span class="sig-name descname"><span class="pre">build_voro_prisms</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">voronoi</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">bb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">extrude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">use_trimesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.manifold_voronoi_fracture.build_voro_prisms" title="Link to this definition">#</a></dt>
+<dd><p>Construct prism solids for finite Voronoi regions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>voronoi</strong> (<em>Any</em>) – Voronoi tessellation whose bounded regions define solids.</p></li>
+<li><p><strong>bb</strong> (<em>Any</em>) – Optional bounding box used to skip regions outside the mesh.</p></li>
+<li><p><strong>extrude</strong> (<em>Any</em>) – Distance used to extrude region faces.</p></li>
+<li><p><strong>use_trimesh</strong> (<em>bool</em>) – Whether to build output geometry with trimesh objects.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Manifold solids corresponding to accepted Voronoi regions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.manifold_voronoi_fracture.extrude_prism_from_verts">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.manifold_voronoi_fracture.</span></span><span class="sig-name descname"><span class="pre">extrude_prism_from_verts</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">verts</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">base_extrude_height</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">normal</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">vert_normals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">debug_trimesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.manifold_voronoi_fracture.extrude_prism_from_verts" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param verts: Value for verts.
+:type verts: Any
+:param base_extrude_height: Value for base extrude height.
+:type base_extrude_height: Any
+:param normal: Value for normal.
+:type normal: Any
+:param vert_normals: Value for vert normals.
+:type vert_normals: Any
+:param bias: Value for bias.
+:type bias: Any
+:param scale: Value for scale.
+:type scale: Any
+:param debug_trimesh: Value for debug trimesh.
+:type debug_trimesh: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.manifold_voronoi_fracture.generate_fragment_meshes">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.manifold_voronoi_fracture.</span></span><span class="sig-name descname"><span class="pre">generate_fragment_meshes</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">stl</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">voronoi</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">write_dir</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">extrude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.03</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.manifold_voronoi_fracture.generate_fragment_meshes" title="Link to this definition">#</a></dt>
+<dd><p>Partition a surface mesh into watertight fragment meshes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stl</strong> (<em>Any</em>) – Path to the source STL mesh.</p></li>
+<li><p><strong>voronoi</strong> (<em>Any</em>) – Voronoi tessellation defining the fragment partition.</p></li>
+<li><p><strong>write_dir</strong> (<em>str</em>) – Directory where accepted fragment STL files are written.</p></li>
+<li><p><strong>extrude</strong> (<em>Any</em>) – Extrusion distance used when constructing cutting geometry.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – Whether to print progress messages.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.manifold_voronoi_fracture.mesh_check">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.manifold_voronoi_fracture.</span></span><span class="sig-name descname"><span class="pre">mesh_check</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">density</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">target_volume</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">delete_bad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.manifold_voronoi_fracture.mesh_check" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param folder: Value for folder.
+:type folder: Any
+:param density: Numeric value for density.
+:type density: float
+:param target_volume: Value for target volume.
+:type target_volume: Any
+:param threshold: Value for threshold.
+:type threshold: Any
+:param delete_bad: Value for delete bad.
+:type delete_bad: Any
+:param quiet: Flag for quiet.
+:type quiet: bool
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.manifold_voronoi_fracture.orthogonal_planes">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.manifold_voronoi_fracture.</span></span><span class="sig-name descname"><span class="pre">orthogonal_planes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bounding_box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.manifold_voronoi_fracture.orthogonal_planes" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param bounding_box: Value for bounding box.
+:type bounding_box: Any
+:param rng: Value for rng.
+:type rng: Any
+:param n: Integer value for n.
+:type n: int
+:param extrude: Value for extrude.
+:type extrude: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+</section>
+<section id="module-titan.Explosion.split_stl">
+<span id="split-stl"></span><h2>Split .stl<a class="headerlink" href="#module-titan.Explosion.split_stl" title="Link to this heading">#</a></h2>
+<p>split_stl module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.split_stl.stl_split">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.split_stl.</span></span><span class="sig-name descname"><span class="pre">stl_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.split_stl.stl_split" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param directory: Filesystem directory path.
+:type directory: str
+:param filename: Path to the relevant file.
+:type filename: str</p>
+</dd></dl>
+
+</section>
+<section id="module-titan.Explosion.stl_verify_blender">
+<span id="stl-verify-blender"></span><h2>.stl Verify blender<a class="headerlink" href="#module-titan.Explosion.stl_verify_blender" title="Link to this heading">#</a></h2>
+<p>stl_verify_blender module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.stl_verify_blender.mesh_verify_selected">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.stl_verify_blender.</span></span><span class="sig-name descname"><span class="pre">mesh_verify_selected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.stl_verify_blender.mesh_verify_selected" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param fix: Value for fix.
+:type fix: Any
+:param merge_dist: Value for merge dist.
+:type merge_dist: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Explosion.stl_verify_blender.output_stats">
+<span class="sig-prename descclassname"><span class="pre">titan.Explosion.stl_verify_blender.</span></span><span class="sig-name descname"><span class="pre">output_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stats_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Explosion.stl_verify_blender.output_stats" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param stats_dict: Dictionary of stats.
+:type stats_dict: dict
+:param filepath: Path to the relevant file.
+:type filepath: str</p>
+</dd></dl>
+
+</section>
+</section>
+
+</article><footer class="bz-article-footer">
+  
+  
+    <nav class="bz-related-pages" aria-label="Related pages navigation"><a class="bz-related-pages-previous" href="titan.Dynamics.html" rel="prev">
+    <span>Previous</span><span class="bz-related-pages-title">Dynamics</span></a><a class="bz-related-pages-next" href="titan.Forces.html" rel="next">
+    <span>Next</span>
+    <span class="bz-related-pages-title">Forces</span>
+  </a></nav>
+  
+
+</footer><aside class="bz-sidebar-secondary" data-drawer="bz-sidebar-secondary">
+  
+  
+    <nav class="bz-sidebar-toc" aria-label="Table of contents">
+  <p>On this page</p><ul>
+<li><a class="reference internal" href="#module-titan.Explosion.explosion_fragments">Explosion Fragments</a><ul>
+<li><a class="reference internal" href="#titan.Explosion.explosion_fragments.build_new_assemblies"><code class="docutils literal notranslate"><span class="pre">build_​new_​assemblies()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.explosion_fragments.calculate_fragment_dv"><code class="docutils literal notranslate"><span class="pre">calculate_​fragment_​dv()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.explosion_fragments.evolve_4_explosion_velocity"><code class="docutils literal notranslate"><span class="pre">evolve_​4_​explosion_​velocity()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.explosion_fragments.fracture_object"><code class="docutils literal notranslate"><span class="pre">fracture_​object()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.explosion_fragments.sample_fragment_velocities"><code class="docutils literal notranslate"><span class="pre">sample_​fragment_​velocities()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Explosion.generate_seed_distribution">Generate Seed Distribution</a><ul>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.SpiralSampler"><code class="docutils literal notranslate"><span class="pre">SpiralSampler</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.SpiralSampler.rvs"><code class="docutils literal notranslate"><span class="pre">SpiralSampler​.rvs()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.distribution_generator"><code class="docutils literal notranslate"><span class="pre">distribution_​generator()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.generate_seed_points"><code class="docutils literal notranslate"><span class="pre">generate_​seed_​points()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.get_dists"><code class="docutils literal notranslate"><span class="pre">get_​dists()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.get_law_from_points"><code class="docutils literal notranslate"><span class="pre">get_​law_​from_​points()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.get_seed_points"><code class="docutils literal notranslate"><span class="pre">get_​seed_​points()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.law_linregress"><code class="docutils literal notranslate"><span class="pre">law_​linregress()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.log_spiral_3d"><code class="docutils literal notranslate"><span class="pre">log_​spiral_​3d()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.optimal_seeds"><code class="docutils literal notranslate"><span class="pre">optimal_​seeds()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.plot_result"><code class="docutils literal notranslate"><span class="pre">plot_​result()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.generate_seed_distribution.trigonometric_2sphere_sampling"><code class="docutils literal notranslate"><span class="pre">trigonometric_​2sphere_​sampling()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Explosion.manifold_voronoi_fracture">Manifold Voronoi Fracture</a><ul>
+<li><a class="reference internal" href="#titan.Explosion.manifold_voronoi_fracture.bb_check"><code class="docutils literal notranslate"><span class="pre">bb_​check()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.manifold_voronoi_fracture.build_voro_prisms"><code class="docutils literal notranslate"><span class="pre">build_​voro_​prisms()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.manifold_voronoi_fracture.extrude_prism_from_verts"><code class="docutils literal notranslate"><span class="pre">extrude_​prism_​from_​verts()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.manifold_voronoi_fracture.generate_fragment_meshes"><code class="docutils literal notranslate"><span class="pre">generate_​fragment_​meshes()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.manifold_voronoi_fracture.mesh_check"><code class="docutils literal notranslate"><span class="pre">mesh_​check()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.manifold_voronoi_fracture.orthogonal_planes"><code class="docutils literal notranslate"><span class="pre">orthogonal_​planes()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Explosion.split_stl">Split ​.stl</a><ul>
+<li><a class="reference internal" href="#titan.Explosion.split_stl.stl_split"><code class="docutils literal notranslate"><span class="pre">stl_​split()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Explosion.stl_verify_blender">​.stl Verify blender</a><ul>
+<li><a class="reference internal" href="#titan.Explosion.stl_verify_blender.mesh_verify_selected"><code class="docutils literal notranslate"><span class="pre">mesh_​verify_​selected()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Explosion.stl_verify_blender.output_stats"><code class="docutils literal notranslate"><span class="pre">output_​stats()</span></code></a></li>
+</ul>
+</li>
+</ul></nav>
+  
+    
+
+
+  
+    
+  
+    
+  
+
+</aside></main>
+  </div>
+<footer class="bz-footer">
+  <div class="bz-footer-copyright"><p class="bz-copyright">© Copyright 2026, TITAN Contributors</p><p>
+    
+    
+    
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/aksiome/breeze">Breeze theme</a>.
+    
+  </p>
+</div>
+</footer><a href="#" class="bz-back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>
+    </svg>
+    <span>Back to top</span>
+  </a>
+  <label class="bz-overlay bz-overlay-primary" for="bz-sidebar-primary"></label>
+  <label class="bz-overlay bz-overlay-secondary" for="bz-sidebar-secondary"></label>
+  <input type="checkbox" name="bz-sidebar-primary" id="bz-sidebar-primary" aria-label="Toggle section navigation">
+  <input type="checkbox" name="bz-sidebar-secondary" id="bz-sidebar-secondary" aria-label="Toggle table of contents"><script src="_static/documentation_options.js?v=a06e5c19"></script><script src="_static/doctools.js?v=fd6eb6e6"></script><script src="_static/sphinx_highlight.js?v=6ffebe34"></script></body>
+</html>

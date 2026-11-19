@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Dynamics" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="titan.Dynamics.html" />
+<meta property="og:site_name" content="TITAN" />
+<meta property="og:description" content="Dynamics module - spacecraft dynamics and propagation Collision: collision module. Dynamics module: dynamics module. Dynamics_6dof [DEPRECATED]: dynamics_6dof module. Euler module [DEPRECATED]: eul..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="_images/social_previews/summary_titan.Dynamics_39e4ed1e.png" />
+<meta property="og:image:alt" content="Dynamics module - spacecraft dynamics and propagation Collision: collision module. Dynamics module: dynamics module. Dynamics_6dof [DEPRECATED]: dynamics_6dof module. Euler module [DEPRECATED]: eul..." />
+<meta name="description" content="Dynamics module - spacecraft dynamics and propagation Collision: collision module. Dynamics module: dynamics module. Dynamics_6dof [DEPRECATED]: dynamics_6dof module. Euler module [DEPRECATED]: eul..." />
+<meta name="twitter:card" content="summary_large_image" />
+<title>Dynamics - TITAN v0.2 &#34;Atlas&#34; documentation</title><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Explosion" href="titan.Explosion.html"><link rel="prev" title="Design" href="titan.Design.html"><script data-cfasync="false">(function(){
+    const m = localStorage.getItem("breeze-mode") || "auto";
+    const d = document.documentElement.dataset;
+    d.mode = m;
+    d.theme = m === "auto"
+      ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : m;
+  })();
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" /><link rel="stylesheet" type="text/css" href="_static/custom.css?v=3b2811d2" /><link rel="stylesheet" type="text/css" href="_static/styles/breeze.css?v=7c62c100" /><script defer="defer" src="_static/scripts/breeze.js?v=dac9f8c6"></script></head>
+<body>
+  
+  
+  <div class="bz-skip-to-content"><a href="#bz-main-content">Skip to main content</a></div><header class="bz-header-main">
+  <div class="bz-header-start"><a class="bz-header-brand" href="index.html">
+  <img class="only-light" src="_static/titan_icon_light.png" alt="TITAN" />
+  <img class="only-dark" src="_static/titan_icon_dark.png" alt="TITAN" />
+  <span>TITAN v0.2 "Atlas" documentation</span>
+</a>
+  </div>
+  <div class="bz-header-end"><div id="docsearch" class="bz-search-button">
+  <a
+    href="search.html#q"
+    aria-label="Search the docs"
+    data-tooltip="Search the docs"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 -1 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+      />
+    </svg>
+    <span>Search</span>
+    <kbd>Ctrl+K</kbd>
+  </a>
+</div><div class="bz-theme-switcher">
+  <button aria-label="Switch theme" data-tooltip="Switch theme">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-light" fill="currentColor">
+      <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061ZM2.343 2.343a.75.75 0 0 1 1.061 0l1.06 1.061a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-1.06-1.06a.75.75 0 0 1 0-1.06Z"></path>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-dark" fill="currentColor">
+      <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z"></path>
+    </svg>
+  </button>
+</div>
+  </div>
+</header><nav class="bz-header-tabs" aria-label="Primary Navigation"><label
+  class="bz-sidebar-primary-toggle"
+  for="bz-sidebar-primary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle site navigation"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h12.5"
+    />
+  </svg>
+</label><ul><li class="toctree-l1"><a class="reference internal" href="titan.html">Docs</a></li><li class="toctree-l1"><a class="reference internal" href="titan.html#module-titan.__main__">Main Functions</a></li><li class="toctree-l1 current"><a class="reference internal" href="titan.html#api-reference">API Reference</a></li></ul><div class="bz-dropdown">
+    <button aria-haspopup="true" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="1" />
+          <circle cx="19" cy="12" r="1" />
+          <circle cx="5" cy="12" r="1" />
+        </g>
+      </svg>
+    </button>
+    <ul role="menu" aria-hidden="true"></ul>
+  </div>
+</nav><hr class="bz-header-hr">
+  <div class="bz-content"><aside class="bz-sidebar-primary" data-drawer="bz-sidebar-primary">
+  
+  
+    <nav class="bz-sidebar-nav" aria-label="Section Navigation"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="titan.Aerothermo.html">Aerothermo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Design.html">Design</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Explosion.html">Explosion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Forces.html">Forces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Fragmentation.html">Fragmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Freestream.html">Freestream package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Geometry.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Material.html">Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Output.html">Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Postprocess.html">Postprocess</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Structural.html">Structural</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Thermal.html">Thermal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Uncertainty.html">Uncertainty</a></li>
+</ul>
+</nav>
+  
+
+</aside><main id="bz-main-content"><header class="bz-article-header">
+  
+  
+    <nav class="bz-breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li class="bz-breadcrumbs-home">
+      <a href="index.html" aria-label="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8.543 2.232a.75.75 0 0 0-1.085 0l-5.25 5.5A.75.75 0 0 0 2.75 9H4v4a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9h1.25a.75.75 0 0 0 .543-1.268l-5.25-5.5Z" />
+        </svg>
+      </a>
+    </li><li class="bz-breadcrumbs-parent">
+      <a href="titan.html">Docs</a>
+    </li><li class="bz-breadcrumbs-current">
+      <span>Dynamics</span>
+    </li>
+  </ol>
+</nav>
+  
+<label
+  class="bz-sidebar-secondary-toggle"
+  for="bz-sidebar-secondary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle table of contents"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75H20.25 M11.25 12H20.25 M7.75 17.25H20.25"
+    />
+  </svg>
+</label></header><article class="bz-article-main" role="main"><div class="bz-page-actions" role="group" aria-label="Page actions">
+  <button data-copy-source="_sources/titan.Dynamics.rst.txt">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+    <span>Copy page</span>
+  </button>
+  <div class="bz-dropdown">
+    <button
+      aria-label="More actions"
+      aria-haspopup="true"
+      aria-expanded="false"
+    ></button>
+    <ul role="menu" aria-hidden="true">
+      <li>
+        <a href="#" role="menuitem" data-copy-source="_sources/titan.Dynamics.rst.txt">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+          <span>Copy page</span>
+        </a>
+      </li>
+      <li>
+        <a href="_sources/titan.Dynamics.rst.txt" role="menuitem" class="bz-page-actions-external" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3a2 2 0 0 1 2-2h9.982a2 2 0 0 1 1.414.586l4.018 4.018A2 2 0 0 1 21 7.018V21a2 2 0 0 1-2 2H4.75a.75.75 0 0 1 0-1.5H19a.5.5 0 0 0 .5-.5V8.5h-4a2 2 0 0 1-2-2v-4H5a.5.5 0 0 0-.5.5v6.25a.75.75 0 0 1-1.5 0Zm12-.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 0-.146-.336l-4.018-4.018A.5.5 0 0 0 15 2.5Z"></path><path d="M4.53 12.24a.75.75 0 0 1-.039 1.06l-2.639 2.45 2.64 2.45a.75.75 0 1 1-1.022 1.1l-3.23-3a.75.75 0 0 1 0-1.1l3.23-3a.75.75 0 0 1 1.06.04Zm3.979 1.06a.75.75 0 1 1 1.02-1.1l3.231 3a.75.75 0 0 1 0 1.1l-3.23 3a.75.75 0 1 1-1.021-1.1l2.639-2.45-2.64-2.45Z"></path></svg>
+          <span>View source</span>
+        </a>
+      </li></ul>
+  </div>
+</div><section id="module-titan.Dynamics">
+<span id="dynamics"></span><h1>Dynamics<a class="headerlink" href="#module-titan.Dynamics" title="Link to this heading">#</a></h1>
+<p>Dynamics module - spacecraft dynamics and propagation</p>
+<section id="module-titan.Dynamics.collision">
+<span id="collision"></span><h2>Collision<a class="headerlink" href="#module-titan.Dynamics.collision" title="Link to this heading">#</a></h2>
+<p>collision module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.Collision">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">Collision</span></span><a class="headerlink" href="#titan.Dynamics.collision.Collision" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Hold collision meshes and trimesh collision-manager handles for an assembly.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.binary_search_TOI">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">binary_search_TOI</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">input_dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">n_sanity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">lref_time_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.binary_search_TOI" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Find Time-Of-Impact through binary search of next time step</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class AssemblyList</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class Options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+<dt class="field-odd">param input_dt<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Maximal step distance</p>
+</dd>
+<dt class="field-even">type input_dt<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param n_sanity<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of sanity checks to make along the time step</p>
+</dd>
+<dt class="field-even">type n_sanity<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">param lref_time_resolution<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The duration it takes for the fastest v_rel to cross the smallest l_ref</p>
+</dd>
+<dt class="field-even">type lref_time_resolution<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.collision_physics">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">collision_physics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.collision_physics" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Impulsive single-collision resolution</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class AssemblyList</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class Options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.collision_physics_simultaneous">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">collision_physics_simultaneous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.collision_physics_simultaneous" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.compute_time_resolution">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">compute_time_resolution</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">distance_resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.compute_time_resolution" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Maximal allowable distance error converted to a maximal time step</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class AssemblyList</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class Options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+<dt class="field-odd">param distance_resolution<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Maximal allowable distance error</p>
+</dd>
+<dt class="field-even">type distance_resolution<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.delete_collision_handler">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">delete_collision_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.delete_collision_handler" title="Link to this definition">#</a></dt>
+<dd><p>Release collision-manager references held by each assembly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Assembly_list" title="titan.Geometry.assembly.Assembly_list"><em>Assembly_list</em></a>) – Simulation container whose assembly managers are cleared.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Simulation options (reserved for API consistency).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.find_ToI_timestep">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">find_ToI_timestep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_time_step</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.find_ToI_timestep" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Select a time step such that no “Time-Of-Impact” points are skipped</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class AssemblyList</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class Options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+<dt class="field-odd">param input_time_step<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Maximal considered time step</p>
+</dd>
+<dt class="field-even">type input_time_step<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.generate_collision_handler">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">generate_collision_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.generate_collision_handler" title="Link to this definition">#</a></dt>
+<dd><p>Create trimesh collision managers and register each assembly mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Assembly_list" title="titan.Geometry.assembly.Assembly_list"><em>Assembly_list</em></a>) – Simulation container whose assemblies provide collision meshes.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Simulation options (reserved for API consistency).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.generate_collision_mesh">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">generate_collision_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.generate_collision_mesh" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Construct a collision mesh for each assembly</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class AssemblyList</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class Options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.generate_inflated_mesh">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">generate_inflated_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.generate_inflated_mesh" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>“Inflates” a mesh by a factor for use in collision modelling</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param nodes<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array of mesh node positions</p>
+</dd>
+<dt class="field-even">type nodes<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param facets<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array of facet connectivity</p>
+</dd>
+<dt class="field-even">type facets<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param factor<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Inflation factor</p>
+</dd>
+<dt class="field-even">type factor<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.generate_surface">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">generate_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.generate_surface" title="Link to this definition">#</a></dt>
+<dd><p>Export collision geometry for visual inspection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Assembly_list" title="titan.Geometry.assembly.Assembly_list"><em>Assembly_list</em></a>) – Simulation container whose collision geometry is exported.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Simulation options used to locate output files.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.select_contacts">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">select_contacts</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">contact_data</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">depths</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">collision_data</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">assem_indices</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.select_contacts" title="Link to this definition">#</a></dt>
+<dd><p>Optimises to find the best contacts
+:param contact_data: Value for contact data.
+:type contact_data: Any
+:param depths: Value for depths.
+:type depths: Any
+:param collision_data: Value for collision data.
+:type collision_data: Any
+:param assem_indices: Value for assem indices.
+:type assem_indices: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.update_and_check">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">update_and_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.update_and_check" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Update collision mesh and check for collisions</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class AssemblyList</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class Options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+<dt class="field-odd">param dt<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Time step to project forward to</p>
+</dd>
+<dt class="field-even">type dt<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.update_collision_mesh">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">update_collision_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.update_collision_mesh" title="Link to this definition">#</a></dt>
+<dd><p>Place registered collision meshes in the frame of the largest assembly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Assembly_list" title="titan.Geometry.assembly.Assembly_list"><em>Assembly_list</em></a>) – Simulation container holding assemblies and collision managers.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Simulation options (reserved for API consistency).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.update_collision_mesh_time">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">update_collision_mesh_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.update_collision_mesh_time" title="Link to this definition">#</a></dt>
+<dd><p>Project assembly collision transforms forward by a time interval.</p>
+<p>Positions and attitudes are advanced using the current translational and
+angular velocities before updating each registered collision mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Assembly_list" title="titan.Geometry.assembly.Assembly_list"><em>Assembly_list</em></a>) – Simulation container holding assemblies and collision managers.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Simulation options (reserved for API consistency).</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Projection interval in seconds.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.collision.updated_fixed_contacts">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.collision.</span></span><span class="sig-name descname"><span class="pre">updated_fixed_contacts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collision_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.collision.updated_fixed_contacts" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:param dt: Numeric value for dt.
+:type dt: float
+:param collision_data: Value for collision data.
+:type collision_data: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+</section>
+<section id="module-titan.Dynamics.dynamics">
+<span id="dynamics-module"></span><h2>Dynamics module<a class="headerlink" href="#module-titan.Dynamics.dynamics" title="Link to this heading">#</a></h2>
+<p>dynamics module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesAngle">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Dynamics.dynamics.</span></span><span class="sig-name descname"><span class="pre">DerivativesAngle</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">droll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dpitch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dyaw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ddroll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ddpitch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ddyaw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesAngle" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class DerivativesAngle</p>
+<p>A class to store the derivatives information regarding the angular dynamics in the body frame</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesAngle.ddpitch">
+<span class="sig-name descname"><span class="pre">ddpitch</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesAngle.ddpitch" title="Link to this definition">#</a></dt>
+<dd><p>[float] Second derivative of the pitch angle</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesAngle.ddroll">
+<span class="sig-name descname"><span class="pre">ddroll</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesAngle.ddroll" title="Link to this definition">#</a></dt>
+<dd><p>[float] Second derivative of the roll angle</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesAngle.ddyaw">
+<span class="sig-name descname"><span class="pre">ddyaw</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesAngle.ddyaw" title="Link to this definition">#</a></dt>
+<dd><p>[float] Second derivative of the yaw angle</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesAngle.dpitch">
+<span class="sig-name descname"><span class="pre">dpitch</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesAngle.dpitch" title="Link to this definition">#</a></dt>
+<dd><p>[float] Derivative of the pitch angle</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesAngle.droll">
+<span class="sig-name descname"><span class="pre">droll</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesAngle.droll" title="Link to this definition">#</a></dt>
+<dd><p>[float] Derivative of the roll angle</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesAngle.dyaw">
+<span class="sig-name descname"><span class="pre">dyaw</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesAngle.dyaw" title="Link to this definition">#</a></dt>
+<dd><p>[float] Derivative of the yaw angle</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesCartesian">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Dynamics.dynamics.</span></span><span class="sig-name descname"><span class="pre">DerivativesCartesian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">du</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesCartesian" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class DerivativesCartesian</p>
+<p>A class to store the derivatives information of position and velocity in the cartesian (ECEF) frame</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesCartesian.du">
+<span class="sig-name descname"><span class="pre">du</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesCartesian.du" title="Link to this definition">#</a></dt>
+<dd><p>[float] Derivative of the X-velocity</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesCartesian.dv">
+<span class="sig-name descname"><span class="pre">dv</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesCartesian.dv" title="Link to this definition">#</a></dt>
+<dd><p>[float] Derivative of the Y-velocity</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesCartesian.dw">
+<span class="sig-name descname"><span class="pre">dw</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesCartesian.dw" title="Link to this definition">#</a></dt>
+<dd><p>[float] Derivative of the Z-velocity</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesCartesian.dx">
+<span class="sig-name descname"><span class="pre">dx</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesCartesian.dx" title="Link to this definition">#</a></dt>
+<dd><p>[float] Derivative of the X-position</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesCartesian.dy">
+<span class="sig-name descname"><span class="pre">dy</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesCartesian.dy" title="Link to this definition">#</a></dt>
+<dd><p>[float] Derivative of the Y-position</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesCartesian.dz">
+<span class="sig-name descname"><span class="pre">dz</span></span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesCartesian.dz" title="Link to this definition">#</a></dt>
+<dd><p>[float] Derivative of the Z-position</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.DerivativesPointMass">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Dynamics.dynamics.</span></span><span class="sig-name descname"><span class="pre">DerivativesPointMass</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">dh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dchi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dgamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dlat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dlon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.dynamics.DerivativesPointMass" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Store derivatives of the point-mass trajectory state.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.compute_angular_derivatives">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.dynamics.</span></span><span class="sig-name descname"><span class="pre">compute_angular_derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.dynamics.compute_angular_derivatives" title="Link to this definition">#</a></dt>
+<dd><p>Computation of the angular derivatives in the Body frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>assembly</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.compute_cartesian">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.dynamics.</span></span><span class="sig-name descname"><span class="pre">compute_cartesian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.dynamics.compute_cartesian" title="Link to this definition">#</a></dt>
+<dd><p>Computation of the cartesian dynamics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>assembly</strong></p></li>
+<li><p><strong>options</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.compute_cartesian_derivatives">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.dynamics.</span></span><span class="sig-name descname"><span class="pre">compute_cartesian_derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.dynamics.compute_cartesian_derivatives" title="Link to this definition">#</a></dt>
+<dd><p>Computation of the cartesian derivatives</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>assembly</strong></p></li>
+<li><p><strong>options</strong></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.compute_quaternion">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.dynamics.</span></span><span class="sig-name descname"><span class="pre">compute_quaternion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.dynamics.compute_quaternion" title="Link to this definition">#</a></dt>
+<dd><p>Computation of the quaternion</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>assembly</strong></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics.integrate">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.dynamics.</span></span><span class="sig-name descname"><span class="pre">integrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.dynamics.integrate" title="Link to this definition">#</a></dt>
+<dd><p>Time integration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong></p></li>
+<li><p><strong>options</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-titan.Dynamics.dynamics_6dof">
+<span id="dynamics-6dof-deprecated"></span><h2>Dynamics_6dof [DEPRECATED]<a class="headerlink" href="#module-titan.Dynamics.dynamics_6dof" title="Link to this heading">#</a></h2>
+<p>dynamics_6dof module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.dynamics_6dof.dynamics_6DOF_quaternions_cartesian_ECI">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.dynamics_6dof.</span></span><span class="sig-name descname"><span class="pre">dynamics_6DOF_quaternions_cartesian_ECI</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">states</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">controls</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">phase</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">const</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.dynamics_6dof.dynamics_6DOF_quaternions_cartesian_ECI" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Python transcription of  MODHOC/Problems/OCD/Cartesian_6dof_OCD_eq2/Cartesian_6dof_OCD_state_equations_ph1.m file</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param t<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Numeric value for t.</p>
+</dd>
+<dt class="field-even">type t<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">param states<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Value for states.</p>
+</dd>
+<dt class="field-even">type states<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param controls<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Value for controls.</p>
+</dd>
+<dt class="field-even">type controls<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param phases<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Value for phases.</p>
+</dd>
+<dt class="field-even">type phases<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param params<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Value for params.</p>
+</dd>
+<dt class="field-even">type params<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param const<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Value for const.</p>
+</dd>
+<dt class="field-even">type const<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">return<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Return value.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-titan.Dynamics.euler">
+<span id="euler-module-deprecated"></span><h2>Euler module [DEPRECATED]<a class="headerlink" href="#module-titan.Dynamics.euler" title="Link to this heading">#</a></h2>
+<p>euler module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.euler.compute_Euler">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.euler.</span></span><span class="sig-name descname"><span class="pre">compute_Euler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.euler.compute_Euler" title="Link to this definition">#</a></dt>
+<dd><p>Euler integration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<em>object</em>) – TITAN simulation object.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Options or configuration object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.euler.update_position_cartesian">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.euler.</span></span><span class="sig-name descname"><span class="pre">update_position_cartesian</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">cartesianDerivatives</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">angularDerivatives</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">time_step</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">post_event_iter</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.euler.update_position_cartesian" title="Link to this definition">#</a></dt>
+<dd><p>Update position and attitude of the assembly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>assembly</strong> (<em>object</em>) – Assembly object to process.</p></li>
+<li><p><strong>cartesianDerivatives</strong> (<em>Any</em>) – Value for cartesianderivatives.</p></li>
+<li><p><strong>angularDerivatives</strong> (<em>Any</em>) – Value for angularderivatives.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Options or configuration object.</p></li>
+<li><p><strong>time_step</strong> (<em>Any</em>) – Value for time step.</p></li>
+<li><p><strong>post_event_iter</strong> (<em>Any</em>) – Value for post event iter.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-titan.Dynamics.frames">
+<span id="frames"></span><h2>Frames<a class="headerlink" href="#module-titan.Dynamics.frames" title="Link to this heading">#</a></h2>
+<p>frames module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.frames.R_B_from_W">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.frames.</span></span><span class="sig-name descname"><span class="pre">R_B_from_W</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">aoa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">slip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Rotation</span></span></span><a class="headerlink" href="#titan.Dynamics.frames.R_B_from_W" title="Link to this definition">#</a></dt>
+<dd><p>Construct the rotation from wind axes to body axes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aoa</strong> (<em>float</em>) – Angle of attack in radians.</p></li>
+<li><p><strong>slip</strong> (<em>float</em>) – Sideslip angle in radians.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rotation mapping wind-frame vectors into body axes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.spatial.transform.Rotation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.frames.R_ECEF_from_ECI">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.frames.</span></span><span class="sig-name descname"><span class="pre">R_ECEF_from_ECI</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Rotation</span></span></span><a class="headerlink" href="#titan.Dynamics.frames.R_ECEF_from_ECI" title="Link to this definition">#</a></dt>
+<dd><p>Construct the Earth-centred inertial to Earth-fixed rotation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>epoch</strong> (<em>datetime.datetime</em>) – Time at which the inertial-to-fixed transformation is evaluated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rotation mapping ECI-frame vectors into ECEF.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.spatial.transform.Rotation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.frames.R_ECEF_from_NED">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.frames.</span></span><span class="sig-name descname"><span class="pre">R_ECEF_from_NED</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">lon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Rotation</span></span></span><a class="headerlink" href="#titan.Dynamics.frames.R_ECEF_from_NED" title="Link to this definition">#</a></dt>
+<dd><p>Construct the rotation from local NED coordinates to ECEF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat</strong> (<em>float</em>) – Geodetic latitude in radians.</p></li>
+<li><p><strong>lon</strong> (<em>float</em>) – Longitude in radians.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rotation mapping NED-frame vectors into ECEF.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.spatial.transform.Rotation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.frames.R_ECEF_from_RIC">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.frames.</span></span><span class="sig-name descname"><span class="pre">R_ECEF_from_RIC</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Rotation</span></span></span><a class="headerlink" href="#titan.Dynamics.frames.R_ECEF_from_RIC" title="Link to this definition">#</a></dt>
+<dd><p>Transforms from Radial, In-Track, Cross-Track (RIC/RTN) to RIC</p>
+<p>The frame is defined as detailed in <a class="reference external" href="https://sanaregistry.org/r/orbit_relative_reference_frames/records/9">https://sanaregistry.org/r/orbit_relative_reference_frames/records/9</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Position vector</p></li>
+<li><p><strong>v</strong> (<em>np.ndarray</em>) – Velocity vector</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rotation from RIC to ECEF</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Rotation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.frames.R_ECEF_from_TVN">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.frames.</span></span><span class="sig-name descname"><span class="pre">R_ECEF_from_TVN</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Rotation</span></span></span><a class="headerlink" href="#titan.Dynamics.frames.R_ECEF_from_TVN" title="Link to this definition">#</a></dt>
+<dd><p>Transforms from Transverse-Velocity-Normal Frame (TVN/PTW/NTW) to ECEF</p>
+<p>The frame is defined as detailed in <a class="reference external" href="https://sanaregistry.org/r/orbit_relative_reference_frames/records/6">https://sanaregistry.org/r/orbit_relative_reference_frames/records/6</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – Position vector</p></li>
+<li><p><strong>v</strong> (<em>np.ndarray</em>) – Velocity vector</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rotation from TVN to ECEF</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Rotation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.frames.R_NED_from_B">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.frames.</span></span><span class="sig-name descname"><span class="pre">R_NED_from_B</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">roll</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">pitch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">yaw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Rotation</span></span></span><a class="headerlink" href="#titan.Dynamics.frames.R_NED_from_B" title="Link to this definition">#</a></dt>
+<dd><p>Construct the rotation from body axes to local NED.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>roll</strong> (<em>float</em>) – Roll angle in radians.</p></li>
+<li><p><strong>pitch</strong> (<em>float</em>) – Pitch angle in radians.</p></li>
+<li><p><strong>yaw</strong> (<em>float</em>) – Yaw angle in radians.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rotation mapping body-frame vectors into NED.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.spatial.transform.Rotation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.frames.R_NED_from_W">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.frames.</span></span><span class="sig-name descname"><span class="pre">R_NED_from_W</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">fpa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Rotation</span></span></span><a class="headerlink" href="#titan.Dynamics.frames.R_NED_from_W" title="Link to this definition">#</a></dt>
+<dd><p>Construct the rotation from the wind frame to local NED.</p>
+<p>Wind frame should have the Z direction downwards to the body</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fpa</strong> (<em>float</em>) – Flight-path angle in radians.</p></li>
+<li><p><strong>ha</strong> (<em>float</em>) – Heading angle in radians.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rotation mapping wind-frame vectors into NED.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.spatial.transform.Rotation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.frames.R_W_from_B">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.frames.</span></span><span class="sig-name descname"><span class="pre">R_W_from_B</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">aoa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">slip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Rotation</span></span></span><a class="headerlink" href="#titan.Dynamics.frames.R_W_from_B" title="Link to this definition">#</a></dt>
+<dd><p>Construct the inverse body-to-wind rotation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aoa</strong> (<em>float</em>) – Angle of attack in radians.</p></li>
+<li><p><strong>slip</strong> (<em>float</em>) – Sideslip angle in radians.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rotation mapping body-frame vectors into wind axes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.spatial.transform.Rotation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.frames.Rig_iOTA_from_TITAN">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.frames.</span></span><span class="sig-name descname"><span class="pre">Rig_iOTA_from_TITAN</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RigidTransform</span></span></span><a class="headerlink" href="#titan.Dynamics.frames.Rig_iOTA_from_TITAN" title="Link to this definition">#</a></dt>
+<dd><p>Transform from a TITAN frame to an iOTA one, works dependent on settings in both codes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>assembly</strong> (<a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Assembly" title="titan.Geometry.assembly.Assembly"><em>Assembly</em></a>) – Assembly of interest</p></li>
+<li><p><strong>epoch</strong> (<em>datetime.datetime</em>) – Time</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Rigid transform from TITAN to iOTA</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.spatial.transform.RigidTransform</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-titan.Dynamics.global_collisions">
+<span id="global-collisions"></span><h2>Global Collisions<a class="headerlink" href="#module-titan.Dynamics.global_collisions" title="Link to this heading">#</a></h2>
+<p>global_collisions module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.global_collisions.PGS_solve">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.global_collisions.</span></span><span class="sig-name descname"><span class="pre">PGS_solve</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">b</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">n_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">warm_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0,</span> <span class="pre">inf]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.global_collisions.PGS_solve" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Projected (clamped) Gauss-Siedel solver</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param A<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+<dt class="field-even">type A<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param b<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Vector</p>
+</dd>
+<dt class="field-even">type b<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param n_iters<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of outer loop iterations to finish after</p>
+</dd>
+<dt class="field-even">type n_iters<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">param warm_start<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Best guess of solution vector, optional</p>
+</dd>
+<dt class="field-even">type warm_start<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param bounds<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Range to project values to</p>
+</dd>
+<dt class="field-even">type bounds<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param epsilon<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Criterion for early stopping if ‖X_[i] - X_[i-1]‖ &lt; epsilon</p>
+</dd>
+<dt class="field-even">type epsilon<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.global_collisions.construct_global_velocities">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.global_collisions.</span></span><span class="sig-name descname"><span class="pre">construct_global_velocities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_velocity_ECEF</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.global_collisions.construct_global_velocities" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Builds the array of velocities for collision participants in the local ECEF frame</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class AssemblyList</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+<dt class="field-odd">param ids<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of participating assembly indices</p>
+</dd>
+<dt class="field-even">type ids<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param local_velocity_ECEF<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Local frame datum velocity in ECEF frame</p>
+</dd>
+<dt class="field-even">type local_velocity_ECEF<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.global_collisions.construct_inv_mass_matrix">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.global_collisions.</span></span><span class="sig-name descname"><span class="pre">construct_inv_mass_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.global_collisions.construct_inv_mass_matrix" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Builds and inverts the block diagonal mass matrix of collision participants</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class AssemblyList</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+<dt class="field-odd">param ids<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of participating assembly indices</p>
+</dd>
+<dt class="field-even">type ids<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.global_collisions.construct_jacobian">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.global_collisions.</span></span><span class="sig-name descname"><span class="pre">construct_jacobian</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">local_position_ECEF</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ids</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">corrections</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.0,</span> <span class="pre">1e-06]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">collision_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.global_collisions.construct_jacobian" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Builds the Jacobian and b vectors for restitution and stabilisation</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param local_position_ECEF<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Local frame datum position in ECEF frame</p>
+</dd>
+<dt class="field-even">type local_position_ECEF<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param v<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Global velocity vector</p>
+</dd>
+<dt class="field-even">type v<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param ids<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of participating assembly indices</p>
+</dd>
+<dt class="field-even">type ids<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param e<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Coefficient of Restitution</p>
+</dd>
+<dt class="field-even">type e<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param corrections<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Correction parameters, [0] is the scale factor and [1] is the slop (allowable intersection)</p>
+</dd>
+<dt class="field-even">type corrections<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param collision_data<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict of collision data provided by collisions.update_and_check()</p>
+</dd>
+<dt class="field-even">type collision_data<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class AssemblyList</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.global_collisions.global_collision_physics">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.global_collisions.</span></span><span class="sig-name descname"><span class="pre">global_collision_physics</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">collision_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">correction_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">correction_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'split'</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.global_collisions.global_collision_physics" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Simultaneous collision resolutiuon using Projected Gauss Siedel to solve the LCP problem</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class AssemblyList</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Object of class Options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+<dt class="field-odd">param collision_data<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict of collision data provided by collisions.update_and_check()</p>
+</dd>
+<dt class="field-even">type collision_data<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param correction_only<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Flag to only apply corrections instead of doing a full velocity update</p>
+</dd>
+<dt class="field-even">type correction_only<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param recurse<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of recursive corrections to apply</p>
+</dd>
+<dt class="field-even">type recurse<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param correction_method<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘split’/’baumgarte’/’none’ apply corrections via Split impulse or Baumgarte Stabilisation</p>
+</dd>
+<dt class="field-even">type correction_method<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.global_collisions.impulse_update">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.global_collisions.</span></span><span class="sig-name descname"><span class="pre">impulse_update</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ids</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">correction_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'split'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">correction_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v_physical</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v_corrective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.global_collisions.impulse_update" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param options: Options or configuration object.
+:type options: Options
+:param ids: Value for ids.
+:type ids: Any
+:param correction_method: Value for correction method.
+:type correction_method: Any
+:param correction_only: Value for correction only.
+:type correction_only: Any
+:param titan: TITAN simulation object.
+:type titan: object
+:param v_physical: Value for v physical.
+:type v_physical: Any
+:param v_corrective: Value for v corrective.
+:type v_corrective: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.global_collisions.sequential_collision_resolution">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.global_collisions.</span></span><span class="sig-name descname"><span class="pre">sequential_collision_resolution</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">imp_update_func</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">MInv</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">J_func</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">b_shape</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">n_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0,</span> <span class="pre">inf]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">warm_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.global_collisions.sequential_collision_resolution" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>PGS with contact recomputation in-loop</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param A<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Matrix</p>
+</dd>
+<dt class="field-even">type A<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param b<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Vector</p>
+</dd>
+<dt class="field-even">type b<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param n_iters<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of outer loop iterations to finish after</p>
+</dd>
+<dt class="field-even">type n_iters<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">param warm_start<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Best guess of solution vector, optional</p>
+</dd>
+<dt class="field-even">type warm_start<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param bounds<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Range to project values to</p>
+</dd>
+<dt class="field-even">type bounds<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param epsilon<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Criterion for early stopping if ‖X_[i] - X_[i-1]‖ &lt; epsilon</p>
+</dd>
+<dt class="field-even">type epsilon<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-titan.Dynamics.propagation">
+<span id="propagation"></span><h2>Propagation<a class="headerlink" href="#module-titan.Dynamics.propagation" title="Link to this heading">#</a></h2>
+<p>propagation module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.adaptive_integrator_selector">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">adaptive_integrator_selector</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">N_AB</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">N_RK</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">derivatives_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.adaptive_integrator_selector" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param N_AB: Integer value for n ab.
+:type N_AB: int
+:param N_RK: Integer value for n rk.
+:type N_RK: int
+:param state_vectors: Value for state vectors.
+:type state_vectors: Any
+:param state_vectors_prior: Value for state vectors prior.
+:type state_vectors_prior: Any
+:param derivatives_prior: Value for derivatives prior.
+:type derivatives_prior: Any
+:param dt: Numeric value for dt.
+:type dt: float
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.append_derivatives">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">append_derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_derivs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.append_derivatives" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:param new_derivs: Value for new derivs.
+:type new_derivs: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.collect_state_vectors">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">collect_state_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.collect_state_vectors" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.construct_state_vector">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">construct_state_vector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">augmented</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.construct_state_vector" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param assembly: Assembly object to process.
+:type assembly: object
+:param augmented: Value for augmented.
+:type augmented: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.explicit_adams_bashforth_n">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">explicit_adams_bashforth_n</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">derivatives_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.explicit_adams_bashforth_n" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param N: Integer value for n.
+:type N: int
+:param state_vectors: Value for state vectors.
+:type state_vectors: Any
+:param state_vectors_prior: Value for state vectors prior.
+:type state_vectors_prior: Any
+:param derivatives_prior: Value for derivatives prior.
+:type derivatives_prior: Any
+:param dt: Numeric value for dt.
+:type dt: float
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.explicit_bwd_diff">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">explicit_bwd_diff</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">derivatives_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.explicit_bwd_diff" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param state_vectors: Value for state vectors.
+:type state_vectors: Any
+:param state_vectors_prior: Value for state vectors prior.
+:type state_vectors_prior: Any
+:param derivatives_prior: Value for derivatives prior.
+:type derivatives_prior: Any
+:param dt: Numeric value for dt.
+:type dt: float
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.explicit_euler">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">explicit_euler</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">derivatives_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.explicit_euler" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param state_vectors: Value for state vectors.
+:type state_vectors: Any
+:param state_vectors_prior: Value for state vectors prior.
+:type state_vectors_prior: Any
+:param derivatives_prior: Value for derivatives prior.
+:type derivatives_prior: Any
+:param dt: Numeric value for dt.
+:type dt: float
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.explicit_rk_N">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">explicit_rk_N</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">derivatives_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.explicit_rk_N" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param N: Integer value for n.
+:type N: int
+:param state_vectors: Value for state vectors.
+:type state_vectors: Any
+:param state_vectors_prior: Value for state vectors prior.
+:type state_vectors_prior: Any
+:param derivatives_prior: Value for derivatives prior.
+:type derivatives_prior: Any
+:param dt: Numeric value for dt.
+:type dt: float
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.explicit_rk_adapt_wrapper">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">explicit_rk_adapt_wrapper</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">algorithm</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">derivatives_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.explicit_rk_adapt_wrapper" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param algorithm: Value for algorithm.
+:type algorithm: Any
+:param state_vectors: Value for state vectors.
+:type state_vectors: Any
+:param state_vectors_prior: Value for state vectors prior.
+:type state_vectors_prior: Any
+:param derivatives_prior: Value for derivatives prior.
+:type derivatives_prior: Any
+:param dt: Numeric value for dt.
+:type dt: float
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.flatten_state_vectors">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">flatten_state_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_vectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.flatten_state_vectors" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param state_vectors: Value for state vectors.
+:type state_vectors: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.generate_dense_timestep">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">generate_dense_timestep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.generate_dense_timestep" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:param interpolant: Value for interpolant.
+:type interpolant: Any
+:param time: Numeric value for time.
+:type time: float
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.get_integrator_func">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">get_integrator_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choice</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.get_integrator_func" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param options: Options or configuration object.
+:type options: Options
+:param choice: Value for choice.
+:type choice: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.proj_area_adapt_wrapper">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">proj_area_adapt_wrapper</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">derivatives_prior</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.proj_area_adapt_wrapper" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param N: Integer value for n.
+:type N: int
+:param state_vectors: Value for state vectors.
+:type state_vectors: Any
+:param state_vectors_prior: Value for state vectors prior.
+:type state_vectors_prior: Any
+:param derivatives_prior: Value for derivatives prior.
+:type derivatives_prior: Any
+:param dt: Numeric value for dt.
+:type dt: float
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.propagate">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">propagate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.propagate" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.state_equation">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">state_equation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_vectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.state_equation" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:param time: Numeric value for time.
+:type time: float
+:param state_vectors: Value for state vectors.
+:type state_vectors: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.states_op">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">states_op</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vectors</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">operand</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">operation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sv+'</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.states_op" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:param state_vectors: Value for state vectors.
+:type state_vectors: Any
+:param operand: Value for operand.
+:type operand: Any
+:param operation: Value for operation.
+:type operation: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.unflatten_state_vectors">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">unflatten_state_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_vectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.unflatten_state_vectors" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:param state_vectors: Value for state vectors.
+:type state_vectors: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.update_dynamic_attributes">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">update_dynamic_attributes</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vector</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">return_output_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.update_dynamic_attributes" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param assembly: Assembly object to process.
+:type assembly: object
+:param state_vector: Value for state vector.
+:type state_vector: Any
+:param options: Options or configuration object.
+:type options: Options
+:param force: Numeric value for force.
+:type force: float
+:param return_output_array: Value for return output array.
+:type return_output_array: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.propagation.write_dense_output">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.propagation.</span></span><span class="sig-name descname"><span class="pre">write_dense_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.propagation.write_dense_output" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options</p>
+</dd></dl>
+
+</section>
+<section id="module-titan.Dynamics.quaternion_operations">
+<span id="quaternion-operations"></span><h2>Quaternion Operations<a class="headerlink" href="#module-titan.Dynamics.quaternion_operations" title="Link to this heading">#</a></h2>
+<p>quaternion_operations module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.quaternion_operations.quaternion_conjugate">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.quaternion_operations.</span></span><span class="sig-name descname"><span class="pre">quaternion_conjugate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.quaternion_operations.quaternion_conjugate" title="Link to this definition">#</a></dt>
+<dd><p>Return the conjugate of a quaternion in <code class="docutils literal notranslate"><span class="pre">[x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">w]</span></code> order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>Any</em>) – Quaternion to conjugate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Conjugated quaternion.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.quaternion_operations.quaternion_mult">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.quaternion_operations.</span></span><span class="sig-name descname"><span class="pre">quaternion_mult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.quaternion_operations.quaternion_mult" title="Link to this definition">#</a></dt>
+<dd><p>Multiply two quaternions in vector-scalar component order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q1</strong> (<em>Any</em>) – Left quaternion represented as <code class="docutils literal notranslate"><span class="pre">[x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">w]</span></code>.</p></li>
+<li><p><strong>q2</strong> (<em>Any</em>) – Right quaternion represented as <code class="docutils literal notranslate"><span class="pre">[x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">w]</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Quaternion product in <code class="docutils literal notranslate"><span class="pre">[x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">w]</span></code> order.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.quaternion_operations.quaternion_normalize">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.quaternion_operations.</span></span><span class="sig-name descname"><span class="pre">quaternion_normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.quaternion_operations.quaternion_normalize" title="Link to this definition">#</a></dt>
+<dd><p>Scale a quaternion to unit norm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>Any</em>) – Quaternion to normalize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Unit quaternion with the same orientation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Dynamics.quaternion_operations.quaternion_to_matrix">
+<span class="sig-prename descclassname"><span class="pre">titan.Dynamics.quaternion_operations.</span></span><span class="sig-name descname"><span class="pre">quaternion_to_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Dynamics.quaternion_operations.quaternion_to_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Convert a quaternion to a homogeneous rotation matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q</strong> (<em>Any</em>) – Quaternion in <code class="docutils literal notranslate"><span class="pre">[x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">w]</span></code> component order.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A 4-by-4 homogeneous rotation matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+</article><footer class="bz-article-footer">
+  
+  
+    <nav class="bz-related-pages" aria-label="Related pages navigation"><a class="bz-related-pages-previous" href="titan.Design.html" rel="prev">
+    <span>Previous</span><span class="bz-related-pages-title">Design</span></a><a class="bz-related-pages-next" href="titan.Explosion.html" rel="next">
+    <span>Next</span>
+    <span class="bz-related-pages-title">Explosion</span>
+  </a></nav>
+  
+
+</footer><aside class="bz-sidebar-secondary" data-drawer="bz-sidebar-secondary">
+  
+  
+    <nav class="bz-sidebar-toc" aria-label="Table of contents">
+  <p>On this page</p><ul>
+<li><a class="reference internal" href="#module-titan.Dynamics.collision">Collision</a><ul>
+<li><a class="reference internal" href="#titan.Dynamics.collision.Collision"><code class="docutils literal notranslate"><span class="pre">Collision</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.binary_search_TOI"><code class="docutils literal notranslate"><span class="pre">binary_​search_​TOI()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.collision_physics"><code class="docutils literal notranslate"><span class="pre">collision_​physics()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.collision_physics_simultaneous"><code class="docutils literal notranslate"><span class="pre">collision_​physics_​simultaneous()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.compute_time_resolution"><code class="docutils literal notranslate"><span class="pre">compute_​time_​resolution()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.delete_collision_handler"><code class="docutils literal notranslate"><span class="pre">delete_​collision_​handler()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.find_ToI_timestep"><code class="docutils literal notranslate"><span class="pre">find_​ToI_​timestep()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.generate_collision_handler"><code class="docutils literal notranslate"><span class="pre">generate_​collision_​handler()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.generate_collision_mesh"><code class="docutils literal notranslate"><span class="pre">generate_​collision_​mesh()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.generate_inflated_mesh"><code class="docutils literal notranslate"><span class="pre">generate_​inflated_​mesh()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.generate_surface"><code class="docutils literal notranslate"><span class="pre">generate_​surface()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.select_contacts"><code class="docutils literal notranslate"><span class="pre">select_​contacts()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.update_and_check"><code class="docutils literal notranslate"><span class="pre">update_​and_​check()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.update_collision_mesh"><code class="docutils literal notranslate"><span class="pre">update_​collision_​mesh()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.update_collision_mesh_time"><code class="docutils literal notranslate"><span class="pre">update_​collision_​mesh_​time()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.collision.updated_fixed_contacts"><code class="docutils literal notranslate"><span class="pre">updated_​fixed_​contacts()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Dynamics.dynamics">Dynamics module</a><ul>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesAngle"><code class="docutils literal notranslate"><span class="pre">DerivativesAngle</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesAngle.ddpitch"><code class="docutils literal notranslate"><span class="pre">DerivativesAngle​.ddpitch</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesAngle.ddroll"><code class="docutils literal notranslate"><span class="pre">DerivativesAngle​.ddroll</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesAngle.ddyaw"><code class="docutils literal notranslate"><span class="pre">DerivativesAngle​.ddyaw</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesAngle.dpitch"><code class="docutils literal notranslate"><span class="pre">DerivativesAngle​.dpitch</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesAngle.droll"><code class="docutils literal notranslate"><span class="pre">DerivativesAngle​.droll</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesAngle.dyaw"><code class="docutils literal notranslate"><span class="pre">DerivativesAngle​.dyaw</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesCartesian"><code class="docutils literal notranslate"><span class="pre">DerivativesCartesian</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesCartesian.du"><code class="docutils literal notranslate"><span class="pre">DerivativesCartesian​.du</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesCartesian.dv"><code class="docutils literal notranslate"><span class="pre">DerivativesCartesian​.dv</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesCartesian.dw"><code class="docutils literal notranslate"><span class="pre">DerivativesCartesian​.dw</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesCartesian.dx"><code class="docutils literal notranslate"><span class="pre">DerivativesCartesian​.dx</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesCartesian.dy"><code class="docutils literal notranslate"><span class="pre">DerivativesCartesian​.dy</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesCartesian.dz"><code class="docutils literal notranslate"><span class="pre">DerivativesCartesian​.dz</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.DerivativesPointMass"><code class="docutils literal notranslate"><span class="pre">DerivativesPointMass</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.compute_angular_derivatives"><code class="docutils literal notranslate"><span class="pre">compute_​angular_​derivatives()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.compute_cartesian"><code class="docutils literal notranslate"><span class="pre">compute_​cartesian()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.compute_cartesian_derivatives"><code class="docutils literal notranslate"><span class="pre">compute_​cartesian_​derivatives()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.compute_quaternion"><code class="docutils literal notranslate"><span class="pre">compute_​quaternion()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics.integrate"><code class="docutils literal notranslate"><span class="pre">integrate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Dynamics.dynamics_6dof">Dynamics_​6dof [DEPRECATED]</a><ul>
+<li><a class="reference internal" href="#titan.Dynamics.dynamics_6dof.dynamics_6DOF_quaternions_cartesian_ECI"><code class="docutils literal notranslate"><span class="pre">dynamics_​6DOF_​quaternions_​cartesian_​ECI()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Dynamics.euler">Euler module [DEPRECATED]</a><ul>
+<li><a class="reference internal" href="#titan.Dynamics.euler.compute_Euler"><code class="docutils literal notranslate"><span class="pre">compute_​Euler()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.euler.update_position_cartesian"><code class="docutils literal notranslate"><span class="pre">update_​position_​cartesian()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Dynamics.frames">Frames</a><ul>
+<li><a class="reference internal" href="#titan.Dynamics.frames.R_B_from_W"><code class="docutils literal notranslate"><span class="pre">R_​B_​from_​W()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.frames.R_ECEF_from_ECI"><code class="docutils literal notranslate"><span class="pre">R_​ECEF_​from_​ECI()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.frames.R_ECEF_from_NED"><code class="docutils literal notranslate"><span class="pre">R_​ECEF_​from_​NED()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.frames.R_ECEF_from_RIC"><code class="docutils literal notranslate"><span class="pre">R_​ECEF_​from_​RIC()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.frames.R_ECEF_from_TVN"><code class="docutils literal notranslate"><span class="pre">R_​ECEF_​from_​TVN()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.frames.R_NED_from_B"><code class="docutils literal notranslate"><span class="pre">R_​NED_​from_​B()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.frames.R_NED_from_W"><code class="docutils literal notranslate"><span class="pre">R_​NED_​from_​W()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.frames.R_W_from_B"><code class="docutils literal notranslate"><span class="pre">R_​W_​from_​B()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.frames.Rig_iOTA_from_TITAN"><code class="docutils literal notranslate"><span class="pre">Rig_​iOTA_​from_​TITAN()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Dynamics.global_collisions">Global Collisions</a><ul>
+<li><a class="reference internal" href="#titan.Dynamics.global_collisions.PGS_solve"><code class="docutils literal notranslate"><span class="pre">PGS_​solve()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.global_collisions.construct_global_velocities"><code class="docutils literal notranslate"><span class="pre">construct_​global_​velocities()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.global_collisions.construct_inv_mass_matrix"><code class="docutils literal notranslate"><span class="pre">construct_​inv_​mass_​matrix()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.global_collisions.construct_jacobian"><code class="docutils literal notranslate"><span class="pre">construct_​jacobian()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.global_collisions.global_collision_physics"><code class="docutils literal notranslate"><span class="pre">global_​collision_​physics()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.global_collisions.impulse_update"><code class="docutils literal notranslate"><span class="pre">impulse_​update()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.global_collisions.sequential_collision_resolution"><code class="docutils literal notranslate"><span class="pre">sequential_​collision_​resolution()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Dynamics.propagation">Propagation</a><ul>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.adaptive_integrator_selector"><code class="docutils literal notranslate"><span class="pre">adaptive_​integrator_​selector()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.append_derivatives"><code class="docutils literal notranslate"><span class="pre">append_​derivatives()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.collect_state_vectors"><code class="docutils literal notranslate"><span class="pre">collect_​state_​vectors()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.construct_state_vector"><code class="docutils literal notranslate"><span class="pre">construct_​state_​vector()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.explicit_adams_bashforth_n"><code class="docutils literal notranslate"><span class="pre">explicit_​adams_​bashforth_​n()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.explicit_bwd_diff"><code class="docutils literal notranslate"><span class="pre">explicit_​bwd_​diff()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.explicit_euler"><code class="docutils literal notranslate"><span class="pre">explicit_​euler()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.explicit_rk_N"><code class="docutils literal notranslate"><span class="pre">explicit_​rk_​N()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.explicit_rk_adapt_wrapper"><code class="docutils literal notranslate"><span class="pre">explicit_​rk_​adapt_​wrapper()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.flatten_state_vectors"><code class="docutils literal notranslate"><span class="pre">flatten_​state_​vectors()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.generate_dense_timestep"><code class="docutils literal notranslate"><span class="pre">generate_​dense_​timestep()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.get_integrator_func"><code class="docutils literal notranslate"><span class="pre">get_​integrator_​func()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.proj_area_adapt_wrapper"><code class="docutils literal notranslate"><span class="pre">proj_​area_​adapt_​wrapper()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.propagate"><code class="docutils literal notranslate"><span class="pre">propagate()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.state_equation"><code class="docutils literal notranslate"><span class="pre">state_​equation()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.states_op"><code class="docutils literal notranslate"><span class="pre">states_​op()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.unflatten_state_vectors"><code class="docutils literal notranslate"><span class="pre">unflatten_​state_​vectors()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.update_dynamic_attributes"><code class="docutils literal notranslate"><span class="pre">update_​dynamic_​attributes()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.propagation.write_dense_output"><code class="docutils literal notranslate"><span class="pre">write_​dense_​output()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Dynamics.quaternion_operations">Quaternion Operations</a><ul>
+<li><a class="reference internal" href="#titan.Dynamics.quaternion_operations.quaternion_conjugate"><code class="docutils literal notranslate"><span class="pre">quaternion_​conjugate()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.quaternion_operations.quaternion_mult"><code class="docutils literal notranslate"><span class="pre">quaternion_​mult()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.quaternion_operations.quaternion_normalize"><code class="docutils literal notranslate"><span class="pre">quaternion_​normalize()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Dynamics.quaternion_operations.quaternion_to_matrix"><code class="docutils literal notranslate"><span class="pre">quaternion_​to_​matrix()</span></code></a></li>
+</ul>
+</li>
+</ul></nav>
+  
+    
+
+
+  
+    
+  
+    
+  
+
+</aside></main>
+  </div>
+<footer class="bz-footer">
+  <div class="bz-footer-copyright"><p class="bz-copyright">© Copyright 2026, TITAN Contributors</p><p>
+    
+    
+    
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/aksiome/breeze">Breeze theme</a>.
+    
+  </p>
+</div>
+</footer><a href="#" class="bz-back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>
+    </svg>
+    <span>Back to top</span>
+  </a>
+  <label class="bz-overlay bz-overlay-primary" for="bz-sidebar-primary"></label>
+  <label class="bz-overlay bz-overlay-secondary" for="bz-sidebar-secondary"></label>
+  <input type="checkbox" name="bz-sidebar-primary" id="bz-sidebar-primary" aria-label="Toggle section navigation">
+  <input type="checkbox" name="bz-sidebar-secondary" id="bz-sidebar-secondary" aria-label="Toggle table of contents"><script src="_static/documentation_options.js?v=a06e5c19"></script><script src="_static/doctools.js?v=fd6eb6e6"></script><script src="_static/sphinx_highlight.js?v=6ffebe34"></script></body>
+</html>

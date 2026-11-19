@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Uncertainty" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="titan.Uncertainty.html" />
+<meta property="og:site_name" content="TITAN" />
+<meta property="og:description" content="Uncertainty module - uncertainty quantification and Monte Carlo Guassian Mixture Model (GMM): Monte Carlo Wrapper: MC_wrapper module. Filtering: filtering module. Uncertainty Mappings: mappings mod..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="_images/social_previews/summary_titan.Uncertainty_7f983158.png" />
+<meta property="og:image:alt" content="Uncertainty module - uncertainty quantification and Monte Carlo Guassian Mixture Model (GMM): Monte Carlo Wrapper: MC_wrapper module. Filtering: filtering module. Uncertainty Mappings: mappings mod..." />
+<meta name="description" content="Uncertainty module - uncertainty quantification and Monte Carlo Guassian Mixture Model (GMM): Monte Carlo Wrapper: MC_wrapper module. Filtering: filtering module. Uncertainty Mappings: mappings mod..." />
+<meta name="twitter:card" content="summary_large_image" />
+<title>Uncertainty - TITAN v0.2 &#34;Atlas&#34; documentation</title><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="prev" title="Thermal" href="titan.Thermal.html"><script data-cfasync="false">(function(){
+    const m = localStorage.getItem("breeze-mode") || "auto";
+    const d = document.documentElement.dataset;
+    d.mode = m;
+    d.theme = m === "auto"
+      ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : m;
+  })();
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" /><link rel="stylesheet" type="text/css" href="_static/custom.css?v=3b2811d2" /><link rel="stylesheet" type="text/css" href="_static/styles/breeze.css?v=7c62c100" /><script defer="defer" src="_static/scripts/breeze.js?v=dac9f8c6"></script></head>
+<body>
+  
+  
+  <div class="bz-skip-to-content"><a href="#bz-main-content">Skip to main content</a></div><header class="bz-header-main">
+  <div class="bz-header-start"><a class="bz-header-brand" href="index.html">
+  <img class="only-light" src="_static/titan_icon_light.png" alt="TITAN" />
+  <img class="only-dark" src="_static/titan_icon_dark.png" alt="TITAN" />
+  <span>TITAN v0.2 "Atlas" documentation</span>
+</a>
+  </div>
+  <div class="bz-header-end"><div id="docsearch" class="bz-search-button">
+  <a
+    href="search.html#q"
+    aria-label="Search the docs"
+    data-tooltip="Search the docs"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 -1 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+      />
+    </svg>
+    <span>Search</span>
+    <kbd>Ctrl+K</kbd>
+  </a>
+</div><div class="bz-theme-switcher">
+  <button aria-label="Switch theme" data-tooltip="Switch theme">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-light" fill="currentColor">
+      <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061ZM2.343 2.343a.75.75 0 0 1 1.061 0l1.06 1.061a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-1.06-1.06a.75.75 0 0 1 0-1.06Z"></path>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-dark" fill="currentColor">
+      <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z"></path>
+    </svg>
+  </button>
+</div>
+  </div>
+</header><nav class="bz-header-tabs" aria-label="Primary Navigation"><label
+  class="bz-sidebar-primary-toggle"
+  for="bz-sidebar-primary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle site navigation"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h12.5"
+    />
+  </svg>
+</label><ul><li class="toctree-l1"><a class="reference internal" href="titan.html">Docs</a></li><li class="toctree-l1"><a class="reference internal" href="titan.html#module-titan.__main__">Main Functions</a></li><li class="toctree-l1 current"><a class="reference internal" href="titan.html#api-reference">API Reference</a></li></ul><div class="bz-dropdown">
+    <button aria-haspopup="true" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="1" />
+          <circle cx="19" cy="12" r="1" />
+          <circle cx="5" cy="12" r="1" />
+        </g>
+      </svg>
+    </button>
+    <ul role="menu" aria-hidden="true"></ul>
+  </div>
+</nav><hr class="bz-header-hr">
+  <div class="bz-content"><aside class="bz-sidebar-primary" data-drawer="bz-sidebar-primary">
+  
+  
+    <nav class="bz-sidebar-nav" aria-label="Section Navigation"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="titan.Aerothermo.html">Aerothermo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Dynamics.html">Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Explosion.html">Explosion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Forces.html">Forces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Fragmentation.html">Fragmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Freestream.html">Freestream package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Geometry.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Material.html">Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Output.html">Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Postprocess.html">Postprocess</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Structural.html">Structural</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Thermal.html">Thermal</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Uncertainty</a></li>
+</ul>
+</nav>
+  
+
+</aside><main id="bz-main-content"><header class="bz-article-header">
+  
+  
+    <nav class="bz-breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li class="bz-breadcrumbs-home">
+      <a href="index.html" aria-label="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8.543 2.232a.75.75 0 0 0-1.085 0l-5.25 5.5A.75.75 0 0 0 2.75 9H4v4a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9h1.25a.75.75 0 0 0 .543-1.268l-5.25-5.5Z" />
+        </svg>
+      </a>
+    </li><li class="bz-breadcrumbs-parent">
+      <a href="titan.html">Docs</a>
+    </li><li class="bz-breadcrumbs-current">
+      <span>Uncertainty</span>
+    </li>
+  </ol>
+</nav>
+  
+<label
+  class="bz-sidebar-secondary-toggle"
+  for="bz-sidebar-secondary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle table of contents"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75H20.25 M11.25 12H20.25 M7.75 17.25H20.25"
+    />
+  </svg>
+</label></header><article class="bz-article-main" role="main"><div class="bz-page-actions" role="group" aria-label="Page actions">
+  <button data-copy-source="_sources/titan.Uncertainty.rst.txt">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+    <span>Copy page</span>
+  </button>
+  <div class="bz-dropdown">
+    <button
+      aria-label="More actions"
+      aria-haspopup="true"
+      aria-expanded="false"
+    ></button>
+    <ul role="menu" aria-hidden="true">
+      <li>
+        <a href="#" role="menuitem" data-copy-source="_sources/titan.Uncertainty.rst.txt">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+          <span>Copy page</span>
+        </a>
+      </li>
+      <li>
+        <a href="_sources/titan.Uncertainty.rst.txt" role="menuitem" class="bz-page-actions-external" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3a2 2 0 0 1 2-2h9.982a2 2 0 0 1 1.414.586l4.018 4.018A2 2 0 0 1 21 7.018V21a2 2 0 0 1-2 2H4.75a.75.75 0 0 1 0-1.5H19a.5.5 0 0 0 .5-.5V8.5h-4a2 2 0 0 1-2-2v-4H5a.5.5 0 0 0-.5.5v6.25a.75.75 0 0 1-1.5 0Zm12-.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 0-.146-.336l-4.018-4.018A.5.5 0 0 0 15 2.5Z"></path><path d="M4.53 12.24a.75.75 0 0 1-.039 1.06l-2.639 2.45 2.64 2.45a.75.75 0 1 1-1.022 1.1l-3.23-3a.75.75 0 0 1 0-1.1l3.23-3a.75.75 0 0 1 1.06.04Zm3.979 1.06a.75.75 0 1 1 1.02-1.1l3.231 3a.75.75 0 0 1 0 1.1l-3.23 3a.75.75 0 1 1-1.021-1.1l2.639-2.45-2.64-2.45Z"></path></svg>
+          <span>View source</span>
+        </a>
+      </li></ul>
+  </div>
+</div><section id="module-titan.Uncertainty">
+<span id="uncertainty"></span><h1>Uncertainty<a class="headerlink" href="#module-titan.Uncertainty" title="Link to this heading">#</a></h1>
+<p>Uncertainty module - uncertainty quantification and Monte Carlo</p>
+<section id="guassian-mixture-model-gmm">
+<h2>Guassian Mixture Model (GMM)<a class="headerlink" href="#guassian-mixture-model-gmm" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-titan.Uncertainty.MC_wrapper">
+<span id="monte-carlo-wrapper"></span><h2>Monte Carlo Wrapper<a class="headerlink" href="#module-titan.Uncertainty.MC_wrapper" title="Link to this heading">#</a></h2>
+<p>MC_wrapper module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.MC_wrapper.log_error">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.MC_wrapper.</span></span><span class="sig-name descname"><span class="pre">log_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Exception</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.MC_wrapper.log_error" title="Link to this definition">#</a></dt>
+<dd><p>Catches any errors from individual runs and writes them to the datafile
+:param directory: Output folder of the simulation
+:type directory: str
+:param seed: Seed number (32 digit int)
+:type seed: int
+:param error: Caught error
+:type error: Exception</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.MC_wrapper.run">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.MC_wrapper.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.MC_wrapper.run" title="Link to this definition">#</a></dt>
+<dd><p>Configures the TITAN case before dispatching n_samples as parallel jobs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – Config file path</p></li>
+<li><p><strong>n_samples</strong> (<em>int</em>) – Number of Monte Carlo samples to run</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.MC_wrapper.update_datafile">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.MC_wrapper.</span></span><span class="sig-name descname"><span class="pre">update_datafile</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">output_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">output_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.MC_wrapper.update_datafile" title="Link to this definition">#</a></dt>
+<dd><p>Writes the generated outputs to the datafile
+:param directory: Output folder of the simulation
+:type directory: str
+:param seed: Seed number (32 digit int)
+:type seed: int
+:param output_names: List of the names of Quantities of Interest
+:type output_names: list
+:param output_values: List of the values of Quantities of Interest
+:type output_values: list</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.MC_wrapper.wrapper">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.MC_wrapper.</span></span><span class="sig-name descname"><span class="pre">wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.MC_wrapper.wrapper" title="Link to this definition">#</a></dt>
+<dd><p>Maps the given seed to a TITAN simulation and dispatches it
+:param titan: Base TITAN object
+:type titan: Assembly_list
+:param options: Base Options object
+:type options: Options
+:param i_sample: Sample number
+:type i_sample: int
+:param seed: Seed number (32 digit int)
+:type seed: int
+:return: Output names, output values
+:rtype: list, list</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.MC_wrapper.write_datafile">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.MC_wrapper.</span></span><span class="sig-name descname"><span class="pre">write_datafile</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">i_sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.MC_wrapper.write_datafile" title="Link to this definition">#</a></dt>
+<dd><p>Writes the UQ datafile header and run information
+:param directory: Output folder of the simulation
+:type directory: str
+:param i_sample: Sample number
+:type i_sample: int
+:param state_info: Dictionary of state information, generated by UQMapper
+:type state_info: dict</p>
+</dd></dl>
+
+</section>
+<section id="module-titan.Uncertainty.filtering">
+<span id="filtering"></span><h2>Filtering<a class="headerlink" href="#module-titan.Uncertainty.filtering" title="Link to this heading">#</a></h2>
+<p>filtering module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Uncertainty.filtering.FilterPoints">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.filtering.</span></span><span class="sig-name descname"><span class="pre">FilterPoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stateModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurementModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.filtering.FilterPoints" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Apply prediction and measurement updates to a point-based state model.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Uncertainty.filtering.FilterPoints.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.filtering.FilterPoints.predict" title="Link to this definition">#</a></dt>
+<dd><p>Propagate state points and regenerate the transformed point set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_points</strong> (<em>numpy.ndarray</em>) – Input points to transform in place.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Uncertainty.filtering.FilterPoints.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">independent_variable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.filtering.FilterPoints.update" title="Link to this definition">#</a></dt>
+<dd><p>Update the state-point distribution using available observations.</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param measurements<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Measurement values used to condition the state model.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-titan.Uncertainty.mappings">
+<span id="uncertainty-mappings"></span><h2>Uncertainty Mappings<a class="headerlink" href="#module-titan.Uncertainty.mappings" title="Link to this heading">#</a></h2>
+<p>mappings module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.ECI_position_callback">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">ECI_position_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assem_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.mappings.ECI_position_callback" title="Link to this definition">#</a></dt>
+<dd><p>Recalculates the (ECEF) state vectors based upon ECI states</p>
+<p>This function is a “callback” in that it is called after UQ mapping</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Assembly_list" title="titan.Geometry.assembly.Assembly_list"><em>Assembly_list</em></a>) – Base TITAN object</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Base TITAN options</p></li>
+<li><p><strong>assem_ids</strong> (<em>list</em>) – List of target assemblies</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.RIC_callback">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">RIC_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assem_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.mappings.RIC_callback" title="Link to this definition">#</a></dt>
+<dd><p>Adds pre-specified deltas in Radial, In-Track, Cross-Track (RIC/RTN) frame to 
+the states of a set of assemblies defined by assem_ids</p>
+<p>This function is a “callback” in that it is called after UQ mapping</p>
+<p>The frame is defined as detailed in <a class="reference external" href="https://sanaregistry.org/r/orbit_relative_reference_frames/records/9">https://sanaregistry.org/r/orbit_relative_reference_frames/records/9</a></p>
+<p>Note that for circular orbits RIC and TVN are identical</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<em>AssemblyList</em>) – Base TITAN object</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Base TITAN options</p></li>
+<li><p><strong>assem_ids</strong> (<em>list</em>) – List of target assemblies</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.TVN_callback">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">TVN_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assem_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.mappings.TVN_callback" title="Link to this definition">#</a></dt>
+<dd><p>Adds pre-specified deltas in Transverse, Velocity, Normal (TVN/NTW/PTW) frame to
+the states of a set of assemblies defined by assem_ids</p>
+<p>This function is a “callback” in that it is called after UQ mapping</p>
+<p>The frame is defined as detailed in <a class="reference external" href="https://sanaregistry.org/r/orbit_relative_reference_frames/records/6">https://sanaregistry.org/r/orbit_relative_reference_frames/records/6</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<em>AssemblyList</em>) – Base TITAN object</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Base TITAN options</p></li>
+<li><p><strong>assem_ids</strong> (<em>list</em>) – List of target assemblies</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.assembly_address">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">assembly_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#titan.Uncertainty.mappings.assembly_address" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Maps from an assembly index to an “”address” string targeting it as an object</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param assembly_index<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Index of target assembly</p>
+</dd>
+<dt class="field-even">type assembly_index<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">param index<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Integer value for index.</p>
+</dd>
+<dt class="field-even">type index<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Resultant address</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.available_distris">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">available_distris</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'alpha':</span> <span class="pre">&lt;scipy.stats._continuous_distns.alpha_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'anglit':</span> <span class="pre">&lt;scipy.stats._continuous_distns.anglit_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'arcsine':</span> <span class="pre">&lt;scipy.stats._continuous_distns.arcsine_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'argus':</span> <span class="pre">&lt;scipy.stats._continuous_distns.argus_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'bernoulli':</span> <span class="pre">&lt;scipy.stats._discrete_distns.bernoulli_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'beta':</span> <span class="pre">&lt;scipy.stats._continuous_distns.beta_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'betabinom':</span> <span class="pre">&lt;scipy.stats._discrete_distns.betabinom_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'betaprime':</span> <span class="pre">&lt;scipy.stats._continuous_distns.betaprime_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'binom':</span> <span class="pre">&lt;scipy.stats._discrete_distns.binom_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'boltzmann':</span> <span class="pre">&lt;scipy.stats._discrete_distns.boltzmann_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'bradford':</span> <span class="pre">&lt;scipy.stats._continuous_distns.bradford_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'burr':</span> <span class="pre">&lt;scipy.stats._continuous_distns.burr_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'burr12':</span> <span class="pre">&lt;scipy.stats._continuous_distns.burr12_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'cauchy':</span> <span class="pre">&lt;scipy.stats._continuous_distns.cauchy_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'chi':</span> <span class="pre">&lt;scipy.stats._continuous_distns.chi_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'chi2':</span> <span class="pre">&lt;scipy.stats._continuous_distns.chi2_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'cosine':</span> <span class="pre">&lt;scipy.stats._continuous_distns.cosine_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'crystalball':</span> <span class="pre">&lt;scipy.stats._continuous_distns.crystalball_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'dgamma':</span> <span class="pre">&lt;scipy.stats._continuous_distns.dgamma_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'dirichlet':</span> <span class="pre">&lt;scipy.stats._multivariate.dirichlet_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'dlaplace':</span> <span class="pre">&lt;scipy.stats._discrete_distns.dlaplace_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'dweibull':</span> <span class="pre">&lt;scipy.stats._continuous_distns.dweibull_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'erlang':</span> <span class="pre">&lt;scipy.stats._continuous_distns.erlang_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'expon':</span> <span class="pre">&lt;scipy.stats._continuous_distns.expon_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'exponnorm':</span> <span class="pre">&lt;scipy.stats._continuous_distns.exponnorm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'exponpow':</span> <span class="pre">&lt;scipy.stats._continuous_distns.exponpow_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'exponweib':</span> <span class="pre">&lt;scipy.stats._continuous_distns.exponweib_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'f':</span> <span class="pre">&lt;scipy.stats._continuous_distns.f_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'fatiguelife':</span> <span class="pre">&lt;scipy.stats._continuous_distns.fatiguelife_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'fisk':</span> <span class="pre">&lt;scipy.stats._continuous_distns.fisk_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'foldcauchy':</span> <span class="pre">&lt;scipy.stats._continuous_distns.foldcauchy_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'foldnorm':</span> <span class="pre">&lt;scipy.stats._continuous_distns.foldnorm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'gamma':</span> <span class="pre">&lt;scipy.stats._continuous_distns.gamma_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'gausshyper':</span> <span class="pre">&lt;scipy.stats._continuous_distns.gausshyper_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'genexpon':</span> <span class="pre">&lt;scipy.stats._continuous_distns.genexpon_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'genextreme':</span> <span class="pre">&lt;scipy.stats._continuous_distns.genextreme_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'gengamma':</span> <span class="pre">&lt;scipy.stats._continuous_distns.gengamma_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'genhalflogistic':</span> <span class="pre">&lt;scipy.stats._continuous_distns.genhalflogistic_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'genhyperbolic':</span> <span class="pre">&lt;scipy.stats._continuous_distns.genhyperbolic_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'geninvgauss':</span> <span class="pre">&lt;scipy.stats._continuous_distns.geninvgauss_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'genlogistic':</span> <span class="pre">&lt;scipy.stats._continuous_distns.genlogistic_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'gennorm':</span> <span class="pre">&lt;scipy.stats._continuous_distns.gennorm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'genpareto':</span> <span class="pre">&lt;scipy.stats._continuous_distns.genpareto_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'geom':</span> <span class="pre">&lt;scipy.stats._discrete_distns.geom_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'gibrat':</span> <span class="pre">&lt;scipy.stats._continuous_distns.gibrat_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'gompertz':</span> <span class="pre">&lt;scipy.stats._continuous_distns.gompertz_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'gumbel_l':</span> <span class="pre">&lt;scipy.stats._continuous_distns.gumbel_l_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'gumbel_r':</span> <span class="pre">&lt;scipy.stats._continuous_distns.gumbel_r_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'halfcauchy':</span> <span class="pre">&lt;scipy.stats._continuous_distns.halfcauchy_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'halfgennorm':</span> <span class="pre">&lt;scipy.stats._continuous_distns.halfgennorm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'halflogistic':</span> <span class="pre">&lt;scipy.stats._continuous_distns.halflogistic_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'halfnorm':</span> <span class="pre">&lt;scipy.stats._continuous_distns.halfnorm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'hypergeom':</span> <span class="pre">&lt;scipy.stats._discrete_distns.hypergeom_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'hypsecant':</span> <span class="pre">&lt;scipy.stats._continuous_distns.hypsecant_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'invgamma':</span> <span class="pre">&lt;scipy.stats._continuous_distns.invgamma_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'invgauss':</span> <span class="pre">&lt;scipy.stats._continuous_distns.invgauss_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'invweibull':</span> <span class="pre">&lt;scipy.stats._continuous_distns.invweibull_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'invwishart':</span> <span class="pre">&lt;scipy.stats._multivariate.invwishart_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'johnsonsb':</span> <span class="pre">&lt;scipy.stats._continuous_distns.johnsonsb_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'johnsonsu':</span> <span class="pre">&lt;scipy.stats._continuous_distns.johnsonsu_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'kappa3':</span> <span class="pre">&lt;scipy.stats._continuous_distns.kappa3_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'kappa4':</span> <span class="pre">&lt;scipy.stats._continuous_distns.kappa4_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'ksone':</span> <span class="pre">&lt;scipy.stats._continuous_distns.ksone_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'kstwo':</span> <span class="pre">&lt;scipy.stats._continuous_distns.kstwo_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'kstwobign':</span> <span class="pre">&lt;scipy.stats._continuous_distns.kstwobign_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'laplace':</span> <span class="pre">&lt;scipy.stats._continuous_distns.laplace_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'laplace_asymmetric':</span> <span class="pre">&lt;scipy.stats._continuous_distns.laplace_asymmetric_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'levy':</span> <span class="pre">&lt;scipy.stats._continuous_distns.levy_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'levy_l':</span> <span class="pre">&lt;scipy.stats._continuous_distns.levy_l_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'levy_stable':</span> <span class="pre">&lt;scipy.stats._levy_stable.levy_stable_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'loggamma':</span> <span class="pre">&lt;scipy.stats._continuous_distns.loggamma_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'logistic':</span> <span class="pre">&lt;scipy.stats._continuous_distns.logistic_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'loglaplace':</span> <span class="pre">&lt;scipy.stats._continuous_distns.loglaplace_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'lognorm':</span> <span class="pre">&lt;scipy.stats._continuous_distns.lognorm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'logser':</span> <span class="pre">&lt;scipy.stats._discrete_distns.logser_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'loguniform':</span> <span class="pre">&lt;scipy.stats._continuous_distns.reciprocal_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'lomax':</span> <span class="pre">&lt;scipy.stats._continuous_distns.lomax_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'matrix_normal':</span> <span class="pre">&lt;scipy.stats._multivariate.matrix_normal_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'maxwell':</span> <span class="pre">&lt;scipy.stats._continuous_distns.maxwell_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'mielke':</span> <span class="pre">&lt;scipy.stats._continuous_distns.mielke_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'moyal':</span> <span class="pre">&lt;scipy.stats._continuous_distns.moyal_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'multinomial':</span> <span class="pre">&lt;scipy.stats._multivariate.multinomial_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'multivariate_hypergeom':</span> <span class="pre">&lt;scipy.stats._multivariate.multivariate_hypergeom_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'multivariate_normal':</span> <span class="pre">&lt;scipy.stats._multivariate.multivariate_normal_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'multivariate_t':</span> <span class="pre">&lt;scipy.stats._multivariate.multivariate_t_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'nakagami':</span> <span class="pre">&lt;scipy.stats._continuous_distns.nakagami_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'nbinom':</span> <span class="pre">&lt;scipy.stats._discrete_distns.nbinom_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'ncf':</span> <span class="pre">&lt;scipy.stats._continuous_distns.ncf_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'nchypergeom_fisher':</span> <span class="pre">&lt;scipy.stats._discrete_distns.nchypergeom_fisher_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'nchypergeom_wallenius':</span> <span class="pre">&lt;scipy.stats._discrete_distns.nchypergeom_wallenius_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'nct':</span> <span class="pre">&lt;scipy.stats._continuous_distns.nct_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'ncx2':</span> <span class="pre">&lt;scipy.stats._continuous_distns.ncx2_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'nhypergeom':</span> <span class="pre">&lt;scipy.stats._discrete_distns.nhypergeom_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'norm':</span> <span class="pre">&lt;scipy.stats._continuous_distns.norm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'normal':</span> <span class="pre">&lt;scipy.stats._continuous_distns.norm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'norminvgauss':</span> <span class="pre">&lt;scipy.stats._continuous_distns.norminvgauss_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'ortho_group':</span> <span class="pre">&lt;scipy.stats._multivariate.ortho_group_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'pareto':</span> <span class="pre">&lt;scipy.stats._continuous_distns.pareto_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'pearson3':</span> <span class="pre">&lt;scipy.stats._continuous_distns.pearson3_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'planck':</span> <span class="pre">&lt;scipy.stats._discrete_distns.planck_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'poisson':</span> <span class="pre">&lt;scipy.stats._discrete_distns.poisson_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'powerlaw':</span> <span class="pre">&lt;scipy.stats._continuous_distns.powerlaw_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'powerlognorm':</span> <span class="pre">&lt;scipy.stats._continuous_distns.powerlognorm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'powernorm':</span> <span class="pre">&lt;scipy.stats._continuous_distns.powernorm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'quat_rotation':</span> <span class="pre">&lt;class</span> <span class="pre">'titan.Uncertainty.mappings.quat_rotation'&gt;,</span> <span class="pre">'randint':</span> <span class="pre">&lt;scipy.stats._discrete_distns.randint_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'random_correlation':</span> <span class="pre">&lt;scipy.stats._multivariate.random_correlation_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'random_table':</span> <span class="pre">&lt;scipy.stats._multivariate.random_table_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'rayleigh':</span> <span class="pre">&lt;scipy.stats._continuous_distns.rayleigh_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'rdist':</span> <span class="pre">&lt;scipy.stats._continuous_distns.rdist_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'recipinvgauss':</span> <span class="pre">&lt;scipy.stats._continuous_distns.recipinvgauss_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'rice':</span> <span class="pre">&lt;scipy.stats._continuous_distns.rice_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'semicircular':</span> <span class="pre">&lt;scipy.stats._continuous_distns.semicircular_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'skellam':</span> <span class="pre">&lt;scipy.stats._discrete_distns.skellam_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'skewcauchy':</span> <span class="pre">&lt;scipy.stats._continuous_distns.skewcauchy_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'skewnorm':</span> <span class="pre">&lt;scipy.stats._continuous_distns.skewnorm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'special_ortho_group':</span> <span class="pre">&lt;scipy.stats._multivariate.special_ortho_group_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'studentized_range':</span> <span class="pre">&lt;scipy.stats._continuous_distns.studentized_range_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'t':</span> <span class="pre">&lt;scipy.stats._continuous_distns.t_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'trapezoid':</span> <span class="pre">&lt;scipy.stats._continuous_distns.trapezoid_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'triang':</span> <span class="pre">&lt;scipy.stats._continuous_distns.triang_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'truncexpon':</span> <span class="pre">&lt;scipy.stats._continuous_distns.truncexpon_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'truncnorm':</span> <span class="pre">&lt;scipy.stats._continuous_distns.truncnorm_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'truncpareto':</span> <span class="pre">&lt;scipy.stats._continuous_distns.truncpareto_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'truncweibull_min':</span> <span class="pre">&lt;scipy.stats._continuous_distns.truncweibull_min_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'tukeylambda':</span> <span class="pre">&lt;scipy.stats._continuous_distns.tukeylambda_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'uniform':</span> <span class="pre">&lt;scipy.stats._continuous_distns.uniform_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'uniform_direction':</span> <span class="pre">&lt;scipy.stats._multivariate.uniform_direction_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'unitary_group':</span> <span class="pre">&lt;scipy.stats._multivariate.unitary_group_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'vonmises':</span> <span class="pre">&lt;scipy.stats._continuous_distns.vonmises_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'vonmises_line':</span> <span class="pre">&lt;scipy.stats._continuous_distns.vonmises_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'wald':</span> <span class="pre">&lt;scipy.stats._continuous_distns.wald_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'weibull_max':</span> <span class="pre">&lt;scipy.stats._continuous_distns.weibull_max_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'weibull_min':</span> <span class="pre">&lt;scipy.stats._continuous_distns.weibull_min_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'wishart':</span> <span class="pre">&lt;scipy.stats._multivariate.wishart_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'wrapcauchy':</span> <span class="pre">&lt;scipy.stats._continuous_distns.wrapcauchy_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'yulesimon':</span> <span class="pre">&lt;scipy.stats._discrete_distns.yulesimon_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'zipf':</span> <span class="pre">&lt;scipy.stats._discrete_distns.zipf_gen</span> <span class="pre">object&gt;,</span> <span class="pre">'zipfian':</span> <span class="pre">&lt;scipy.stats._discrete_distns.zipfian_gen</span> <span class="pre">object&gt;}</span></span><a class="headerlink" href="#titan.Uncertainty.mappings.available_distris" title="Link to this definition">#</a></dt>
+<dd><p>Available distributions for representing uncertain parameters</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.callbacks">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">callbacks</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{&lt;function</span> <span class="pre">ECI_position_callback&gt;:</span> <span class="pre">['ECI_x',</span> <span class="pre">'ECI_y',</span> <span class="pre">'ECI_z',</span> <span class="pre">'ECI_u',</span> <span class="pre">'ECI_v',</span> <span class="pre">'ECI_w',</span> <span class="pre">'ECI_epoch_UNIX'],</span> <span class="pre">&lt;function</span> <span class="pre">RIC_callback&gt;:</span> <span class="pre">['RIC_x',</span> <span class="pre">'RIC_y',</span> <span class="pre">'RIC_z',</span> <span class="pre">'RIC_u',</span> <span class="pre">'RIC_v',</span> <span class="pre">'RIC_w'],</span> <span class="pre">&lt;function</span> <span class="pre">TVN_callback&gt;:</span> <span class="pre">['TVN_x',</span> <span class="pre">'TVN_y',</span> <span class="pre">'TVN_z',</span> <span class="pre">'TVN_u',</span> <span class="pre">'TVN_v',</span> <span class="pre">'TVN_w'],</span> <span class="pre">&lt;function</span> <span class="pre">cartesian_callback&gt;:</span> <span class="pre">['altitude',</span> <span class="pre">'latitude',</span> <span class="pre">'longitude',</span> <span class="pre">'gamma',</span> <span class="pre">'chi',</span> <span class="pre">'velocity'],</span> <span class="pre">&lt;function</span> <span class="pre">dynamic_attributes_callback&gt;:</span> <span class="pre">['ECEF_x',</span> <span class="pre">'ECEF_y',</span> <span class="pre">'ECEF_z',</span> <span class="pre">'ECEF_u',</span> <span class="pre">'ECEF_v',</span> <span class="pre">'ECEF_w',</span> <span class="pre">'quat_w',</span> <span class="pre">'quat_x',</span> <span class="pre">'quat_y',</span> <span class="pre">'quat_z',</span> <span class="pre">'omega_roll',</span> <span class="pre">'omega_pitch',</span> <span class="pre">'omega_yaw'],</span> <span class="pre">&lt;function</span> <span class="pre">orientation_callback&gt;:</span> <span class="pre">['chi',</span> <span class="pre">'gamma',</span> <span class="pre">'roll',</span> <span class="pre">'aoa',</span> <span class="pre">'slip',</span> <span class="pre">'latitude',</span> <span class="pre">'longitude'],</span> <span class="pre">&lt;function</span> <span class="pre">symmetrize_inertia_callback&gt;:</span> <span class="pre">['Ixy',</span> <span class="pre">'Iyz',</span> <span class="pre">'Ixz']}</span></span><a class="headerlink" href="#titan.Uncertainty.mappings.callbacks" title="Link to this definition">#</a></dt>
+<dd><p>Parameter mappings to functions that need to be called after UQ mapping has been completed</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.cartesian_callback">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">cartesian_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assem_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.mappings.cartesian_callback" title="Link to this definition">#</a></dt>
+<dd><p>Constructs the position and velocity states based upon geodetic attributes for a set of assemblies defined by assem_ids
+:param titan: Base TITAN object
+:type titan: Assembly_list
+:param options: Base TITAN options
+:type options: Options
+:param assem_ids: List of target assemblies
+:type assem_ids: list</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.component_address">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">component_address</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">assembly_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">component_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#titan.Uncertainty.mappings.component_address" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Maps from assembly and component indices to an “”address” string</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param assembly_index<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Index of target assembly</p>
+</dd>
+<dt class="field-even">type assembly_index<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">param component_index<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Index of target component</p>
+</dd>
+<dt class="field-even">type component_index<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Resultant address</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.dynamic_attributes_callback">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">dynamic_attributes_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assem_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.mappings.dynamic_attributes_callback" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Recalculates the dynamic attributes based upon ECEF states</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Base TITAN object</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>Assembly_list</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Base TITAN options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+<dt class="field-odd">param assem_ids<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of target assemblies</p>
+</dd>
+<dt class="field-even">type assem_ids<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.get_component_index_from_name">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">get_component_index_from_name</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">assembly_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#titan.Uncertainty.mappings.get_component_index_from_name" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Retrieves the index of a target component using its name</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param name<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Component name</p>
+</dd>
+<dt class="field-even">type name<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Base TITAN object</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>Assembly_list</p>
+</dd>
+<dt class="field-odd">param assembly_index<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Index of assembly to retreive component from, defaults to 0</p>
+</dd>
+<dt class="field-even">type assembly_index<span class="colon">:</span></dt>
+<dd class="field-even"><p>int, optional</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Component index</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.library_addresses">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">library_addresses</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{&lt;function</span> <span class="pre">assembly_address&gt;:</span> <span class="pre">['ECEF_x',</span> <span class="pre">'ECEF_y',</span> <span class="pre">'ECEF_z',</span> <span class="pre">'ECEF_u',</span> <span class="pre">'ECEF_v',</span> <span class="pre">'ECEF_w',</span> <span class="pre">'quat_w',</span> <span class="pre">'quat_x',</span> <span class="pre">'quat_y',</span> <span class="pre">'quat_z',</span> <span class="pre">'omega_roll',</span> <span class="pre">'omega_pitch',</span> <span class="pre">'omega_yaw',</span> <span class="pre">'roll',</span> <span class="pre">'aoa',</span> <span class="pre">'slip',</span> <span class="pre">'Ixx',</span> <span class="pre">'Iyy',</span> <span class="pre">'Izz',</span> <span class="pre">'Ixy',</span> <span class="pre">'Iyz',</span> <span class="pre">'Ixz',</span> <span class="pre">'RIC_x',</span> <span class="pre">'RIC_y',</span> <span class="pre">'RIC_z',</span> <span class="pre">'RIC_u',</span> <span class="pre">'RIC_v',</span> <span class="pre">'RIC_w',</span> <span class="pre">'TVN_x',</span> <span class="pre">'TVN_y',</span> <span class="pre">'TVN_z',</span> <span class="pre">'TVN_u',</span> <span class="pre">'TVN_v',</span> <span class="pre">'TVN_w'],</span> <span class="pre">&lt;function</span> <span class="pre">component_address&gt;:</span> <span class="pre">['trigger__',</span> <span class="pre">'temperature__'],</span> <span class="pre">&lt;function</span> <span class="pre">option_aero_address&gt;:</span> <span class="pre">['catalycity',</span> <span class="pre">'CP_mult',</span> <span class="pre">'CTau_mult',</span> <span class="pre">'CH_mult'],</span> <span class="pre">&lt;function</span> <span class="pre">option_free_address&gt;:</span> <span class="pre">['density_mult'],</span> <span class="pre">&lt;function</span> <span class="pre">option_traj_address&gt;:</span> <span class="pre">['ECI_x',</span> <span class="pre">'ECI_y',</span> <span class="pre">'ECI_z',</span> <span class="pre">'ECI_u',</span> <span class="pre">'ECI_v',</span> <span class="pre">'ECI_w',</span> <span class="pre">'ECI_epoch_UNIX'],</span> <span class="pre">&lt;function</span> <span class="pre">trajectory_address&gt;:</span> <span class="pre">['altitude',</span> <span class="pre">'gamma',</span> <span class="pre">'chi',</span> <span class="pre">'velocity',</span> <span class="pre">'latitude',</span> <span class="pre">'longitude']}</span></span><a class="headerlink" href="#titan.Uncertainty.mappings.library_addresses" title="Link to this definition">#</a></dt>
+<dd><p>Parameter mappings to relevant objects</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.library_assignments">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">library_assignments</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CH_mult':</span> <span class="pre">['CH_mult'],</span> <span class="pre">'CP_mult':</span> <span class="pre">['CP_mult'],</span> <span class="pre">'CTau_mult':</span> <span class="pre">['CTau_mult'],</span> <span class="pre">'ECEF_u':</span> <span class="pre">['state_vector',</span> <span class="pre">3],</span> <span class="pre">'ECEF_v':</span> <span class="pre">['state_vector',</span> <span class="pre">4],</span> <span class="pre">'ECEF_w':</span> <span class="pre">['state_vector',</span> <span class="pre">5],</span> <span class="pre">'ECEF_x':</span> <span class="pre">['state_vector',</span> <span class="pre">0],</span> <span class="pre">'ECEF_y':</span> <span class="pre">['state_vector',</span> <span class="pre">1],</span> <span class="pre">'ECEF_z':</span> <span class="pre">['state_vector',</span> <span class="pre">2],</span> <span class="pre">'ECI_epoch_UNIX':</span> <span class="pre">['trajectory_epoch'],</span> <span class="pre">'ECI_u':</span> <span class="pre">['trajectory_state',</span> <span class="pre">3],</span> <span class="pre">'ECI_v':</span> <span class="pre">['trajectory_state',</span> <span class="pre">4],</span> <span class="pre">'ECI_w':</span> <span class="pre">['trajectory_state',</span> <span class="pre">5],</span> <span class="pre">'ECI_x':</span> <span class="pre">['trajectory_state',</span> <span class="pre">0],</span> <span class="pre">'ECI_y':</span> <span class="pre">['trajectory_state',</span> <span class="pre">1],</span> <span class="pre">'ECI_z':</span> <span class="pre">['trajectory_state',</span> <span class="pre">2],</span> <span class="pre">'Ixx':</span> <span class="pre">['inertia',</span> <span class="pre">[0,</span> <span class="pre">0]],</span> <span class="pre">'Ixy':</span> <span class="pre">['inertia',</span> <span class="pre">[0,</span> <span class="pre">1]],</span> <span class="pre">'Ixz':</span> <span class="pre">['inertia',</span> <span class="pre">[0,</span> <span class="pre">2]],</span> <span class="pre">'Iyy':</span> <span class="pre">['inertia',</span> <span class="pre">[1,</span> <span class="pre">1]],</span> <span class="pre">'Iyz':</span> <span class="pre">['inertia',</span> <span class="pre">[1,</span> <span class="pre">2]],</span> <span class="pre">'Izz':</span> <span class="pre">['inertia',</span> <span class="pre">[2,</span> <span class="pre">2]],</span> <span class="pre">'RIC_u':</span> <span class="pre">['RIC',</span> <span class="pre">3],</span> <span class="pre">'RIC_v':</span> <span class="pre">['RIC',</span> <span class="pre">4],</span> <span class="pre">'RIC_w':</span> <span class="pre">['RIC',</span> <span class="pre">5],</span> <span class="pre">'RIC_x':</span> <span class="pre">['RIC',</span> <span class="pre">0],</span> <span class="pre">'RIC_y':</span> <span class="pre">['RIC',</span> <span class="pre">1],</span> <span class="pre">'RIC_z':</span> <span class="pre">['RIC',</span> <span class="pre">2],</span> <span class="pre">'TVN_u':</span> <span class="pre">['RIC',</span> <span class="pre">3],</span> <span class="pre">'TVN_v':</span> <span class="pre">['RIC',</span> <span class="pre">4],</span> <span class="pre">'TVN_w':</span> <span class="pre">['RIC',</span> <span class="pre">5],</span> <span class="pre">'TVN_x':</span> <span class="pre">['RIC',</span> <span class="pre">0],</span> <span class="pre">'TVN_y':</span> <span class="pre">['RIC',</span> <span class="pre">1],</span> <span class="pre">'TVN_z':</span> <span class="pre">['RIC',</span> <span class="pre">2],</span> <span class="pre">'altitude':</span> <span class="pre">['altitude'],</span> <span class="pre">'aoa':</span> <span class="pre">['aoa'],</span> <span class="pre">'catalycity':</span> <span class="pre">['cat_rate'],</span> <span class="pre">'chi':</span> <span class="pre">['chi'],</span> <span class="pre">'density_mult':</span> <span class="pre">['density_mult'],</span> <span class="pre">'gamma':</span> <span class="pre">['gamma'],</span> <span class="pre">'latitude':</span> <span class="pre">['latitude'],</span> <span class="pre">'longitude':</span> <span class="pre">['longitude'],</span> <span class="pre">'omega_pitch':</span> <span class="pre">['state_vector',</span> <span class="pre">11],</span> <span class="pre">'omega_roll':</span> <span class="pre">['state_vector',</span> <span class="pre">10],</span> <span class="pre">'omega_yaw':</span> <span class="pre">['state_vector',</span> <span class="pre">12],</span> <span class="pre">'quat_w':</span> <span class="pre">['state_vector',</span> <span class="pre">9],</span> <span class="pre">'quat_x':</span> <span class="pre">['state_vector',</span> <span class="pre">6],</span> <span class="pre">'quat_y':</span> <span class="pre">['state_vector',</span> <span class="pre">7],</span> <span class="pre">'quat_z':</span> <span class="pre">['state_vector',</span> <span class="pre">8],</span> <span class="pre">'roll':</span> <span class="pre">['roll'],</span> <span class="pre">'slip':</span> <span class="pre">['slip'],</span> <span class="pre">'temperature__':</span> <span class="pre">['temperature'],</span> <span class="pre">'trigger__':</span> <span class="pre">['trigger_value'],</span> <span class="pre">'velocity':</span> <span class="pre">['velocity']}</span></span><a class="headerlink" href="#titan.Uncertainty.mappings.library_assignments" title="Link to this definition">#</a></dt>
+<dd><p>Parameter mappings to relevant attributes (of mapped objects)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.library_check">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">library_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.mappings.library_check" title="Link to this definition">#</a></dt>
+<dd><p>Searches the UQ library for the specified parameter, throws an exception if it doesn’t exist
+:param name: Name of target parameter
+:type name: str</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.option_aero_address">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">option_aero_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#titan.Uncertainty.mappings.option_aero_address" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Maps from an assembly index to an “”address” string targeting its</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param index<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Index of target assembly</p>
+</dd>
+<dt class="field-even">type index<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Resultant address</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.option_free_address">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">option_free_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#titan.Uncertainty.mappings.option_free_address" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Maps to an “”address” string targeting the freestream attribute of the options</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param index<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Index, dummy variable to preserve signature</p>
+</dd>
+<dt class="field-even">type index<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Resultant address</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.option_traj_address">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">option_traj_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#titan.Uncertainty.mappings.option_traj_address" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Maps to an “”address” string targeting the trajectory attribute of the options</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param index<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Index, dummy variable to preserve signature</p>
+</dd>
+<dt class="field-even">type index<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Resultant address</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.orientation_callback">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">orientation_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assem_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.mappings.orientation_callback" title="Link to this definition">#</a></dt>
+<dd><p>Recomputes the quaternion of a of a set of assemblies defined by assem_ids</p>
+<p>This function is a “callback” in that it is called after UQ mapping</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<em>AssemblyList</em>) – Base TITAN object</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Base TITAN options</p></li>
+<li><p><strong>assem_ids</strong> (<em>list</em>) – List of target assemblies</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.quat_rotation">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">quat_rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.mappings.quat_rotation" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>quat_rotation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.quat_rotation.rvs">
+<span class="sig-name descname"><span class="pre">rvs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.mappings.quat_rotation.rvs" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param n: Integer value for n.
+:type n: int
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.state_vector_callback">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">state_vector_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assem_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.mappings.state_vector_callback" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Constructs the ECEF states based upon dynamic attributes for a set of assemblies defined by assem_ids</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param titan<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Base TITAN object</p>
+</dd>
+<dt class="field-even">type titan<span class="colon">:</span></dt>
+<dd class="field-even"><p>Assembly_list</p>
+</dd>
+<dt class="field-odd">param options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Base TITAN options</p>
+</dd>
+<dt class="field-even">type options<span class="colon">:</span></dt>
+<dd class="field-even"><p>Options</p>
+</dd>
+<dt class="field-odd">param assem_ids<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of target assemblies</p>
+</dd>
+<dt class="field-even">type assem_ids<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.symmetrize_inertia_callback">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">symmetrize_inertia_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assem_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.mappings.symmetrize_inertia_callback" title="Link to this definition">#</a></dt>
+<dd><p>Copies the lower in inertia tensor triangle assigned by UQ mapping to
+the upper inertia tensor to “symmetrize” the tensor of a set of assemblies 
+defined by assem_ids</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<em>AssemblyList</em>) – Base TITAN object</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Base TITAN options</p></li>
+<li><p><strong>assem_ids</strong> (<em>list</em>) – List of target assemblies</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.mappings.trajectory_address">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.mappings.</span></span><span class="sig-name descname"><span class="pre">trajectory_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#titan.Uncertainty.mappings.trajectory_address" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Maps from an assembly index to an “”address” string targeting its</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param index<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Index of target assembly</p>
+</dd>
+<dt class="field-even">type index<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Resultant address</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-titan.Uncertainty.measurement">
+<span id="measurement"></span><h2>Measurement<a class="headerlink" href="#module-titan.Uncertainty.measurement" title="Link to this heading">#</a></h2>
+<p>measurement module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Uncertainty.measurement.StateObservation">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.measurement.</span></span><span class="sig-name descname"><span class="pre">StateObservation</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LUT'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">independent_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'time'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">measurements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.measurement.StateObservation" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>StateObservation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Uncertainty.measurement.StateObservation.observe">
+<span class="sig-name descname"><span class="pre">observe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.measurement.StateObservation.observe" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param x: Numeric value for x.
+:type x: float
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.measurement.measurement_from_state">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.measurement.</span></span><span class="sig-name descname"><span class="pre">measurement_from_state</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">augmented</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">state_vector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.measurement.measurement_from_state" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param options: Options or configuration object.
+:type options: Options
+:param augmented: Value for augmented.
+:type augmented: Any
+:param state_vector: Value for state vector.
+:type state_vector: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Uncertainty.measurement.measurement_func">
+<span class="sig-prename descclassname"><span class="pre">titan.Uncertainty.measurement.</span></span><span class="sig-name descname"><span class="pre">measurement_func</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">measurements</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">augmented_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Uncertainty.measurement.measurement_func" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param measurements: Value for measurements.
+:type measurements: Any
+:param options: Options or configuration object.
+:type options: Options
+:param augmented_state: Value for augmented state.
+:type augmented_state: Any
+:param x: Numeric value for x.
+:type x: float
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+</section>
+<section id="uncertainty-utilities">
+<h2>Uncertainty Utilities<a class="headerlink" href="#uncertainty-utilities" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+</article><footer class="bz-article-footer">
+  
+  
+    <nav class="bz-related-pages" aria-label="Related pages navigation"><a class="bz-related-pages-previous" href="titan.Thermal.html" rel="prev">
+    <span>Previous</span><span class="bz-related-pages-title">Thermal</span></a></nav>
+  
+
+</footer><aside class="bz-sidebar-secondary" data-drawer="bz-sidebar-secondary">
+  
+  
+    <nav class="bz-sidebar-toc" aria-label="Table of contents">
+  <p>On this page</p><ul>
+<li><a class="reference internal" href="#guassian-mixture-model-gmm">Guassian Mixture Model (GMM)</a></li>
+<li><a class="reference internal" href="#module-titan.Uncertainty.MC_wrapper">Monte Carlo Wrapper</a><ul>
+<li><a class="reference internal" href="#titan.Uncertainty.MC_wrapper.log_error"><code class="docutils literal notranslate"><span class="pre">log_​error()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.MC_wrapper.run"><code class="docutils literal notranslate"><span class="pre">run()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.MC_wrapper.update_datafile"><code class="docutils literal notranslate"><span class="pre">update_​datafile()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.MC_wrapper.wrapper"><code class="docutils literal notranslate"><span class="pre">wrapper()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.MC_wrapper.write_datafile"><code class="docutils literal notranslate"><span class="pre">write_​datafile()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Uncertainty.filtering">Filtering</a><ul>
+<li><a class="reference internal" href="#titan.Uncertainty.filtering.FilterPoints"><code class="docutils literal notranslate"><span class="pre">FilterPoints</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Uncertainty.filtering.FilterPoints.predict"><code class="docutils literal notranslate"><span class="pre">FilterPoints​.predict()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.filtering.FilterPoints.update"><code class="docutils literal notranslate"><span class="pre">FilterPoints​.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Uncertainty.mappings">Uncertainty Mappings</a><ul>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.ECI_position_callback"><code class="docutils literal notranslate"><span class="pre">ECI_​position_​callback()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.RIC_callback"><code class="docutils literal notranslate"><span class="pre">RIC_​callback()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.TVN_callback"><code class="docutils literal notranslate"><span class="pre">TVN_​callback()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.assembly_address"><code class="docutils literal notranslate"><span class="pre">assembly_​address()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.available_distris"><code class="docutils literal notranslate"><span class="pre">available_​distris</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.callbacks"><code class="docutils literal notranslate"><span class="pre">callbacks</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.cartesian_callback"><code class="docutils literal notranslate"><span class="pre">cartesian_​callback()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.component_address"><code class="docutils literal notranslate"><span class="pre">component_​address()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.dynamic_attributes_callback"><code class="docutils literal notranslate"><span class="pre">dynamic_​attributes_​callback()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.get_component_index_from_name"><code class="docutils literal notranslate"><span class="pre">get_​component_​index_​from_​name()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.library_addresses"><code class="docutils literal notranslate"><span class="pre">library_​addresses</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.library_assignments"><code class="docutils literal notranslate"><span class="pre">library_​assignments</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.library_check"><code class="docutils literal notranslate"><span class="pre">library_​check()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.option_aero_address"><code class="docutils literal notranslate"><span class="pre">option_​aero_​address()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.option_free_address"><code class="docutils literal notranslate"><span class="pre">option_​free_​address()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.option_traj_address"><code class="docutils literal notranslate"><span class="pre">option_​traj_​address()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.orientation_callback"><code class="docutils literal notranslate"><span class="pre">orientation_​callback()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.quat_rotation"><code class="docutils literal notranslate"><span class="pre">quat_​rotation</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.quat_rotation.rvs"><code class="docutils literal notranslate"><span class="pre">quat_​rotation​.rvs()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.state_vector_callback"><code class="docutils literal notranslate"><span class="pre">state_​vector_​callback()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.symmetrize_inertia_callback"><code class="docutils literal notranslate"><span class="pre">symmetrize_​inertia_​callback()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.mappings.trajectory_address"><code class="docutils literal notranslate"><span class="pre">trajectory_​address()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Uncertainty.measurement">Measurement</a><ul>
+<li><a class="reference internal" href="#titan.Uncertainty.measurement.StateObservation"><code class="docutils literal notranslate"><span class="pre">StateObservation</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Uncertainty.measurement.StateObservation.observe"><code class="docutils literal notranslate"><span class="pre">StateObservation​.observe()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Uncertainty.measurement.measurement_from_state"><code class="docutils literal notranslate"><span class="pre">measurement_​from_​state()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Uncertainty.measurement.measurement_func"><code class="docutils literal notranslate"><span class="pre">measurement_​func()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#uncertainty-utilities">Uncertainty Utilities</a></li>
+</ul></nav>
+  
+    
+
+
+  
+    
+  
+    
+  
+
+</aside></main>
+  </div>
+<footer class="bz-footer">
+  <div class="bz-footer-copyright"><p class="bz-copyright">© Copyright 2026, TITAN Contributors</p><p>
+    
+    
+    
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/aksiome/breeze">Breeze theme</a>.
+    
+  </p>
+</div>
+</footer><a href="#" class="bz-back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>
+    </svg>
+    <span>Back to top</span>
+  </a>
+  <label class="bz-overlay bz-overlay-primary" for="bz-sidebar-primary"></label>
+  <label class="bz-overlay bz-overlay-secondary" for="bz-sidebar-secondary"></label>
+  <input type="checkbox" name="bz-sidebar-primary" id="bz-sidebar-primary" aria-label="Toggle section navigation">
+  <input type="checkbox" name="bz-sidebar-secondary" id="bz-sidebar-secondary" aria-label="Toggle table of contents"><script src="_static/documentation_options.js?v=a06e5c19"></script><script src="_static/doctools.js?v=fd6eb6e6"></script><script src="_static/sphinx_highlight.js?v=6ffebe34"></script></body>
+</html>

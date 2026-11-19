@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Configuration" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="titan.Configuration.html" />
+<meta property="og:site_name" content="TITAN" />
+<meta property="og:description" content="Configuration module - simulation configuration handling Configuration module: configuration module." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="_images/social_previews/summary_titan.Configuration_61bf089c.png" />
+<meta property="og:image:alt" content="Configuration module - simulation configuration handling Configuration module: configuration module." />
+<meta name="description" content="Configuration module - simulation configuration handling Configuration module: configuration module." />
+<meta name="twitter:card" content="summary_large_image" />
+<title>Configuration - TITAN v0.2 &#34;Atlas&#34; documentation</title><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Design" href="titan.Design.html"><link rel="prev" title="Aerothermo" href="titan.Aerothermo.html"><script data-cfasync="false">(function(){
+    const m = localStorage.getItem("breeze-mode") || "auto";
+    const d = document.documentElement.dataset;
+    d.mode = m;
+    d.theme = m === "auto"
+      ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : m;
+  })();
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" /><link rel="stylesheet" type="text/css" href="_static/custom.css?v=3b2811d2" /><link rel="stylesheet" type="text/css" href="_static/styles/breeze.css?v=7c62c100" /><script defer="defer" src="_static/scripts/breeze.js?v=dac9f8c6"></script></head>
+<body>
+  
+  
+  <div class="bz-skip-to-content"><a href="#bz-main-content">Skip to main content</a></div><header class="bz-header-main">
+  <div class="bz-header-start"><a class="bz-header-brand" href="index.html">
+  <img class="only-light" src="_static/titan_icon_light.png" alt="TITAN" />
+  <img class="only-dark" src="_static/titan_icon_dark.png" alt="TITAN" />
+  <span>TITAN v0.2 "Atlas" documentation</span>
+</a>
+  </div>
+  <div class="bz-header-end"><div id="docsearch" class="bz-search-button">
+  <a
+    href="search.html#q"
+    aria-label="Search the docs"
+    data-tooltip="Search the docs"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 -1 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+      />
+    </svg>
+    <span>Search</span>
+    <kbd>Ctrl+K</kbd>
+  </a>
+</div><div class="bz-theme-switcher">
+  <button aria-label="Switch theme" data-tooltip="Switch theme">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-light" fill="currentColor">
+      <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061ZM2.343 2.343a.75.75 0 0 1 1.061 0l1.06 1.061a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-1.06-1.06a.75.75 0 0 1 0-1.06Z"></path>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-dark" fill="currentColor">
+      <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z"></path>
+    </svg>
+  </button>
+</div>
+  </div>
+</header><nav class="bz-header-tabs" aria-label="Primary Navigation"><label
+  class="bz-sidebar-primary-toggle"
+  for="bz-sidebar-primary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle site navigation"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h12.5"
+    />
+  </svg>
+</label><ul><li class="toctree-l1"><a class="reference internal" href="titan.html">Docs</a></li><li class="toctree-l1"><a class="reference internal" href="titan.html#module-titan.__main__">Main Functions</a></li><li class="toctree-l1 current"><a class="reference internal" href="titan.html#api-reference">API Reference</a></li></ul><div class="bz-dropdown">
+    <button aria-haspopup="true" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="1" />
+          <circle cx="19" cy="12" r="1" />
+          <circle cx="5" cy="12" r="1" />
+        </g>
+      </svg>
+    </button>
+    <ul role="menu" aria-hidden="true"></ul>
+  </div>
+</nav><hr class="bz-header-hr">
+  <div class="bz-content"><aside class="bz-sidebar-primary" data-drawer="bz-sidebar-primary">
+  
+  
+    <nav class="bz-sidebar-nav" aria-label="Section Navigation"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="titan.Aerothermo.html">Aerothermo</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Dynamics.html">Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Explosion.html">Explosion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Forces.html">Forces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Fragmentation.html">Fragmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Freestream.html">Freestream package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Geometry.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Material.html">Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Output.html">Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Postprocess.html">Postprocess</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Structural.html">Structural</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Thermal.html">Thermal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Uncertainty.html">Uncertainty</a></li>
+</ul>
+</nav>
+  
+
+</aside><main id="bz-main-content"><header class="bz-article-header">
+  
+  
+    <nav class="bz-breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li class="bz-breadcrumbs-home">
+      <a href="index.html" aria-label="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8.543 2.232a.75.75 0 0 0-1.085 0l-5.25 5.5A.75.75 0 0 0 2.75 9H4v4a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9h1.25a.75.75 0 0 0 .543-1.268l-5.25-5.5Z" />
+        </svg>
+      </a>
+    </li><li class="bz-breadcrumbs-parent">
+      <a href="titan.html">Docs</a>
+    </li><li class="bz-breadcrumbs-current">
+      <span>Configuration</span>
+    </li>
+  </ol>
+</nav>
+  
+<label
+  class="bz-sidebar-secondary-toggle"
+  for="bz-sidebar-secondary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle table of contents"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75H20.25 M11.25 12H20.25 M7.75 17.25H20.25"
+    />
+  </svg>
+</label></header><article class="bz-article-main" role="main"><div class="bz-page-actions" role="group" aria-label="Page actions">
+  <button data-copy-source="_sources/titan.Configuration.rst.txt">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+    <span>Copy page</span>
+  </button>
+  <div class="bz-dropdown">
+    <button
+      aria-label="More actions"
+      aria-haspopup="true"
+      aria-expanded="false"
+    ></button>
+    <ul role="menu" aria-hidden="true">
+      <li>
+        <a href="#" role="menuitem" data-copy-source="_sources/titan.Configuration.rst.txt">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+          <span>Copy page</span>
+        </a>
+      </li>
+      <li>
+        <a href="_sources/titan.Configuration.rst.txt" role="menuitem" class="bz-page-actions-external" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3a2 2 0 0 1 2-2h9.982a2 2 0 0 1 1.414.586l4.018 4.018A2 2 0 0 1 21 7.018V21a2 2 0 0 1-2 2H4.75a.75.75 0 0 1 0-1.5H19a.5.5 0 0 0 .5-.5V8.5h-4a2 2 0 0 1-2-2v-4H5a.5.5 0 0 0-.5.5v6.25a.75.75 0 0 1-1.5 0Zm12-.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 0-.146-.336l-4.018-4.018A.5.5 0 0 0 15 2.5Z"></path><path d="M4.53 12.24a.75.75 0 0 1-.039 1.06l-2.639 2.45 2.64 2.45a.75.75 0 1 1-1.022 1.1l-3.23-3a.75.75 0 0 1 0-1.1l3.23-3a.75.75 0 0 1 1.06.04Zm3.979 1.06a.75.75 0 1 1 1.02-1.1l3.231 3a.75.75 0 0 1 0 1.1l-3.23 3a.75.75 0 1 1-1.021-1.1l2.639-2.45-2.64-2.45Z"></path></svg>
+          <span>View source</span>
+        </a>
+      </li></ul>
+  </div>
+</div><section id="module-titan.Configuration">
+<span id="configuration"></span><h1>Configuration<a class="headerlink" href="#module-titan.Configuration" title="Link to this heading">#</a></h1>
+<p>Configuration module - simulation configuration handling</p>
+<section id="module-titan.Configuration.configuration">
+<span id="configuration-module"></span><h2>Configuration module<a class="headerlink" href="#module-titan.Configuration.configuration" title="Link to this heading">#</a></h2>
+<p>configuration module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Aerothermo">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Aerothermo</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">heat_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vd'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">knc_pressure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">knc_heatflux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">knf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">mixture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'air5'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">SoI_rad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Aerothermo" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Aerothermo class</p>
+<p>A class to store the user-defined aerothemo model options</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Aerothermo.SoI_rad">
+<span class="sig-name descname"><span class="pre">SoI_rad</span></span><a class="headerlink" href="#titan.Configuration.configuration.Aerothermo.SoI_rad" title="Link to this definition">#</a></dt>
+<dd><p>[float] Raytrace sphere of influence radius</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Aerothermo.heat_model">
+<span class="sig-name descname"><span class="pre">heat_model</span></span><a class="headerlink" href="#titan.Configuration.configuration.Aerothermo.heat_model" title="Link to this definition">#</a></dt>
+<dd><p>[str] Name of the heatflux model to be used</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Aerothermo.knc_heatflux">
+<span class="sig-name descname"><span class="pre">knc_heatflux</span></span><a class="headerlink" href="#titan.Configuration.configuration.Aerothermo.knc_heatflux" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of the continuum knudsen for the heatflux computation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Aerothermo.knc_pressure">
+<span class="sig-name descname"><span class="pre">knc_pressure</span></span><a class="headerlink" href="#titan.Configuration.configuration.Aerothermo.knc_pressure" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of the continuum knudsen for the pressure computation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Aerothermo.knf">
+<span class="sig-name descname"><span class="pre">knf</span></span><a class="headerlink" href="#titan.Configuration.configuration.Aerothermo.knf" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of the free-molecular knudsen</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Aerothermo.mixture">
+<span class="sig-name descname"><span class="pre">mixture</span></span><a class="headerlink" href="#titan.Configuration.configuration.Aerothermo.mixture" title="Link to this definition">#</a></dt>
+<dd><p>[str] Mixture file name</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Aerothermo.recalculate_Aref">
+<span class="sig-name descname"><span class="pre">recalculate_Aref</span></span><a class="headerlink" href="#titan.Configuration.configuration.Aerothermo.recalculate_Aref" title="Link to this definition">#</a></dt>
+<dd><p>[bool] Whether to recalculate the reference area at each ray tracing step (good for accurate Cd/Cl prediction)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Aerothermo.recalculate_Lref">
+<span class="sig-name descname"><span class="pre">recalculate_Lref</span></span><a class="headerlink" href="#titan.Configuration.configuration.Aerothermo.recalculate_Lref" title="Link to this definition">#</a></dt>
+<dd><p>[bool] Whether to recalculate the reference length at each ray tracing step (good for high aspect ratio tumbling)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Amg">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Amg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hgrad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Mach'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Amg" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Amg.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Amg.c">
+<span class="sig-name descname"><span class="pre">c</span></span><a class="headerlink" href="#titan.Configuration.configuration.Amg.c" title="Link to this definition">#</a></dt>
+<dd><p>[int] Value of the complex number for mesh adaptation:
+an higher complex number increases the size of the vertex</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Amg.flag">
+<span class="sig-name descname"><span class="pre">flag</span></span><a class="headerlink" href="#titan.Configuration.configuration.Amg.flag" title="Link to this definition">#</a></dt>
+<dd><p>[bool] Flag value indicating the use of Bloom to adapt the mesh</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Amg.hgrad">
+<span class="sig-name descname"><span class="pre">hgrad</span></span><a class="headerlink" href="#titan.Configuration.configuration.Amg.hgrad" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of the hgrad</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Amg.p">
+<span class="sig-name descname"><span class="pre">p</span></span><a class="headerlink" href="#titan.Configuration.configuration.Amg.p" title="Link to this definition">#</a></dt>
+<dd><p>[int] Value of the p-norm (options - 1, 2, 4).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Amg.sensor">
+<span class="sig-name descname"><span class="pre">sensor</span></span><a class="headerlink" href="#titan.Configuration.configuration.Amg.sensor" title="Link to this definition">#</a></dt>
+<dd><p>[str] Name of the sensor field to be used in the adaptation</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Bloom">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Bloom</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0006</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">growth_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.075</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Bloom" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Bloom.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Bloom.flag">
+<span class="sig-name descname"><span class="pre">flag</span></span><a class="headerlink" href="#titan.Configuration.configuration.Bloom.flag" title="Link to this definition">#</a></dt>
+<dd><p>[bool] Flag value indicating the use of Bloom to generate the boundary layer mesh</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Bloom.growth_rate">
+<span class="sig-name descname"><span class="pre">growth_rate</span></span><a class="headerlink" href="#titan.Configuration.configuration.Bloom.growth_rate" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of the growth rate, starting at the first element</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Bloom.layers">
+<span class="sig-name descname"><span class="pre">layers</span></span><a class="headerlink" href="#titan.Configuration.configuration.Bloom.layers" title="Link to this definition">#</a></dt>
+<dd><p>[int] Number of Layers in the boundary layer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Bloom.spacing">
+<span class="sig-name descname"><span class="pre">spacing</span></span><a class="headerlink" href="#titan.Configuration.configuration.Bloom.spacing" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of spacing of the first element in the boundary layer</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.CFD">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">CFD</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NAVIER_STOKES'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">cfl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">muscl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NO'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">conv_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'AUSM'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">adapt_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">cfd_restart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">restart_grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">restart_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.CFD" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>CFD.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.CFD.adapt_iter">
+<span class="sig-name descname"><span class="pre">adapt_iter</span></span><a class="headerlink" href="#titan.Configuration.configuration.CFD.adapt_iter" title="Link to this definition">#</a></dt>
+<dd><p>[int] Number of mesh adaptations</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.CFD.cfd_restart">
+<span class="sig-name descname"><span class="pre">cfd_restart</span></span><a class="headerlink" href="#titan.Configuration.configuration.CFD.cfd_restart" title="Link to this definition">#</a></dt>
+<dd><p>[bool] Flag to restart from a CFD solution</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.CFD.cfl">
+<span class="sig-name descname"><span class="pre">cfl</span></span><a class="headerlink" href="#titan.Configuration.configuration.CFD.cfl" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of CFL</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.CFD.conv_method">
+<span class="sig-name descname"><span class="pre">conv_method</span></span><a class="headerlink" href="#titan.Configuration.configuration.CFD.conv_method" title="Link to this definition">#</a></dt>
+<dd><p>[str] Name of the convective scheme</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.CFD.cores">
+<span class="sig-name descname"><span class="pre">cores</span></span><a class="headerlink" href="#titan.Configuration.configuration.CFD.cores" title="Link to this definition">#</a></dt>
+<dd><p>[int] Number of cores to run the CFD simulation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.CFD.iters">
+<span class="sig-name descname"><span class="pre">iters</span></span><a class="headerlink" href="#titan.Configuration.configuration.CFD.iters" title="Link to this definition">#</a></dt>
+<dd><p>[int] Maximum number of CFD iterations</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.CFD.muscl">
+<span class="sig-name descname"><span class="pre">muscl</span></span><a class="headerlink" href="#titan.Configuration.configuration.CFD.muscl" title="Link to this definition">#</a></dt>
+<dd><p>[bool] Flag value indicating MUSCL reconstruction</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.CFD.restart_grid">
+<span class="sig-name descname"><span class="pre">restart_grid</span></span><a class="headerlink" href="#titan.Configuration.configuration.CFD.restart_grid" title="Link to this definition">#</a></dt>
+<dd><p>[bool] Iteration of adaptated grid to be used at restart of a CFD simulation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.CFD.restart_iter">
+<span class="sig-name descname"><span class="pre">restart_iter</span></span><a class="headerlink" href="#titan.Configuration.configuration.CFD.restart_iter" title="Link to this definition">#</a></dt>
+<dd><p>[bool] TITAN iteration to be used for the restart of a CFD simulation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.CFD.solver">
+<span class="sig-name descname"><span class="pre">solver</span></span><a class="headerlink" href="#titan.Configuration.configuration.CFD.solver" title="Link to this definition">#</a></dt>
+<dd><p>[str] Name of the CFD solver</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Collision_options">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Collision_options</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">post_fragmentation_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">post_fragmentation_timestep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">elastic_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">mesh_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Collision_options" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Store collision detection and response settings.</p>
+<p>The options control collision activation, post-fragmentation stepping,
+restitution, contact stabilization, and collision-mesh tolerances.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.DSMC">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">DSMC</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'automatic'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">acc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ppc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">run_adapt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">run_unsteady</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">run_sample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">stats_freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">Nrepeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">Nevery</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">Nadapt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">Ntotal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.DSMC" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Dynamics">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Dynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">propagator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'help'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Dynamics" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Dynamics class</p>
+<p>A class to store the user-defined dynamics options for the simulation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Dynamics.n_derivs_to_hold">
+<span class="sig-name descname"><span class="pre">n_derivs_to_hold</span></span><a class="headerlink" href="#titan.Configuration.configuration.Dynamics.n_derivs_to_hold" title="Link to this definition">#</a></dt>
+<dd><p>[int] Number of previous derivatives to hold</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Dynamics.n_states_to_hold">
+<span class="sig-name descname"><span class="pre">n_states_to_hold</span></span><a class="headerlink" href="#titan.Configuration.configuration.Dynamics.n_states_to_hold" title="Link to this definition">#</a></dt>
+<dd><p>[int] Number of previous states to hold</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Dynamics.prop_func">
+<span class="sig-name descname"><span class="pre">prop_func</span></span><a class="headerlink" href="#titan.Configuration.configuration.Dynamics.prop_func" title="Link to this definition">#</a></dt>
+<dd><p>[callable] The function that is called for propagation,</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Dynamics.propagator">
+<span class="sig-name descname"><span class="pre">propagator</span></span><a class="headerlink" href="#titan.Configuration.configuration.Dynamics.propagator" title="Link to this definition">#</a></dt>
+<dd><p>[str] Name of the propagator to be used in the dynamics (options - euler, ).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Dynamics.time">
+<span class="sig-name descname"><span class="pre">time</span></span><a class="headerlink" href="#titan.Configuration.configuration.Dynamics.time" title="Link to this definition">#</a></dt>
+<dd><p>[seconds] Physical time of the simulation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Dynamics.time_step">
+<span class="sig-name descname"><span class="pre">time_step</span></span><a class="headerlink" href="#titan.Configuration.configuration.Dynamics.time_step" title="Link to this definition">#</a></dt>
+<dd><p>[seconds] Value of the time-step.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Dynamics.trajectory_frame">
+<span class="sig-name descname"><span class="pre">trajectory_frame</span></span><a class="headerlink" href="#titan.Configuration.configuration.Dynamics.trajectory_frame" title="Link to this definition">#</a></dt>
+<dd><p>[ECEF/Geodetic] Frame of specified input state</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Explosion">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Explosion</span></span><a class="headerlink" href="#titan.Configuration.configuration.Explosion" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Explosion class</p>
+<p>A class to store the user-defined explosion model options</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Fenics">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Fenics</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">68000000000.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">FENICS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">FE_MPI</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">FE_MPI_cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">FE_verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Fenics" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>FEniCS class</p>
+<p>Class to store the user-defined information for the structural dynamics simulation using FEniCS</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Fenics.E">
+<span class="sig-name descname"><span class="pre">E</span></span><a class="headerlink" href="#titan.Configuration.configuration.Fenics.E" title="Link to this definition">#</a></dt>
+<dd><p>[Pa] Young Modulus</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Fenics.FE_MPI">
+<span class="sig-name descname"><span class="pre">FE_MPI</span></span><a class="headerlink" href="#titan.Configuration.configuration.Fenics.FE_MPI" title="Link to this definition">#</a></dt>
+<dd><p>[bool] Flag value indicating if MPI is to be used for FEniCS</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Fenics.FE_MPI_cores">
+<span class="sig-name descname"><span class="pre">FE_MPI_cores</span></span><a class="headerlink" href="#titan.Configuration.configuration.Fenics.FE_MPI_cores" title="Link to this definition">#</a></dt>
+<dd><p>[int] Flag value indicating the number of cores if <strong>FE_MPI=True</strong></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Fenics.FE_verbose">
+<span class="sig-name descname"><span class="pre">FE_verbose</span></span><a class="headerlink" href="#titan.Configuration.configuration.Fenics.FE_verbose" title="Link to this definition">#</a></dt>
+<dd><p>[bool] Flag value indicating the verbosity of FEniCS solver</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Freestream</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Freestream class</p>
+<p>A class to store the user-defined freestream properties per time iteration</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.R">
+<span class="sig-name descname"><span class="pre">R</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.R" title="Link to this definition">#</a></dt>
+<dd><p>[ ?? ] Value of the Gas constant</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.Temperature">
+<span class="sig-name descname"><span class="pre">Temperature</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.Temperature" title="Link to this definition">#</a></dt>
+<dd><p>[kelvin] Value of the freestream temperature</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.Velocity">
+<span class="sig-name descname"><span class="pre">Velocity</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.Velocity" title="Link to this definition">#</a></dt>
+<dd><p>[m/s] Value of the freestream velocity</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.density_mult">
+<span class="sig-name descname"><span class="pre">density_mult</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.density_mult" title="Link to this definition">#</a></dt>
+<dd><p>[float] Multiplier of density, used for atmospheric variation, assigned by UQ mapping</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.gamma">
+<span class="sig-name descname"><span class="pre">gamma</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.gamma" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of the freestream specific heat ratio</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.knudsen">
+<span class="sig-name descname"><span class="pre">knudsen</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.knudsen" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of the freestream knudsen</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.mach">
+<span class="sig-name descname"><span class="pre">mach</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.mach" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of the freestream Mach number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.method">
+<span class="sig-name descname"><span class="pre">method</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.method" title="Link to this definition">#</a></dt>
+<dd><p>Selection of freestream calculation method (Mutationpp, default = Standard)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.mfp">
+<span class="sig-name descname"><span class="pre">mfp</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.mfp" title="Link to this definition">#</a></dt>
+<dd><p>[ ?? ]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.model" title="Link to this definition">#</a></dt>
+<dd><p>[ ?? ]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.muEC">
+<span class="sig-name descname"><span class="pre">muEC</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.muEC" title="Link to this definition">#</a></dt>
+<dd><p>[ ?? ]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.muSu">
+<span class="sig-name descname"><span class="pre">muSu</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.muSu" title="Link to this definition">#</a></dt>
+<dd><p>[ ?? ]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.ninf">
+<span class="sig-name descname"><span class="pre">ninf</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.ninf" title="Link to this definition">#</a></dt>
+<dd><p>[ ?? ]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.omega">
+<span class="sig-name descname"><span class="pre">omega</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.omega" title="Link to this definition">#</a></dt>
+<dd><p>[ ?? ]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.per_facet_mach">
+<span class="sig-name descname"><span class="pre">per_facet_mach</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.per_facet_mach" title="Link to this definition">#</a></dt>
+<dd><p>Necessary for addition of relative velocity to mach number, calculated in aerothermo.py</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.percent_gas">
+<span class="sig-name descname"><span class="pre">percent_gas</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.percent_gas" title="Link to this definition">#</a></dt>
+<dd><p>[ ?? ]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.prandtl">
+<span class="sig-name descname"><span class="pre">prandtl</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.prandtl" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of the freestream prandtl</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.pressure">
+<span class="sig-name descname"><span class="pre">pressure</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.pressure" title="Link to this definition">#</a></dt>
+<dd><p>[Pa] Value of the freestream Pressure</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Freestream.rho">
+<span class="sig-name descname"><span class="pre">rho</span></span><a class="headerlink" href="#titan.Configuration.configuration.Freestream.rho" title="Link to this definition">#</a></dt>
+<dd><p>[kg/m^3] Value of the freestream density</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.GRAM">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">GRAM</span></span><a class="headerlink" href="#titan.Configuration.configuration.GRAM" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>GRAM Class</p>
+<p>A class to store input parameters used to configurea NASA GRAM (Global Reference Atmospheric Model)</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Meshing">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Meshing</span></span><a class="headerlink" href="#titan.Configuration.configuration.Meshing" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Hold mesh-size settings for surface and far-field regions.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Options</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">fidelity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Low'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">fenics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">FE_MPI</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">FE_MPI_cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">FE_verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'benchmark'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">68000000000.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">output_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'TITAN_sol'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">propagator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Euler'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">adapt_propagator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">assembly_rotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">manifold_correction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">adapt_time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">rerr_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">num_joints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">frame_for_writing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'W'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">max_time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">save_displacement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">save_vonMises</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Options" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Options class</p>
+<p>A class that keeps the information of the selected user-defined options for all the disciplinary
+areas and methods required to run the simulation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.aerothermo">
+<span class="sig-name descname"><span class="pre">aerothermo</span></span><a class="headerlink" href="#titan.Configuration.configuration.Options.aerothermo" title="Link to this definition">#</a></dt>
+<dd><p>[<a class="reference internal" href="#titan.Configuration.configuration.Aerothermo" title="titan.Configuration.configuration.Aerothermo"><code class="xref py py-class docutils literal notranslate"><span class="pre">Aerothermo</span></code></a>] Object of class Aerothermo</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.clean_up_folders">
+<span class="sig-name descname"><span class="pre">clean_up_folders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Options.clean_up_folders" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param iters: Value for iters.
+:type iters: Any
+:param time_step: Value for time step.
+:type time_step: Any
+:param fidelity: Value for fidelity.
+:type fidelity: Any
+:param fenics: Value for fenics.
+:type fenics: Any
+:param FE_MPI: Value for fe mpi.
+:type FE_MPI: Any
+:param FE_MPI_cores: Value for fe mpi cores.
+:type FE_MPI_cores: Any
+:param FE_verbose: Value for fe verbose.
+:type FE_verbose: Any
+:param case: Value for case.
+:type case: Any
+:param E: Value for e.
+:type E: Any
+:param output_folder: Value for output folder.
+:type output_folder: Any
+:param propagator: Value for propagator.
+:type propagator: Any
+:param adapt_propagator: Value for adapt propagator.
+:type adapt_propagator: Any
+:param assembly_rotation: Value for assembly rotation.
+:type assembly_rotation: Any
+:param manifold_correction: Value for manifold correction.
+:type manifold_correction: Any
+:param adapt_time_step: Value for adapt time step.
+:type adapt_time_step: Any
+:param rerr_tol: Value for rerr tol.
+:type rerr_tol: Any
+:param num_joints: Integer value for num joints.
+:type num_joints: int
+:param frame_for_writing: Value for frame for writing.
+:type frame_for_writing: Any
+:param max_time_step: Value for max time step.
+:type max_time_step: Any
+:param save_displacement: Value for save displacement.
+:type save_displacement: Any
+:param save_vonMises: Value for save vonmises.
+:type save_vonMises: Any</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.create_output_folders">
+<span class="sig-name descname"><span class="pre">create_output_folders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Options.create_output_folders" title="Link to this definition">#</a></dt>
+<dd><p>Creates the folder structure to save the soluions</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.current_iter">
+<span class="sig-name descname"><span class="pre">current_iter</span></span><a class="headerlink" href="#titan.Configuration.configuration.Options.current_iter" title="Link to this definition">#</a></dt>
+<dd><p>[int] Current iteration</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.dynamics">
+<span class="sig-name descname"><span class="pre">dynamics</span></span><a class="headerlink" href="#titan.Configuration.configuration.Options.dynamics" title="Link to this definition">#</a></dt>
+<dd><p>[<a class="reference internal" href="#titan.Configuration.configuration.Dynamics" title="titan.Configuration.configuration.Dynamics"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dynamics</span></code></a>] Object of class Dynamics</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.fenics">
+<span class="sig-name descname"><span class="pre">fenics</span></span><a class="headerlink" href="#titan.Configuration.configuration.Options.fenics" title="Link to this definition">#</a></dt>
+<dd><p>[<a class="reference internal" href="#titan.Configuration.configuration.Fenics" title="titan.Configuration.configuration.Fenics"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fenics</span></code></a>] Object of class Fenics</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.fidelity">
+<span class="sig-name descname"><span class="pre">fidelity</span></span><a class="headerlink" href="#titan.Configuration.configuration.Options.fidelity" title="Link to this definition">#</a></dt>
+<dd><p>[str] Fidelity of the aerothermo calculation (Low - Default, High, Hybrid)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.freestream">
+<span class="sig-name descname"><span class="pre">freestream</span></span><a class="headerlink" href="#titan.Configuration.configuration.Options.freestream" title="Link to this definition">#</a></dt>
+<dd><p>[<a class="reference internal" href="#titan.Configuration.configuration.Freestream" title="titan.Configuration.configuration.Freestream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Freestream</span></code></a>] Object of class Freestream</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.iters">
+<span class="sig-name descname"><span class="pre">iters</span></span><a class="headerlink" href="#titan.Configuration.configuration.Options.iters" title="Link to this definition">#</a></dt>
+<dd><p>[int] Number of dynamic iterations</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.output_freq">
+<span class="sig-name descname"><span class="pre">output_freq</span></span><a class="headerlink" href="#titan.Configuration.configuration.Options.output_freq" title="Link to this definition">#</a></dt>
+<dd><p>[int] Frequency of generating the output surface solution [per number of iterations]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.read_mesh">
+<span class="sig-name descname"><span class="pre">read_mesh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Options.read_mesh" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.read_state">
+<span class="sig-name descname"><span class="pre">read_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Options.read_state" title="Link to this definition">#</a></dt>
+<dd><p>Load last state of the TITAN object
+:param i: Integer value for i.
+:type i: int
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.save_freq">
+<span class="sig-name descname"><span class="pre">save_freq</span></span><a class="headerlink" href="#titan.Configuration.configuration.Options.save_freq" title="Link to this definition">#</a></dt>
+<dd><p>[int] Frequency of generating a restart file [per number of iterations]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.save_mesh">
+<span class="sig-name descname"><span class="pre">save_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Options.save_mesh" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.save_state">
+<span class="sig-name descname"><span class="pre">save_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CFD</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Options.save_state" title="Link to this definition">#</a></dt>
+<dd><p>Saves the TITAN object state
+:param titan: TITAN simulation object.
+:type titan: object
+:param i: Integer value for i.
+:type i: int
+:param CFD: Value for cfd.
+:type CFD: Any</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.structural_dynamics">
+<span class="sig-name descname"><span class="pre">structural_dynamics</span></span><a class="headerlink" href="#titan.Configuration.configuration.Options.structural_dynamics" title="Link to this definition">#</a></dt>
+<dd><p>[boolean] Flag to perform structural dynamics</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Options.time_fidelity">
+<span class="sig-name descname"><span class="pre">time_fidelity</span></span><a class="headerlink" href="#titan.Configuration.configuration.Options.time_fidelity" title="Link to this definition">#</a></dt>
+<dd><p>[float] Maximal time between dynamical outputs written to data_smooth.csv (seconds), disabled if 0.0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.PATO">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">PATO</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">n_cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">pato_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'qconv'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">fstrip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">conduction_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.PATO" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>PATO.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.PATO.Ta_bc">
+<span class="sig-name descname"><span class="pre">Ta_bc</span></span><a class="headerlink" href="#titan.Configuration.configuration.PATO.Ta_bc" title="Link to this definition">#</a></dt>
+<dd><p>[int] String to define type of boundary condition used in the PATO simulation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.PATO.conduction_flag">
+<span class="sig-name descname"><span class="pre">conduction_flag</span></span><a class="headerlink" href="#titan.Configuration.configuration.PATO.conduction_flag" title="Link to this definition">#</a></dt>
+<dd><p>[boolean] Flag to model heat conduction between objects</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.PATO.flag">
+<span class="sig-name descname"><span class="pre">flag</span></span><a class="headerlink" href="#titan.Configuration.configuration.PATO.flag" title="Link to this definition">#</a></dt>
+<dd><p>[boolean] Flag to perform PATO simulation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.PATO.n_cores">
+<span class="sig-name descname"><span class="pre">n_cores</span></span><a class="headerlink" href="#titan.Configuration.configuration.PATO.n_cores" title="Link to this definition">#</a></dt>
+<dd><p>[int] Number of cores to perform PATO simulation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.PATO.time_step">
+<span class="sig-name descname"><span class="pre">time_step</span></span><a class="headerlink" href="#titan.Configuration.configuration.PATO.time_step" title="Link to this definition">#</a></dt>
+<dd><p>[boolean] Flag to perform PATO simulation</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Radiation">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Radiation</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">particle_emissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">spectral</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">spectral_freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">phi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">theta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">wavelengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0]</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Radiation" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Radiation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Radiation.particle_emissions">
+<span class="sig-name descname"><span class="pre">particle_emissions</span></span><a class="headerlink" href="#titan.Configuration.configuration.Radiation.particle_emissions" title="Link to this definition">#</a></dt>
+<dd><p>[boolean] Flag to compute particle emissions</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Radiation.spectral">
+<span class="sig-name descname"><span class="pre">spectral</span></span><a class="headerlink" href="#titan.Configuration.configuration.Radiation.spectral" title="Link to this definition">#</a></dt>
+<dd><p>[boolean] Flag to compute spectral emissions</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Radiation.spectral_freq">
+<span class="sig-name descname"><span class="pre">spectral_freq</span></span><a class="headerlink" href="#titan.Configuration.configuration.Radiation.spectral_freq" title="Link to this definition">#</a></dt>
+<dd><p>[int] Frequency to compute spectral emissions</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Thermal">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Thermal</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">ablation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ablation_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0D'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">post_fragment_tetra_ablation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Thermal" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Thermal.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Thermal.ablation">
+<span class="sig-name descname"><span class="pre">ablation</span></span><a class="headerlink" href="#titan.Configuration.configuration.Thermal.ablation" title="Link to this definition">#</a></dt>
+<dd><p>[boolean] Flag to perform ablation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Thermal.ablation_mode">
+<span class="sig-name descname"><span class="pre">ablation_mode</span></span><a class="headerlink" href="#titan.Configuration.configuration.Thermal.ablation_mode" title="Link to this definition">#</a></dt>
+<dd><p>[str] Ablation Model (0D, tetra)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Trajectory">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Trajectory</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">altitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">chi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">velocity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Trajectory" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represent the user-defined trajectory state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>altitude</strong> – Geodetic altitude in metres.</p></li>
+<li><p><strong>gamma</strong> – Flight-path angle in radians.</p></li>
+<li><p><strong>chi</strong> – Heading angle in radians.</p></li>
+<li><p><strong>velocity</strong> – Velocity magnitude in metres per second.</p></li>
+<li><p><strong>latitude</strong> – Geodetic latitude in radians.</p></li>
+<li><p><strong>longitude</strong> – Geodetic longitude in radians.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Trajectory.altitude">
+<span class="sig-name descname"><span class="pre">altitude</span></span><a class="headerlink" href="#titan.Configuration.configuration.Trajectory.altitude" title="Link to this definition">#</a></dt>
+<dd><p>[meters] Altitude value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Trajectory.chi">
+<span class="sig-name descname"><span class="pre">chi</span></span><a class="headerlink" href="#titan.Configuration.configuration.Trajectory.chi" title="Link to this definition">#</a></dt>
+<dd><p>[radians] Heading Angle value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Trajectory.gamma">
+<span class="sig-name descname"><span class="pre">gamma</span></span><a class="headerlink" href="#titan.Configuration.configuration.Trajectory.gamma" title="Link to this definition">#</a></dt>
+<dd><p>[radians] Flight Path Angle value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Trajectory.latitude">
+<span class="sig-name descname"><span class="pre">latitude</span></span><a class="headerlink" href="#titan.Configuration.configuration.Trajectory.latitude" title="Link to this definition">#</a></dt>
+<dd><p>[radians] Latitude value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Trajectory.longitude">
+<span class="sig-name descname"><span class="pre">longitude</span></span><a class="headerlink" href="#titan.Configuration.configuration.Trajectory.longitude" title="Link to this definition">#</a></dt>
+<dd><p>[radians] Longitude value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Trajectory.velocity">
+<span class="sig-name descname"><span class="pre">velocity</span></span><a class="headerlink" href="#titan.Configuration.configuration.Trajectory.velocity" title="Link to this definition">#</a></dt>
+<dd><p>[meters/second] Velocity value.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Uncertainty">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">Uncertainty</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">yaml_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./Uncertainty/uq_example.yaml'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">master_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">n_procs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Uncertainty" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Uncertainty.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.Uncertainty.build_quantities">
+<span class="sig-name descname"><span class="pre">build_quantities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.Uncertainty.build_quantities" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param path: Value for path.
+:type path: str</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.check_angle">
+<span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">check_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.check_angle" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param keywords: Value for keywords.
+:type keywords: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.check_connectivity">
+<span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">check_connectivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connectivity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.check_connectivity" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param connectivity: Value for connectivity.
+:type connectivity: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.check_fidelity">
+<span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">check_fidelity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fidelity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.check_fidelity" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param fidelity: Value for fidelity.
+:type fidelity: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.check_initial_condition_array">
+<span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">check_initial_condition_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_condition</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.check_initial_condition_array" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param initial_condition: Value for initial condition.
+:type initial_condition: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.check_wavelengths">
+<span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">check_wavelengths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavelengths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.check_wavelengths" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param wavelengths: Value for wavelengths.
+:type wavelengths: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.get_config_value">
+<span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">get_config_value</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">configParser</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">variable</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">section</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">var_type</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">list_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.get_config_value" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param configParser: Value for configparser.
+:type configParser: Any
+:param variable: Value for variable.
+:type variable: Any
+:param section: Value for section.
+:type section: Any
+:param field: Value for field.
+:type field: Any
+:param var_type: Value for var type.
+:type var_type: Any
+:param list_type: Value for list type.
+:type list_type: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.read_config_file">
+<span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">read_config_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configParser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.read_config_file" title="Link to this definition">#</a></dt>
+<dd><p>Read the config file
+:param configParser: Value for configparser.
+:type configParser: Any
+:param postprocess: Value for postprocess.
+:type postprocess: Any
+:param emissions: Value for emissions.
+:type emissions: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.read_geometry">
+<span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">read_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configParser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.read_geometry" title="Link to this definition">#</a></dt>
+<dd><p>Geometry pre-processing
+:param configParser: Value for configparser.
+:type configParser: Any
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.read_initial_conditions">
+<span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">read_initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">configParser</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.read_initial_conditions" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param titan: TITAN simulation object.
+:type titan: object
+:param options: Options or configuration object.
+:type options: Options
+:param configParser: Value for configparser.
+:type configParser: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Configuration.configuration.read_trajectory">
+<span class="sig-prename descclassname"><span class="pre">titan.Configuration.configuration.</span></span><span class="sig-name descname"><span class="pre">read_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configParser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">planet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Configuration.configuration.read_trajectory" title="Link to this definition">#</a></dt>
+<dd><p>Read the Trajectory specified in the config file
+:param configParser: Value for configparser.
+:type configParser: Any
+:param frame: Value for frame.
+:type frame: Any
+:param planet: Value for planet.
+:type planet: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+</section>
+</section>
+
+</article><footer class="bz-article-footer">
+  
+  
+    <nav class="bz-related-pages" aria-label="Related pages navigation"><a class="bz-related-pages-previous" href="titan.Aerothermo.html" rel="prev">
+    <span>Previous</span><span class="bz-related-pages-title">Aerothermo</span></a><a class="bz-related-pages-next" href="titan.Design.html" rel="next">
+    <span>Next</span>
+    <span class="bz-related-pages-title">Design</span>
+  </a></nav>
+  
+
+</footer><aside class="bz-sidebar-secondary" data-drawer="bz-sidebar-secondary">
+  
+  
+    <nav class="bz-sidebar-toc" aria-label="Table of contents">
+  <p>On this page</p><ul>
+<li><a class="reference internal" href="#module-titan.Configuration.configuration">Configuration module</a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Aerothermo"><code class="docutils literal notranslate"><span class="pre">Aerothermo</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Aerothermo.SoI_rad"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.SoI_​rad</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Aerothermo.heat_model"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.heat_​model</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Aerothermo.knc_heatflux"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.knc_​heatflux</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Aerothermo.knc_pressure"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.knc_​pressure</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Aerothermo.knf"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.knf</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Aerothermo.mixture"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.mixture</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Aerothermo.recalculate_Aref"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.recalculate_​Aref</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Aerothermo.recalculate_Lref"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.recalculate_​Lref</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Amg"><code class="docutils literal notranslate"><span class="pre">Amg</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Amg.c"><code class="docutils literal notranslate"><span class="pre">Amg​.c</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Amg.flag"><code class="docutils literal notranslate"><span class="pre">Amg​.flag</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Amg.hgrad"><code class="docutils literal notranslate"><span class="pre">Amg​.hgrad</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Amg.p"><code class="docutils literal notranslate"><span class="pre">Amg​.p</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Amg.sensor"><code class="docutils literal notranslate"><span class="pre">Amg​.sensor</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Bloom"><code class="docutils literal notranslate"><span class="pre">Bloom</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Bloom.flag"><code class="docutils literal notranslate"><span class="pre">Bloom​.flag</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Bloom.growth_rate"><code class="docutils literal notranslate"><span class="pre">Bloom​.growth_​rate</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Bloom.layers"><code class="docutils literal notranslate"><span class="pre">Bloom​.layers</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Bloom.spacing"><code class="docutils literal notranslate"><span class="pre">Bloom​.spacing</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.CFD"><code class="docutils literal notranslate"><span class="pre">CFD</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.CFD.adapt_iter"><code class="docutils literal notranslate"><span class="pre">CFD​.adapt_​iter</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.CFD.cfd_restart"><code class="docutils literal notranslate"><span class="pre">CFD​.cfd_​restart</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.CFD.cfl"><code class="docutils literal notranslate"><span class="pre">CFD​.cfl</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.CFD.conv_method"><code class="docutils literal notranslate"><span class="pre">CFD​.conv_​method</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.CFD.cores"><code class="docutils literal notranslate"><span class="pre">CFD​.cores</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.CFD.iters"><code class="docutils literal notranslate"><span class="pre">CFD​.iters</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.CFD.muscl"><code class="docutils literal notranslate"><span class="pre">CFD​.muscl</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.CFD.restart_grid"><code class="docutils literal notranslate"><span class="pre">CFD​.restart_​grid</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.CFD.restart_iter"><code class="docutils literal notranslate"><span class="pre">CFD​.restart_​iter</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.CFD.solver"><code class="docutils literal notranslate"><span class="pre">CFD​.solver</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Collision_options"><code class="docutils literal notranslate"><span class="pre">Collision_​options</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.DSMC"><code class="docutils literal notranslate"><span class="pre">DSMC</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Dynamics"><code class="docutils literal notranslate"><span class="pre">Dynamics</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Dynamics.n_derivs_to_hold"><code class="docutils literal notranslate"><span class="pre">Dynamics​.n_​derivs_​to_​hold</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Dynamics.n_states_to_hold"><code class="docutils literal notranslate"><span class="pre">Dynamics​.n_​states_​to_​hold</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Dynamics.prop_func"><code class="docutils literal notranslate"><span class="pre">Dynamics​.prop_​func</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Dynamics.propagator"><code class="docutils literal notranslate"><span class="pre">Dynamics​.propagator</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Dynamics.time"><code class="docutils literal notranslate"><span class="pre">Dynamics​.time</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Dynamics.time_step"><code class="docutils literal notranslate"><span class="pre">Dynamics​.time_​step</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Dynamics.trajectory_frame"><code class="docutils literal notranslate"><span class="pre">Dynamics​.trajectory_​frame</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Explosion"><code class="docutils literal notranslate"><span class="pre">Explosion</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Fenics"><code class="docutils literal notranslate"><span class="pre">Fenics</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Fenics.E"><code class="docutils literal notranslate"><span class="pre">Fenics​.E</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Fenics.FE_MPI"><code class="docutils literal notranslate"><span class="pre">Fenics​.FE_​MPI</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Fenics.FE_MPI_cores"><code class="docutils literal notranslate"><span class="pre">Fenics​.FE_​MPI_​cores</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Fenics.FE_verbose"><code class="docutils literal notranslate"><span class="pre">Fenics​.FE_​verbose</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream"><code class="docutils literal notranslate"><span class="pre">Freestream</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.R"><code class="docutils literal notranslate"><span class="pre">Freestream​.R</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.Temperature"><code class="docutils literal notranslate"><span class="pre">Freestream​.Temperature</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.Velocity"><code class="docutils literal notranslate"><span class="pre">Freestream​.Velocity</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.density_mult"><code class="docutils literal notranslate"><span class="pre">Freestream​.density_​mult</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.gamma"><code class="docutils literal notranslate"><span class="pre">Freestream​.gamma</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.knudsen"><code class="docutils literal notranslate"><span class="pre">Freestream​.knudsen</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.mach"><code class="docutils literal notranslate"><span class="pre">Freestream​.mach</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.method"><code class="docutils literal notranslate"><span class="pre">Freestream​.method</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.mfp"><code class="docutils literal notranslate"><span class="pre">Freestream​.mfp</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.model"><code class="docutils literal notranslate"><span class="pre">Freestream​.model</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.muEC"><code class="docutils literal notranslate"><span class="pre">Freestream​.muEC</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.muSu"><code class="docutils literal notranslate"><span class="pre">Freestream​.muSu</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.ninf"><code class="docutils literal notranslate"><span class="pre">Freestream​.ninf</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.omega"><code class="docutils literal notranslate"><span class="pre">Freestream​.omega</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.per_facet_mach"><code class="docutils literal notranslate"><span class="pre">Freestream​.per_​facet_​mach</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.percent_gas"><code class="docutils literal notranslate"><span class="pre">Freestream​.percent_​gas</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.prandtl"><code class="docutils literal notranslate"><span class="pre">Freestream​.prandtl</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.pressure"><code class="docutils literal notranslate"><span class="pre">Freestream​.pressure</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Freestream.rho"><code class="docutils literal notranslate"><span class="pre">Freestream​.rho</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.GRAM"><code class="docutils literal notranslate"><span class="pre">GRAM</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Meshing"><code class="docutils literal notranslate"><span class="pre">Meshing</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options"><code class="docutils literal notranslate"><span class="pre">Options</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.aerothermo"><code class="docutils literal notranslate"><span class="pre">Options​.aerothermo</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.clean_up_folders"><code class="docutils literal notranslate"><span class="pre">Options​.clean_​up_​folders()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.create_output_folders"><code class="docutils literal notranslate"><span class="pre">Options​.create_​output_​folders()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.current_iter"><code class="docutils literal notranslate"><span class="pre">Options​.current_​iter</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.dynamics"><code class="docutils literal notranslate"><span class="pre">Options​.dynamics</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.fenics"><code class="docutils literal notranslate"><span class="pre">Options​.fenics</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.fidelity"><code class="docutils literal notranslate"><span class="pre">Options​.fidelity</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.freestream"><code class="docutils literal notranslate"><span class="pre">Options​.freestream</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.iters"><code class="docutils literal notranslate"><span class="pre">Options​.iters</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.output_freq"><code class="docutils literal notranslate"><span class="pre">Options​.output_​freq</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.read_mesh"><code class="docutils literal notranslate"><span class="pre">Options​.read_​mesh()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.read_state"><code class="docutils literal notranslate"><span class="pre">Options​.read_​state()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.save_freq"><code class="docutils literal notranslate"><span class="pre">Options​.save_​freq</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.save_mesh"><code class="docutils literal notranslate"><span class="pre">Options​.save_​mesh()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.save_state"><code class="docutils literal notranslate"><span class="pre">Options​.save_​state()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.structural_dynamics"><code class="docutils literal notranslate"><span class="pre">Options​.structural_​dynamics</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Options.time_fidelity"><code class="docutils literal notranslate"><span class="pre">Options​.time_​fidelity</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.PATO"><code class="docutils literal notranslate"><span class="pre">PATO</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.PATO.Ta_bc"><code class="docutils literal notranslate"><span class="pre">PATO​.Ta_​bc</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.PATO.conduction_flag"><code class="docutils literal notranslate"><span class="pre">PATO​.conduction_​flag</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.PATO.flag"><code class="docutils literal notranslate"><span class="pre">PATO​.flag</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.PATO.n_cores"><code class="docutils literal notranslate"><span class="pre">PATO​.n_​cores</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.PATO.time_step"><code class="docutils literal notranslate"><span class="pre">PATO​.time_​step</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Radiation"><code class="docutils literal notranslate"><span class="pre">Radiation</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Radiation.particle_emissions"><code class="docutils literal notranslate"><span class="pre">Radiation​.particle_​emissions</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Radiation.spectral"><code class="docutils literal notranslate"><span class="pre">Radiation​.spectral</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Radiation.spectral_freq"><code class="docutils literal notranslate"><span class="pre">Radiation​.spectral_​freq</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Thermal"><code class="docutils literal notranslate"><span class="pre">Thermal</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Thermal.ablation"><code class="docutils literal notranslate"><span class="pre">Thermal​.ablation</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Thermal.ablation_mode"><code class="docutils literal notranslate"><span class="pre">Thermal​.ablation_​mode</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Trajectory"><code class="docutils literal notranslate"><span class="pre">Trajectory</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Trajectory.altitude"><code class="docutils literal notranslate"><span class="pre">Trajectory​.altitude</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Trajectory.chi"><code class="docutils literal notranslate"><span class="pre">Trajectory​.chi</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Trajectory.gamma"><code class="docutils literal notranslate"><span class="pre">Trajectory​.gamma</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Trajectory.latitude"><code class="docutils literal notranslate"><span class="pre">Trajectory​.latitude</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Trajectory.longitude"><code class="docutils literal notranslate"><span class="pre">Trajectory​.longitude</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Trajectory.velocity"><code class="docutils literal notranslate"><span class="pre">Trajectory​.velocity</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Uncertainty"><code class="docutils literal notranslate"><span class="pre">Uncertainty</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Configuration.configuration.Uncertainty.build_quantities"><code class="docutils literal notranslate"><span class="pre">Uncertainty​.build_​quantities()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.check_angle"><code class="docutils literal notranslate"><span class="pre">check_​angle()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.check_connectivity"><code class="docutils literal notranslate"><span class="pre">check_​connectivity()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.check_fidelity"><code class="docutils literal notranslate"><span class="pre">check_​fidelity()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.check_initial_condition_array"><code class="docutils literal notranslate"><span class="pre">check_​initial_​condition_​array()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.check_wavelengths"><code class="docutils literal notranslate"><span class="pre">check_​wavelengths()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.get_config_value"><code class="docutils literal notranslate"><span class="pre">get_​config_​value()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.read_config_file"><code class="docutils literal notranslate"><span class="pre">read_​config_​file()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.read_geometry"><code class="docutils literal notranslate"><span class="pre">read_​geometry()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.read_initial_conditions"><code class="docutils literal notranslate"><span class="pre">read_​initial_​conditions()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Configuration.configuration.read_trajectory"><code class="docutils literal notranslate"><span class="pre">read_​trajectory()</span></code></a></li>
+</ul>
+</li>
+</ul></nav>
+  
+    
+
+
+  
+    
+  
+    
+  
+
+</aside></main>
+  </div>
+<footer class="bz-footer">
+  <div class="bz-footer-copyright"><p class="bz-copyright">© Copyright 2026, TITAN Contributors</p><p>
+    
+    
+    
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/aksiome/breeze">Breeze theme</a>.
+    
+  </p>
+</div>
+</footer><a href="#" class="bz-back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>
+    </svg>
+    <span>Back to top</span>
+  </a>
+  <label class="bz-overlay bz-overlay-primary" for="bz-sidebar-primary"></label>
+  <label class="bz-overlay bz-overlay-secondary" for="bz-sidebar-secondary"></label>
+  <input type="checkbox" name="bz-sidebar-primary" id="bz-sidebar-primary" aria-label="Toggle section navigation">
+  <input type="checkbox" name="bz-sidebar-secondary" id="bz-sidebar-secondary" aria-label="Toggle table of contents"><script src="_static/documentation_options.js?v=a06e5c19"></script><script src="_static/doctools.js?v=fd6eb6e6"></script><script src="_static/sphinx_highlight.js?v=6ffebe34"></script></body>
+</html>

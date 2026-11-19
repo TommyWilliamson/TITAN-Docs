@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Freestream package" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="titan.Freestream.html" />
+<meta property="og:site_name" content="TITAN" />
+<meta property="og:description" content="Freestream module - atmospheric and freestream conditions Atmosphere: atmosphere module. NASA-GRAM Connection: gram module. Mixture Mutation++: mix_mpp module. Mixture properties: mix_properties mo..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="_images/social_previews/summary_titan.Freestream_6bf7fb0c.png" />
+<meta property="og:image:alt" content="Freestream module - atmospheric and freestream conditions Atmosphere: atmosphere module. NASA-GRAM Connection: gram module. Mixture Mutation++: mix_mpp module. Mixture properties: mix_properties mo..." />
+<meta name="description" content="Freestream module - atmospheric and freestream conditions Atmosphere: atmosphere module. NASA-GRAM Connection: gram module. Mixture Mutation++: mix_mpp module. Mixture properties: mix_properties mo..." />
+<meta name="twitter:card" content="summary_large_image" />
+<title>Freestream package - TITAN v0.2 &#34;Atlas&#34; documentation</title><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Geometry" href="titan.Geometry.html"><link rel="prev" title="Fragmentation" href="titan.Fragmentation.html"><script data-cfasync="false">(function(){
+    const m = localStorage.getItem("breeze-mode") || "auto";
+    const d = document.documentElement.dataset;
+    d.mode = m;
+    d.theme = m === "auto"
+      ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : m;
+  })();
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" /><link rel="stylesheet" type="text/css" href="_static/custom.css?v=3b2811d2" /><link rel="stylesheet" type="text/css" href="_static/styles/breeze.css?v=7c62c100" /><script defer="defer" src="_static/scripts/breeze.js?v=dac9f8c6"></script></head>
+<body>
+  
+  
+  <div class="bz-skip-to-content"><a href="#bz-main-content">Skip to main content</a></div><header class="bz-header-main">
+  <div class="bz-header-start"><a class="bz-header-brand" href="index.html">
+  <img class="only-light" src="_static/titan_icon_light.png" alt="TITAN" />
+  <img class="only-dark" src="_static/titan_icon_dark.png" alt="TITAN" />
+  <span>TITAN v0.2 "Atlas" documentation</span>
+</a>
+  </div>
+  <div class="bz-header-end"><div id="docsearch" class="bz-search-button">
+  <a
+    href="search.html#q"
+    aria-label="Search the docs"
+    data-tooltip="Search the docs"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 -1 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+      />
+    </svg>
+    <span>Search</span>
+    <kbd>Ctrl+K</kbd>
+  </a>
+</div><div class="bz-theme-switcher">
+  <button aria-label="Switch theme" data-tooltip="Switch theme">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-light" fill="currentColor">
+      <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061ZM2.343 2.343a.75.75 0 0 1 1.061 0l1.06 1.061a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-1.06-1.06a.75.75 0 0 1 0-1.06Z"></path>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-dark" fill="currentColor">
+      <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z"></path>
+    </svg>
+  </button>
+</div>
+  </div>
+</header><nav class="bz-header-tabs" aria-label="Primary Navigation"><label
+  class="bz-sidebar-primary-toggle"
+  for="bz-sidebar-primary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle site navigation"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h12.5"
+    />
+  </svg>
+</label><ul><li class="toctree-l1"><a class="reference internal" href="titan.html">Docs</a></li><li class="toctree-l1"><a class="reference internal" href="titan.html#module-titan.__main__">Main Functions</a></li><li class="toctree-l1 current"><a class="reference internal" href="titan.html#api-reference">API Reference</a></li></ul><div class="bz-dropdown">
+    <button aria-haspopup="true" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="1" />
+          <circle cx="19" cy="12" r="1" />
+          <circle cx="5" cy="12" r="1" />
+        </g>
+      </svg>
+    </button>
+    <ul role="menu" aria-hidden="true"></ul>
+  </div>
+</nav><hr class="bz-header-hr">
+  <div class="bz-content"><aside class="bz-sidebar-primary" data-drawer="bz-sidebar-primary">
+  
+  
+    <nav class="bz-sidebar-nav" aria-label="Section Navigation"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="titan.Aerothermo.html">Aerothermo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Dynamics.html">Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Explosion.html">Explosion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Forces.html">Forces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Fragmentation.html">Fragmentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Freestream package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Geometry.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Material.html">Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Output.html">Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Postprocess.html">Postprocess</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Structural.html">Structural</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Thermal.html">Thermal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Uncertainty.html">Uncertainty</a></li>
+</ul>
+</nav>
+  
+
+</aside><main id="bz-main-content"><header class="bz-article-header">
+  
+  
+    <nav class="bz-breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li class="bz-breadcrumbs-home">
+      <a href="index.html" aria-label="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8.543 2.232a.75.75 0 0 0-1.085 0l-5.25 5.5A.75.75 0 0 0 2.75 9H4v4a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9h1.25a.75.75 0 0 0 .543-1.268l-5.25-5.5Z" />
+        </svg>
+      </a>
+    </li><li class="bz-breadcrumbs-parent">
+      <a href="titan.html">Docs</a>
+    </li><li class="bz-breadcrumbs-current">
+      <span>Freestream package</span>
+    </li>
+  </ol>
+</nav>
+  
+<label
+  class="bz-sidebar-secondary-toggle"
+  for="bz-sidebar-secondary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle table of contents"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75H20.25 M11.25 12H20.25 M7.75 17.25H20.25"
+    />
+  </svg>
+</label></header><article class="bz-article-main" role="main"><div class="bz-page-actions" role="group" aria-label="Page actions">
+  <button data-copy-source="_sources/titan.Freestream.rst.txt">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+    <span>Copy page</span>
+  </button>
+  <div class="bz-dropdown">
+    <button
+      aria-label="More actions"
+      aria-haspopup="true"
+      aria-expanded="false"
+    ></button>
+    <ul role="menu" aria-hidden="true">
+      <li>
+        <a href="#" role="menuitem" data-copy-source="_sources/titan.Freestream.rst.txt">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+          <span>Copy page</span>
+        </a>
+      </li>
+      <li>
+        <a href="_sources/titan.Freestream.rst.txt" role="menuitem" class="bz-page-actions-external" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3a2 2 0 0 1 2-2h9.982a2 2 0 0 1 1.414.586l4.018 4.018A2 2 0 0 1 21 7.018V21a2 2 0 0 1-2 2H4.75a.75.75 0 0 1 0-1.5H19a.5.5 0 0 0 .5-.5V8.5h-4a2 2 0 0 1-2-2v-4H5a.5.5 0 0 0-.5.5v6.25a.75.75 0 0 1-1.5 0Zm12-.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 0-.146-.336l-4.018-4.018A.5.5 0 0 0 15 2.5Z"></path><path d="M4.53 12.24a.75.75 0 0 1-.039 1.06l-2.639 2.45 2.64 2.45a.75.75 0 1 1-1.022 1.1l-3.23-3a.75.75 0 0 1 0-1.1l3.23-3a.75.75 0 0 1 1.06.04Zm3.979 1.06a.75.75 0 1 1 1.02-1.1l3.231 3a.75.75 0 0 1 0 1.1l-3.23 3a.75.75 0 1 1-1.021-1.1l2.639-2.45-2.64-2.45Z"></path></svg>
+          <span>View source</span>
+        </a>
+      </li></ul>
+  </div>
+</div><section id="module-titan.Freestream">
+<span id="freestream-package"></span><h1>Freestream package<a class="headerlink" href="#module-titan.Freestream" title="Link to this heading">#</a></h1>
+<p>Freestream module - atmospheric and freestream conditions</p>
+<section id="module-titan.Freestream.atmosphere">
+<span id="atmosphere"></span><h2>Atmosphere<a class="headerlink" href="#module-titan.Freestream.atmosphere" title="Link to this heading">#</a></h2>
+<p>atmosphere module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.atmosphere.convert_numberDensity_to_density">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.atmosphere.</span></span><span class="sig-name descname"><span class="pre">convert_numberDensity_to_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.atmosphere.convert_numberDensity_to_density" title="Link to this definition">#</a></dt>
+<dd><p>Convert species number densities in an atmosphere table to mass densities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atm</strong> (<em>Any</em>) – Atmospheric data frame modified in place.</p></li>
+<li><p><strong>species</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Species names whose number densities are converted.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.atmosphere.create_msis_atmosphere">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.atmosphere.</span></span><span class="sig-name descname"><span class="pre">create_msis_atmosphere</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">titan</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">altitudes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">latitudes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">longitudes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.atmosphere.create_msis_atmosphere" title="Link to this definition">#</a></dt>
+<dd><p>Builds msis grid at the epoch of the simulation with specified resolution.
+Creates an interpolant to be called</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titan</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>options</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.atmosphere.load_atmosphere">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.atmosphere.</span></span><span class="sig-name descname"><span class="pre">load_atmosphere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.atmosphere.load_atmosphere" title="Link to this definition">#</a></dt>
+<dd><p>Load or select the configured atmospheric model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Atmospheric model name (for example, <code class="docutils literal notranslate"><span class="pre">'PYMSIS'</span></code> or <code class="docutils literal notranslate"><span class="pre">'GRAM'</span></code>).</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Simulation options used to cache model interpolation data.</p></li>
+<li><p><strong>epoch</strong> (<em>datetime.datetime</em><em> or </em><em>None</em>) – Optional epoch for time-dependent atmospheric models.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Atmospheric data provider and its species ordering.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[callable, list[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.atmosphere.process_pymsis_result">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.atmosphere.</span></span><span class="sig-name descname"><span class="pre">process_pymsis_result</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">atmos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#titan.Freestream.atmosphere.process_pymsis_result" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.atmosphere.pymsis_wrapper">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.atmosphere.</span></span><span class="sig-name descname"><span class="pre">pymsis_wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">altitude</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.atmosphere.pymsis_wrapper" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.atmosphere.retrieve_atmosphere_data">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.atmosphere.</span></span><span class="sig-name descname"><span class="pre">retrieve_atmosphere_data</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">altitude</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.atmosphere.retrieve_atmosphere_data" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve atmospheric properties at one assembly altitude.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Atmospheric model name.</p></li>
+<li><p><strong>altitude</strong> (<em>Any</em>) – Geodetic altitude in metres.</p></li>
+<li><p><strong>assembly</strong> (<em>object</em>) – Assembly object to process.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Options or configuration object.</p></li>
+<li><p><strong>epoch</strong> (<em>datetime.datetime</em><em> or </em><em>None</em>) – Optional epoch for time-dependent model evaluation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Atmospheric state and species information for the requested altitude.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-titan.Freestream.gram">
+<span id="nasa-gram-connection"></span><h2>NASA-GRAM Connection<a class="headerlink" href="#module-titan.Freestream.gram" title="Link to this heading">#</a></h2>
+<p>gram module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.gram.generate_script">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.gram.</span></span><span class="sig-name descname"><span class="pre">generate_script</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.gram.generate_script" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param assembly: Assembly object to process.
+:type assembly: object
+:param options: Options or configuration object.
+:type options: Options</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.gram.read_gram">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.gram.</span></span><span class="sig-name descname"><span class="pre">read_gram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.gram.read_gram" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param assembly: Assembly object to process.
+:type assembly: object
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.gram.read_gram_species">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.gram.</span></span><span class="sig-name descname"><span class="pre">read_gram_species</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">altitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.gram.read_gram_species" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param altitude: Value for altitude.
+:type altitude: Any
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.gram.run_single_gram">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.gram.</span></span><span class="sig-name descname"><span class="pre">run_single_gram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.gram.run_single_gram" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param assembly: Assembly object to process.
+:type assembly: object
+:param options: Options or configuration object.
+:type options: Options</p>
+</dd></dl>
+
+</section>
+<section id="module-titan.Freestream.mix_mpp">
+<span id="mixture-mutation"></span><h2>Mixture Mutation++<a class="headerlink" href="#module-titan.Freestream.mix_mpp" title="Link to this heading">#</a></h2>
+<p>mix_mpp module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_mpp.mixture_mpp">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_mpp.</span></span><span class="sig-name descname"><span class="pre">mixture_mpp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_mpp.mixture_mpp" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the mixture object of the Mutation++ library
+:param species: Value for species.
+:type species: Any
+:param density: Numeric value for density.
+:type density: float
+:param temperature: Numeric value for temperature.
+:type temperature: float
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+</section>
+<section id="module-titan.Freestream.mix_properties">
+<span id="mixture-properties"></span><h2>Mixture properties<a class="headerlink" href="#module-titan.Freestream.mix_properties" title="Link to this heading">#</a></h2>
+<p>mix_properties module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_properties.compute_cp_mean">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_properties.</span></span><span class="sig-name descname"><span class="pre">compute_cp_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percent_gas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_properties.compute_cp_mean" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param species_index: Value for species index.
+:type species_index: Any
+:param percent_gas: Value for percent gas.
+:type percent_gas: Any
+:param temperature: Numeric value for temperature.
+:type temperature: float
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_properties.compute_diameter_mean">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_properties.</span></span><span class="sig-name descname"><span class="pre">compute_diameter_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percent_gas</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_properties.compute_diameter_mean" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param species_index: Value for species index.
+:type species_index: Any
+:param percent_gas: Value for percent gas.
+:type percent_gas: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_properties.compute_freestream">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_properties.</span></span><span class="sig-name descname"><span class="pre">compute_freestream</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">altitude</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">velocity</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">lref</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">freestream</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_properties.compute_freestream" title="Link to this definition">#</a></dt>
+<dd><p>Compute the freestream properties
+:param model: Value for model.
+:type model: Any
+:param altitude: Value for altitude.
+:type altitude: Any
+:param velocity: Value for velocity.
+:type velocity: Any
+:param lref: Value for lref.
+:type lref: Any
+:param freestream: Value for freestream.
+:type freestream: Any
+:param assembly: Assembly object to process.
+:type assembly: object
+:param options: Options or configuration object.
+:type options: Options</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_properties.compute_gamma_mean">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_properties.</span></span><span class="sig-name descname"><span class="pre">compute_gamma_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percent_gas</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_properties.compute_gamma_mean" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param species_index: Value for species index.
+:type species_index: Any
+:param percent_gas: Value for percent gas.
+:type percent_gas: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_properties.compute_gas_contant_mean">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_properties.</span></span><span class="sig-name descname"><span class="pre">compute_gas_contant_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mole_fraction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_properties.compute_gas_contant_mean" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param species_index: Value for species index.
+:type species_index: Any
+:param mole_fraction: Value for mole fraction.
+:type mole_fraction: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_properties.compute_mass_mean">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_properties.</span></span><span class="sig-name descname"><span class="pre">compute_mass_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percent_gas</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_properties.compute_mass_mean" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param species_index: Value for species index.
+:type species_index: Any
+:param percent_gas: Value for percent gas.
+:type percent_gas: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_properties.compute_mole_fraction">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_properties.</span></span><span class="sig-name descname"><span class="pre">compute_mole_fraction</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">species_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">mass_fraction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_properties.compute_mole_fraction" title="Link to this definition">#</a></dt>
+<dd><dl class="simple">
+<dt>Compute the molar fractions of a mixture based upon mass fractions</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param species_index<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of species names</p>
+</dd>
+<dt class="field-even">type species_index<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+<dt class="field-odd">param mass_fraction<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array of mass fractions</p>
+</dd>
+<dt class="field-even">type mass_fraction<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_properties.compute_omega_mean">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_properties.</span></span><span class="sig-name descname"><span class="pre">compute_omega_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percent_gas</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_properties.compute_omega_mean" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param species_index: Value for species index.
+:type species_index: Any
+:param percent_gas: Value for percent gas.
+:type percent_gas: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_properties.compute_stagnation">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_properties.</span></span><span class="sig-name descname"><span class="pre">compute_stagnation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">free</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_properties.compute_stagnation" title="Link to this definition">#</a></dt>
+<dd><p>Compute the post-shock stagnation values
+:param free: Value for free.
+:type free: Any
+:param options: Options or configuration object.
+:type options: Options</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_properties.compute_sutherland">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_properties.</span></span><span class="sig-name descname"><span class="pre">compute_sutherland</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percent_gas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_properties.compute_sutherland" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param species_index: Value for species index.
+:type species_index: Any
+:param percent_gas: Value for percent gas.
+:type percent_gas: Any
+:param temperature: Numeric value for temperature.
+:type temperature: float
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Freestream.mix_properties.interpolate_atmosphere_knudsen">
+<span class="sig-prename descclassname"><span class="pre">titan.Freestream.mix_properties.</span></span><span class="sig-name descname"><span class="pre">interpolate_atmosphere_knudsen</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">lref</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">altitude</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">latlon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Freestream.mix_properties.interpolate_atmosphere_knudsen" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param name: Name of the item.
+:type name: str
+:param lref: Value for lref.
+:type lref: Any
+:param altitude: Value for altitude.
+:type altitude: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+</section>
+</section>
+
+</article><footer class="bz-article-footer">
+  
+  
+    <nav class="bz-related-pages" aria-label="Related pages navigation"><a class="bz-related-pages-previous" href="titan.Fragmentation.html" rel="prev">
+    <span>Previous</span><span class="bz-related-pages-title">Fragmentation</span></a><a class="bz-related-pages-next" href="titan.Geometry.html" rel="next">
+    <span>Next</span>
+    <span class="bz-related-pages-title">Geometry</span>
+  </a></nav>
+  
+
+</footer><aside class="bz-sidebar-secondary" data-drawer="bz-sidebar-secondary">
+  
+  
+    <nav class="bz-sidebar-toc" aria-label="Table of contents">
+  <p>On this page</p><ul>
+<li><a class="reference internal" href="#module-titan.Freestream.atmosphere">Atmosphere</a><ul>
+<li><a class="reference internal" href="#titan.Freestream.atmosphere.convert_numberDensity_to_density"><code class="docutils literal notranslate"><span class="pre">convert_​numberDensity_​to_​density()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.atmosphere.create_msis_atmosphere"><code class="docutils literal notranslate"><span class="pre">create_​msis_​atmosphere()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.atmosphere.load_atmosphere"><code class="docutils literal notranslate"><span class="pre">load_​atmosphere()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.atmosphere.process_pymsis_result"><code class="docutils literal notranslate"><span class="pre">process_​pymsis_​result()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.atmosphere.pymsis_wrapper"><code class="docutils literal notranslate"><span class="pre">pymsis_​wrapper()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.atmosphere.retrieve_atmosphere_data"><code class="docutils literal notranslate"><span class="pre">retrieve_​atmosphere_​data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Freestream.gram">NASA-GRAM Connection</a><ul>
+<li><a class="reference internal" href="#titan.Freestream.gram.generate_script"><code class="docutils literal notranslate"><span class="pre">generate_​script()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.gram.read_gram"><code class="docutils literal notranslate"><span class="pre">read_​gram()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.gram.read_gram_species"><code class="docutils literal notranslate"><span class="pre">read_​gram_​species()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.gram.run_single_gram"><code class="docutils literal notranslate"><span class="pre">run_​single_​gram()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Freestream.mix_mpp">Mixture Mutation++</a><ul>
+<li><a class="reference internal" href="#titan.Freestream.mix_mpp.mixture_mpp"><code class="docutils literal notranslate"><span class="pre">mixture_​mpp()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Freestream.mix_properties">Mixture properties</a><ul>
+<li><a class="reference internal" href="#titan.Freestream.mix_properties.compute_cp_mean"><code class="docutils literal notranslate"><span class="pre">compute_​cp_​mean()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.mix_properties.compute_diameter_mean"><code class="docutils literal notranslate"><span class="pre">compute_​diameter_​mean()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.mix_properties.compute_freestream"><code class="docutils literal notranslate"><span class="pre">compute_​freestream()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.mix_properties.compute_gamma_mean"><code class="docutils literal notranslate"><span class="pre">compute_​gamma_​mean()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.mix_properties.compute_gas_contant_mean"><code class="docutils literal notranslate"><span class="pre">compute_​gas_​contant_​mean()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.mix_properties.compute_mass_mean"><code class="docutils literal notranslate"><span class="pre">compute_​mass_​mean()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.mix_properties.compute_mole_fraction"><code class="docutils literal notranslate"><span class="pre">compute_​mole_​fraction()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.mix_properties.compute_omega_mean"><code class="docutils literal notranslate"><span class="pre">compute_​omega_​mean()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.mix_properties.compute_stagnation"><code class="docutils literal notranslate"><span class="pre">compute_​stagnation()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.mix_properties.compute_sutherland"><code class="docutils literal notranslate"><span class="pre">compute_​sutherland()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Freestream.mix_properties.interpolate_atmosphere_knudsen"><code class="docutils literal notranslate"><span class="pre">interpolate_​atmosphere_​knudsen()</span></code></a></li>
+</ul>
+</li>
+</ul></nav>
+  
+    
+
+
+  
+    
+  
+    
+  
+
+</aside></main>
+  </div>
+<footer class="bz-footer">
+  <div class="bz-footer-copyright"><p class="bz-copyright">© Copyright 2026, TITAN Contributors</p><p>
+    
+    
+    
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/aksiome/breeze">Breeze theme</a>.
+    
+  </p>
+</div>
+</footer><a href="#" class="bz-back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>
+    </svg>
+    <span>Back to top</span>
+  </a>
+  <label class="bz-overlay bz-overlay-primary" for="bz-sidebar-primary"></label>
+  <label class="bz-overlay bz-overlay-secondary" for="bz-sidebar-secondary"></label>
+  <input type="checkbox" name="bz-sidebar-primary" id="bz-sidebar-primary" aria-label="Toggle section navigation">
+  <input type="checkbox" name="bz-sidebar-secondary" id="bz-sidebar-secondary" aria-label="Toggle table of contents"><script src="_static/documentation_options.js?v=a06e5c19"></script><script src="_static/doctools.js?v=fd6eb6e6"></script><script src="_static/sphinx_highlight.js?v=6ffebe34"></script></body>
+</html>

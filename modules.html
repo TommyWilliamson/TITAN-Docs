@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="titan" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="modules.html" />
+<meta property="og:site_name" content="TITAN" />
+<meta property="og:description" content="Docs, Main Functions- loop(), main()., API Reference- Aerothermo- Aerothermo module- aerodynamics_module_bridging(), aerodynamics_module_continuum(), aerodynamics_module_freemolecular(), aerothermo..." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="_images/social_previews/summary_modules_61a12c10.png" />
+<meta property="og:image:alt" content="Docs, Main Functions- loop(), main()., API Reference- Aerothermo- Aerothermo module- aerodynamics_module_bridging(), aerodynamics_module_continuum(), aerodynamics_module_freemolecular(), aerothermo..." />
+<meta name="description" content="Docs, Main Functions- loop(), main()., API Reference- Aerothermo- Aerothermo module- aerodynamics_module_bridging(), aerodynamics_module_continuum(), aerodynamics_module_freemolecular(), aerothermo..." />
+<meta name="twitter:card" content="summary_large_image" />
+<title>titan - TITAN v0.2 &#34;Atlas&#34; documentation</title><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><script data-cfasync="false">(function(){
+    const m = localStorage.getItem("breeze-mode") || "auto";
+    const d = document.documentElement.dataset;
+    d.mode = m;
+    d.theme = m === "auto"
+      ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : m;
+  })();
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" /><link rel="stylesheet" type="text/css" href="_static/custom.css?v=3b2811d2" /><link rel="stylesheet" type="text/css" href="_static/styles/breeze.css?v=7c62c100" /><script defer="defer" src="_static/scripts/breeze.js?v=dac9f8c6"></script></head>
+<body>
+  
+  
+  <div class="bz-skip-to-content"><a href="#bz-main-content">Skip to main content</a></div><header class="bz-header-main">
+  <div class="bz-header-start"><a class="bz-header-brand" href="index.html">
+  <img class="only-light" src="_static/titan_icon_light.png" alt="TITAN" />
+  <img class="only-dark" src="_static/titan_icon_dark.png" alt="TITAN" />
+  <span>TITAN v0.2 "Atlas" documentation</span>
+</a>
+  </div>
+  <div class="bz-header-end"><div id="docsearch" class="bz-search-button">
+  <a
+    href="search.html#q"
+    aria-label="Search the docs"
+    data-tooltip="Search the docs"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 -1 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+      />
+    </svg>
+    <span>Search</span>
+    <kbd>Ctrl+K</kbd>
+  </a>
+</div><div class="bz-theme-switcher">
+  <button aria-label="Switch theme" data-tooltip="Switch theme">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-light" fill="currentColor">
+      <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061ZM2.343 2.343a.75.75 0 0 1 1.061 0l1.06 1.061a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-1.06-1.06a.75.75 0 0 1 0-1.06Z"></path>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-dark" fill="currentColor">
+      <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z"></path>
+    </svg>
+  </button>
+</div>
+  </div>
+</header><nav class="bz-header-tabs" aria-label="Primary Navigation"><label
+  class="bz-sidebar-primary-toggle"
+  for="bz-sidebar-primary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle site navigation"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h12.5"
+    />
+  </svg>
+</label><ul><li class="toctree-l1"><a class="reference internal" href="titan.html">Docs</a></li><li class="toctree-l1"><a class="reference internal" href="titan.html#module-titan.__main__">Main Functions</a></li><li class="toctree-l1"><a class="reference internal" href="titan.html#api-reference">API Reference</a></li></ul><div class="bz-dropdown">
+    <button aria-haspopup="true" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="1" />
+          <circle cx="19" cy="12" r="1" />
+          <circle cx="5" cy="12" r="1" />
+        </g>
+      </svg>
+    </button>
+    <ul role="menu" aria-hidden="true"></ul>
+  </div>
+</nav><hr class="bz-header-hr">
+  <div class="bz-content"><main id="bz-main-content"><header class="bz-article-header">
+  
+  
+    <nav class="bz-breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li class="bz-breadcrumbs-home">
+      <a href="index.html" aria-label="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8.543 2.232a.75.75 0 0 0-1.085 0l-5.25 5.5A.75.75 0 0 0 2.75 9H4v4a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9h1.25a.75.75 0 0 0 .543-1.268l-5.25-5.5Z" />
+        </svg>
+      </a>
+    </li><li class="bz-breadcrumbs-current">
+      <span>titan</span>
+    </li>
+  </ol>
+</nav>
+  
+<label
+  class="bz-sidebar-secondary-toggle"
+  for="bz-sidebar-secondary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle table of contents"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75H20.25 M11.25 12H20.25 M7.75 17.25H20.25"
+    />
+  </svg>
+</label></header><article class="bz-article-main" role="main"><div class="bz-page-actions" role="group" aria-label="Page actions">
+  <button data-copy-source="_sources/modules.rst.txt">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+    <span>Copy page</span>
+  </button>
+  <div class="bz-dropdown">
+    <button
+      aria-label="More actions"
+      aria-haspopup="true"
+      aria-expanded="false"
+    ></button>
+    <ul role="menu" aria-hidden="true">
+      <li>
+        <a href="#" role="menuitem" data-copy-source="_sources/modules.rst.txt">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+          <span>Copy page</span>
+        </a>
+      </li>
+      <li>
+        <a href="_sources/modules.rst.txt" role="menuitem" class="bz-page-actions-external" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3a2 2 0 0 1 2-2h9.982a2 2 0 0 1 1.414.586l4.018 4.018A2 2 0 0 1 21 7.018V21a2 2 0 0 1-2 2H4.75a.75.75 0 0 1 0-1.5H19a.5.5 0 0 0 .5-.5V8.5h-4a2 2 0 0 1-2-2v-4H5a.5.5 0 0 0-.5.5v6.25a.75.75 0 0 1-1.5 0Zm12-.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 0-.146-.336l-4.018-4.018A.5.5 0 0 0 15 2.5Z"></path><path d="M4.53 12.24a.75.75 0 0 1-.039 1.06l-2.639 2.45 2.64 2.45a.75.75 0 1 1-1.022 1.1l-3.23-3a.75.75 0 0 1 0-1.1l3.23-3a.75.75 0 0 1 1.06.04Zm3.979 1.06a.75.75 0 1 1 1.02-1.1l3.231 3a.75.75 0 0 1 0 1.1l-3.23 3a.75.75 0 1 1-1.021-1.1l2.639-2.45-2.64-2.45Z"></path></svg>
+          <span>View source</span>
+        </a>
+      </li></ul>
+  </div>
+</div><section id="titan">
+<h1>titan<a class="headerlink" href="#titan" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="titan.html">Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.html#module-titan.__main__">Main Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="titan.html#titan.__main__.loop"><code class="docutils literal notranslate"><span class="pre">loop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan.html#titan.__main__.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="titan.html#api-reference">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="titan.Aerothermo.html">Aerothermo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Aerothermo.html#module-titan.Aerothermo.aerothermo">Aerothermo module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.aerodynamics_module_bridging"><code class="docutils literal notranslate"><span class="pre">aerodynamics_module_bridging()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.aerodynamics_module_continuum"><code class="docutils literal notranslate"><span class="pre">aerodynamics_module_continuum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.aerodynamics_module_freemolecular"><code class="docutils literal notranslate"><span class="pre">aerodynamics_module_freemolecular()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.aerothermodynamics_module_bridging"><code class="docutils literal notranslate"><span class="pre">aerothermodynamics_module_bridging()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.aerothermodynamics_module_continuum"><code class="docutils literal notranslate"><span class="pre">aerothermodynamics_module_continuum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.aerothermodynamics_module_freemolecular"><code class="docutils literal notranslate"><span class="pre">aerothermodynamics_module_freemolecular()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.aerothermodynamics_module_ice_giants"><code class="docutils literal notranslate"><span class="pre">aerothermodynamics_module_ice_giants()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.bridging"><code class="docutils literal notranslate"><span class="pre">bridging()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.bridging_altitudes"><code class="docutils literal notranslate"><span class="pre">bridging_altitudes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.compute_aerodynamics"><code class="docutils literal notranslate"><span class="pre">compute_aerodynamics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.compute_aerothermo"><code class="docutils literal notranslate"><span class="pre">compute_aerothermo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.compute_aerothermodynamics"><code class="docutils literal notranslate"><span class="pre">compute_aerothermodynamics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.compute_low_fidelity_aerothermo"><code class="docutils literal notranslate"><span class="pre">compute_low_fidelity_aerothermo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.compute_per_facet_flow_dir"><code class="docutils literal notranslate"><span class="pre">compute_per_facet_flow_dir()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.create_thermal_bridge"><code class="docutils literal notranslate"><span class="pre">create_thermal_bridge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.reset_aero_surfaces"><code class="docutils literal notranslate"><span class="pre">reset_aero_surfaces()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.aerothermo.sphere_of_influence_assembly_groups"><code class="docutils literal notranslate"><span class="pre">sphere_of_influence_assembly_groups()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Aerothermo.html#module-titan.Aerothermo.amg">AMG</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.amg.Amg"><code class="docutils literal notranslate"><span class="pre">Amg</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.amg.adapt_mesh"><code class="docutils literal notranslate"><span class="pre">adapt_mesh()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Aerothermo.html#module-titan.Aerothermo.bloom">Bloom</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.bloom.Bloom"><code class="docutils literal notranslate"><span class="pre">Bloom</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.bloom.create_bloom_config"><code class="docutils literal notranslate"><span class="pre">create_bloom_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.bloom.generate_BL_CFD"><code class="docutils literal notranslate"><span class="pre">generate_BL_CFD()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.bloom.generate_PATO_mesh"><code class="docutils literal notranslate"><span class="pre">generate_PATO_mesh()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Aerothermo.html#module-titan.Aerothermo.jump_equations">Jump relations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.jump_equations.normal_shock_M"><code class="docutils literal notranslate"><span class="pre">normal_shock_M()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.jump_equations.normal_shock_P"><code class="docutils literal notranslate"><span class="pre">normal_shock_P()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.jump_equations.normal_shock_T"><code class="docutils literal notranslate"><span class="pre">normal_shock_T()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.jump_equations.normal_shock_rho"><code class="docutils literal notranslate"><span class="pre">normal_shock_rho()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.jump_equations.shock_angle"><code class="docutils literal notranslate"><span class="pre">shock_angle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.jump_equations.stagnation_P"><code class="docutils literal notranslate"><span class="pre">stagnation_P()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.jump_equations.stagnation_T"><code class="docutils literal notranslate"><span class="pre">stagnation_T()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Aerothermo.html#module-titan.Aerothermo.raytracer">Raytracer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.raytracer.edge_subdivision"><code class="docutils literal notranslate"><span class="pre">edge_subdivision()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.raytracer.trace"><code class="docutils literal notranslate"><span class="pre">trace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.raytracer.write_rays_to_vtk"><code class="docutils literal notranslate"><span class="pre">write_rays_to_vtk()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Aerothermo.html#module-titan.Aerothermo.sparta">DSMC SPARTA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.Geometry_Definition"><code class="docutils literal notranslate"><span class="pre">Geometry_Definition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.Initialization"><code class="docutils literal notranslate"><span class="pre">Initialization</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.PostProcess_SPARTA"><code class="docutils literal notranslate"><span class="pre">PostProcess_SPARTA()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.Problem_Definition"><code class="docutils literal notranslate"><span class="pre">Problem_Definition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.SPARTA_Config"><code class="docutils literal notranslate"><span class="pre">SPARTA_Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.Sampling_Simulation"><code class="docutils literal notranslate"><span class="pre">Sampling_Simulation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.Settings"><code class="docutils literal notranslate"><span class="pre">Settings</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.Unsteady_Simulation"><code class="docutils literal notranslate"><span class="pre">Unsteady_Simulation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.compute_dsmc_aerothermo"><code class="docutils literal notranslate"><span class="pre">compute_dsmc_aerothermo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.compute_dsmc_properties"><code class="docutils literal notranslate"><span class="pre">compute_dsmc_properties()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.create_sparta_geo"><code class="docutils literal notranslate"><span class="pre">create_sparta_geo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.get_env_path"><code class="docutils literal notranslate"><span class="pre">get_env_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.mapping_facet_COG"><code class="docutils literal notranslate"><span class="pre">mapping_facet_COG()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.read_vtu_from_sparta"><code class="docutils literal notranslate"><span class="pre">read_vtu_from_sparta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.run_SPARTA"><code class="docutils literal notranslate"><span class="pre">run_SPARTA()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.write_postprocess_gridtxt"><code class="docutils literal notranslate"><span class="pre">write_postprocess_gridtxt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.sparta.write_sparta_config"><code class="docutils literal notranslate"><span class="pre">write_sparta_config()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Aerothermo.html#module-titan.Aerothermo.su2">CFD SU2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.Flow_Numerical_Method"><code class="docutils literal notranslate"><span class="pre">Flow_Numerical_Method</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.SU2_Config"><code class="docutils literal notranslate"><span class="pre">SU2_Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.Solver"><code class="docutils literal notranslate"><span class="pre">Solver</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.Solver_BC"><code class="docutils literal notranslate"><span class="pre">Solver_BC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.Solver_Convergence"><code class="docutils literal notranslate"><span class="pre">Solver_Convergence</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.Solver_Freestream_Conditions"><code class="docutils literal notranslate"><span class="pre">Solver_Freestream_Conditions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.Solver_Input_Output"><code class="docutils literal notranslate"><span class="pre">Solver_Input_Output</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.Solver_Numerical_Method"><code class="docutils literal notranslate"><span class="pre">Solver_Numerical_Method</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.Solver_Reference_Value"><code class="docutils literal notranslate"><span class="pre">Solver_Reference_Value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.adapt_mesh"><code class="docutils literal notranslate"><span class="pre">adapt_mesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.compute_cfd_aerothermo"><code class="docutils literal notranslate"><span class="pre">compute_cfd_aerothermo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.generate_BL"><code class="docutils literal notranslate"><span class="pre">generate_BL()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.post_process_CFD_solution"><code class="docutils literal notranslate"><span class="pre">post_process_CFD_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.read_vtk_from_su2_v2"><code class="docutils literal notranslate"><span class="pre">read_vtk_from_su2_v2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.restart_cfd_aerothermo"><code class="docutils literal notranslate"><span class="pre">restart_cfd_aerothermo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.retrieve_index"><code class="docutils literal notranslate"><span class="pre">retrieve_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.run_AMG"><code class="docutils literal notranslate"><span class="pre">run_AMG()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.run_SU2"><code class="docutils literal notranslate"><span class="pre">run_SU2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.split_aerothermo"><code class="docutils literal notranslate"><span class="pre">split_aerothermo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.su2.write_SU2_config"><code class="docutils literal notranslate"><span class="pre">write_SU2_config()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Aerothermo.html#module-titan.Aerothermo.switch">Fidelity switch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.switch.compute_aerothermo"><code class="docutils literal notranslate"><span class="pre">compute_aerothermo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.switch.compute_billig"><code class="docutils literal notranslate"><span class="pre">compute_billig()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.switch.compute_blast_wave_limit"><code class="docutils literal notranslate"><span class="pre">compute_blast_wave_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.switch.sphere_surface"><code class="docutils literal notranslate"><span class="pre">sphere_surface()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Aerothermo.html#module-titan.Aerothermo.thermo_equations">Aerothermodynamic equations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.LAF"><code class="docutils literal notranslate"><span class="pre">LAF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.ble_conditions"><code class="docutils literal notranslate"><span class="pre">ble_conditions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.coeff_goulard"><code class="docutils literal notranslate"><span class="pre">coeff_goulard()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.compute_delta"><code class="docutils literal notranslate"><span class="pre">compute_delta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.detady"><code class="docutils literal notranslate"><span class="pre">detady()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.dhdeta"><code class="docutils literal notranslate"><span class="pre">dhdeta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.energy_loop_brent"><code class="docutils literal notranslate"><span class="pre">energy_loop_brent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.energy_loop_obj_func"><code class="docutils literal notranslate"><span class="pre">energy_loop_obj_func()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.general_eq"><code class="docutils literal notranslate"><span class="pre">general_eq()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.mixture_mpp"><code class="docutils literal notranslate"><span class="pre">mixture_mpp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.stagnation_line"><code class="docutils literal notranslate"><span class="pre">stagnation_line</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.stagnation_line_per_facet"><code class="docutils literal notranslate"><span class="pre">stagnation_line_per_facet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Aerothermo.html#titan.Aerothermo.thermo_equations.velocity_gradient"><code class="docutils literal notranslate"><span class="pre">velocity_gradient()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Configuration.html#module-titan.Configuration.configuration">Configuration module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Aerothermo"><code class="docutils literal notranslate"><span class="pre">Aerothermo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Amg"><code class="docutils literal notranslate"><span class="pre">Amg</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Bloom"><code class="docutils literal notranslate"><span class="pre">Bloom</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.CFD"><code class="docutils literal notranslate"><span class="pre">CFD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Collision_options"><code class="docutils literal notranslate"><span class="pre">Collision_options</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.DSMC"><code class="docutils literal notranslate"><span class="pre">DSMC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Dynamics"><code class="docutils literal notranslate"><span class="pre">Dynamics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Explosion"><code class="docutils literal notranslate"><span class="pre">Explosion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Fenics"><code class="docutils literal notranslate"><span class="pre">Fenics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Freestream"><code class="docutils literal notranslate"><span class="pre">Freestream</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.GRAM"><code class="docutils literal notranslate"><span class="pre">GRAM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Meshing"><code class="docutils literal notranslate"><span class="pre">Meshing</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options"><code class="docutils literal notranslate"><span class="pre">Options</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.PATO"><code class="docutils literal notranslate"><span class="pre">PATO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Radiation"><code class="docutils literal notranslate"><span class="pre">Radiation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Thermal"><code class="docutils literal notranslate"><span class="pre">Thermal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Trajectory"><code class="docutils literal notranslate"><span class="pre">Trajectory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Uncertainty"><code class="docutils literal notranslate"><span class="pre">Uncertainty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.check_angle"><code class="docutils literal notranslate"><span class="pre">check_angle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.check_connectivity"><code class="docutils literal notranslate"><span class="pre">check_connectivity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.check_fidelity"><code class="docutils literal notranslate"><span class="pre">check_fidelity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.check_initial_condition_array"><code class="docutils literal notranslate"><span class="pre">check_initial_condition_array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.check_wavelengths"><code class="docutils literal notranslate"><span class="pre">check_wavelengths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.get_config_value"><code class="docutils literal notranslate"><span class="pre">get_config_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.read_config_file"><code class="docutils literal notranslate"><span class="pre">read_config_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.read_geometry"><code class="docutils literal notranslate"><span class="pre">read_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.read_initial_conditions"><code class="docutils literal notranslate"><span class="pre">read_initial_conditions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.read_trajectory"><code class="docutils literal notranslate"><span class="pre">read_trajectory()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Design.html">Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Design.html#aerodynamics">Aerodynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Design.html#surrogates">Surrogates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Dynamics.html">Dynamics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Dynamics.html#module-titan.Dynamics.collision">Collision</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.Collision"><code class="docutils literal notranslate"><span class="pre">Collision</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.binary_search_TOI"><code class="docutils literal notranslate"><span class="pre">binary_search_TOI()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.collision_physics"><code class="docutils literal notranslate"><span class="pre">collision_physics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.collision_physics_simultaneous"><code class="docutils literal notranslate"><span class="pre">collision_physics_simultaneous()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.compute_time_resolution"><code class="docutils literal notranslate"><span class="pre">compute_time_resolution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.delete_collision_handler"><code class="docutils literal notranslate"><span class="pre">delete_collision_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.find_ToI_timestep"><code class="docutils literal notranslate"><span class="pre">find_ToI_timestep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.generate_collision_handler"><code class="docutils literal notranslate"><span class="pre">generate_collision_handler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.generate_collision_mesh"><code class="docutils literal notranslate"><span class="pre">generate_collision_mesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.generate_inflated_mesh"><code class="docutils literal notranslate"><span class="pre">generate_inflated_mesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.generate_surface"><code class="docutils literal notranslate"><span class="pre">generate_surface()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.select_contacts"><code class="docutils literal notranslate"><span class="pre">select_contacts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.update_and_check"><code class="docutils literal notranslate"><span class="pre">update_and_check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.update_collision_mesh"><code class="docutils literal notranslate"><span class="pre">update_collision_mesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.update_collision_mesh_time"><code class="docutils literal notranslate"><span class="pre">update_collision_mesh_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.collision.updated_fixed_contacts"><code class="docutils literal notranslate"><span class="pre">updated_fixed_contacts()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Dynamics.html#module-titan.Dynamics.dynamics">Dynamics module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.dynamics.DerivativesAngle"><code class="docutils literal notranslate"><span class="pre">DerivativesAngle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.dynamics.DerivativesCartesian"><code class="docutils literal notranslate"><span class="pre">DerivativesCartesian</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.dynamics.DerivativesPointMass"><code class="docutils literal notranslate"><span class="pre">DerivativesPointMass</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.dynamics.compute_angular_derivatives"><code class="docutils literal notranslate"><span class="pre">compute_angular_derivatives()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.dynamics.compute_cartesian"><code class="docutils literal notranslate"><span class="pre">compute_cartesian()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.dynamics.compute_cartesian_derivatives"><code class="docutils literal notranslate"><span class="pre">compute_cartesian_derivatives()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.dynamics.compute_quaternion"><code class="docutils literal notranslate"><span class="pre">compute_quaternion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.dynamics.integrate"><code class="docutils literal notranslate"><span class="pre">integrate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Dynamics.html#module-titan.Dynamics.dynamics_6dof">Dynamics_6dof [DEPRECATED]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.dynamics_6dof.dynamics_6DOF_quaternions_cartesian_ECI"><code class="docutils literal notranslate"><span class="pre">dynamics_6DOF_quaternions_cartesian_ECI()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Dynamics.html#module-titan.Dynamics.euler">Euler module [DEPRECATED]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.euler.compute_Euler"><code class="docutils literal notranslate"><span class="pre">compute_Euler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.euler.update_position_cartesian"><code class="docutils literal notranslate"><span class="pre">update_position_cartesian()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Dynamics.html#module-titan.Dynamics.frames">Frames</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.frames.R_B_from_W"><code class="docutils literal notranslate"><span class="pre">R_B_from_W()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.frames.R_ECEF_from_ECI"><code class="docutils literal notranslate"><span class="pre">R_ECEF_from_ECI()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.frames.R_ECEF_from_NED"><code class="docutils literal notranslate"><span class="pre">R_ECEF_from_NED()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.frames.R_ECEF_from_RIC"><code class="docutils literal notranslate"><span class="pre">R_ECEF_from_RIC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.frames.R_ECEF_from_TVN"><code class="docutils literal notranslate"><span class="pre">R_ECEF_from_TVN()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.frames.R_NED_from_B"><code class="docutils literal notranslate"><span class="pre">R_NED_from_B()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.frames.R_NED_from_W"><code class="docutils literal notranslate"><span class="pre">R_NED_from_W()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.frames.R_W_from_B"><code class="docutils literal notranslate"><span class="pre">R_W_from_B()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.frames.Rig_iOTA_from_TITAN"><code class="docutils literal notranslate"><span class="pre">Rig_iOTA_from_TITAN()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Dynamics.html#module-titan.Dynamics.global_collisions">Global Collisions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.global_collisions.PGS_solve"><code class="docutils literal notranslate"><span class="pre">PGS_solve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.global_collisions.construct_global_velocities"><code class="docutils literal notranslate"><span class="pre">construct_global_velocities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.global_collisions.construct_inv_mass_matrix"><code class="docutils literal notranslate"><span class="pre">construct_inv_mass_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.global_collisions.construct_jacobian"><code class="docutils literal notranslate"><span class="pre">construct_jacobian()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.global_collisions.global_collision_physics"><code class="docutils literal notranslate"><span class="pre">global_collision_physics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.global_collisions.impulse_update"><code class="docutils literal notranslate"><span class="pre">impulse_update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.global_collisions.sequential_collision_resolution"><code class="docutils literal notranslate"><span class="pre">sequential_collision_resolution()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Dynamics.html#module-titan.Dynamics.propagation">Propagation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.adaptive_integrator_selector"><code class="docutils literal notranslate"><span class="pre">adaptive_integrator_selector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.append_derivatives"><code class="docutils literal notranslate"><span class="pre">append_derivatives()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.collect_state_vectors"><code class="docutils literal notranslate"><span class="pre">collect_state_vectors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.construct_state_vector"><code class="docutils literal notranslate"><span class="pre">construct_state_vector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.explicit_adams_bashforth_n"><code class="docutils literal notranslate"><span class="pre">explicit_adams_bashforth_n()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.explicit_bwd_diff"><code class="docutils literal notranslate"><span class="pre">explicit_bwd_diff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.explicit_euler"><code class="docutils literal notranslate"><span class="pre">explicit_euler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.explicit_rk_N"><code class="docutils literal notranslate"><span class="pre">explicit_rk_N()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.explicit_rk_adapt_wrapper"><code class="docutils literal notranslate"><span class="pre">explicit_rk_adapt_wrapper()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.flatten_state_vectors"><code class="docutils literal notranslate"><span class="pre">flatten_state_vectors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.generate_dense_timestep"><code class="docutils literal notranslate"><span class="pre">generate_dense_timestep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.get_integrator_func"><code class="docutils literal notranslate"><span class="pre">get_integrator_func()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.proj_area_adapt_wrapper"><code class="docutils literal notranslate"><span class="pre">proj_area_adapt_wrapper()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.propagate"><code class="docutils literal notranslate"><span class="pre">propagate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.state_equation"><code class="docutils literal notranslate"><span class="pre">state_equation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.states_op"><code class="docutils literal notranslate"><span class="pre">states_op()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.unflatten_state_vectors"><code class="docutils literal notranslate"><span class="pre">unflatten_state_vectors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.update_dynamic_attributes"><code class="docutils literal notranslate"><span class="pre">update_dynamic_attributes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.propagation.write_dense_output"><code class="docutils literal notranslate"><span class="pre">write_dense_output()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Dynamics.html#module-titan.Dynamics.quaternion_operations">Quaternion Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.quaternion_operations.quaternion_conjugate"><code class="docutils literal notranslate"><span class="pre">quaternion_conjugate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.quaternion_operations.quaternion_mult"><code class="docutils literal notranslate"><span class="pre">quaternion_mult()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.quaternion_operations.quaternion_normalize"><code class="docutils literal notranslate"><span class="pre">quaternion_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Dynamics.html#titan.Dynamics.quaternion_operations.quaternion_to_matrix"><code class="docutils literal notranslate"><span class="pre">quaternion_to_matrix()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Explosion.html">Explosion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Explosion.html#module-titan.Explosion.explosion_fragments">Explosion Fragments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.explosion_fragments.build_new_assemblies"><code class="docutils literal notranslate"><span class="pre">build_new_assemblies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.explosion_fragments.calculate_fragment_dv"><code class="docutils literal notranslate"><span class="pre">calculate_fragment_dv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.explosion_fragments.evolve_4_explosion_velocity"><code class="docutils literal notranslate"><span class="pre">evolve_4_explosion_velocity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.explosion_fragments.fracture_object"><code class="docutils literal notranslate"><span class="pre">fracture_object()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.explosion_fragments.sample_fragment_velocities"><code class="docutils literal notranslate"><span class="pre">sample_fragment_velocities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Explosion.html#module-titan.Explosion.generate_seed_distribution">Generate Seed Distribution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.generate_seed_distribution.SpiralSampler"><code class="docutils literal notranslate"><span class="pre">SpiralSampler</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.generate_seed_distribution.distribution_generator"><code class="docutils literal notranslate"><span class="pre">distribution_generator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.generate_seed_distribution.generate_seed_points"><code class="docutils literal notranslate"><span class="pre">generate_seed_points()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.generate_seed_distribution.get_dists"><code class="docutils literal notranslate"><span class="pre">get_dists()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.generate_seed_distribution.get_law_from_points"><code class="docutils literal notranslate"><span class="pre">get_law_from_points()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.generate_seed_distribution.get_seed_points"><code class="docutils literal notranslate"><span class="pre">get_seed_points()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.generate_seed_distribution.law_linregress"><code class="docutils literal notranslate"><span class="pre">law_linregress()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.generate_seed_distribution.log_spiral_3d"><code class="docutils literal notranslate"><span class="pre">log_spiral_3d()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.generate_seed_distribution.optimal_seeds"><code class="docutils literal notranslate"><span class="pre">optimal_seeds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.generate_seed_distribution.plot_result"><code class="docutils literal notranslate"><span class="pre">plot_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.generate_seed_distribution.trigonometric_2sphere_sampling"><code class="docutils literal notranslate"><span class="pre">trigonometric_2sphere_sampling()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Explosion.html#module-titan.Explosion.manifold_voronoi_fracture">Manifold Voronoi Fracture</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.manifold_voronoi_fracture.bb_check"><code class="docutils literal notranslate"><span class="pre">bb_check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.manifold_voronoi_fracture.build_voro_prisms"><code class="docutils literal notranslate"><span class="pre">build_voro_prisms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.manifold_voronoi_fracture.extrude_prism_from_verts"><code class="docutils literal notranslate"><span class="pre">extrude_prism_from_verts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.manifold_voronoi_fracture.generate_fragment_meshes"><code class="docutils literal notranslate"><span class="pre">generate_fragment_meshes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.manifold_voronoi_fracture.mesh_check"><code class="docutils literal notranslate"><span class="pre">mesh_check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.manifold_voronoi_fracture.orthogonal_planes"><code class="docutils literal notranslate"><span class="pre">orthogonal_planes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Explosion.html#module-titan.Explosion.split_stl">Split .stl</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.split_stl.stl_split"><code class="docutils literal notranslate"><span class="pre">stl_split()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Explosion.html#module-titan.Explosion.stl_verify_blender">.stl Verify blender</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.stl_verify_blender.mesh_verify_selected"><code class="docutils literal notranslate"><span class="pre">mesh_verify_selected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Explosion.html#titan.Explosion.stl_verify_blender.output_stats"><code class="docutils literal notranslate"><span class="pre">output_stats()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Forces.html">Forces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Forces.html#module-titan.Forces.forces">Forces module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Forces.html#titan.Forces.forces.compute_aerodynamic_forces"><code class="docutils literal notranslate"><span class="pre">compute_aerodynamic_forces()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Forces.html#titan.Forces.forces.compute_aerodynamic_moments"><code class="docutils literal notranslate"><span class="pre">compute_aerodynamic_moments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Forces.html#titan.Forces.forces.compute_coefficients"><code class="docutils literal notranslate"><span class="pre">compute_coefficients()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Forces.html#titan.Forces.forces.compute_inertial_forces"><code class="docutils literal notranslate"><span class="pre">compute_inertial_forces()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Fragmentation.html">Fragmentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Fragmentation.html#module-titan.Fragmentation.fragmentation">Fragmentation module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Fragmentation.html#titan.Fragmentation.fragmentation.check_breakup"><code class="docutils literal notranslate"><span class="pre">check_breakup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Fragmentation.html#titan.Fragmentation.fragmentation.check_breakup_v2"><code class="docutils literal notranslate"><span class="pre">check_breakup_v2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Fragmentation.html#titan.Fragmentation.fragmentation.demise_components"><code class="docutils literal notranslate"><span class="pre">demise_components()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Fragmentation.html#titan.Fragmentation.fragmentation.fragmentation"><code class="docutils literal notranslate"><span class="pre">fragmentation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Freestream.html">Freestream package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Freestream.html#module-titan.Freestream.atmosphere">Atmosphere</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.atmosphere.convert_numberDensity_to_density"><code class="docutils literal notranslate"><span class="pre">convert_numberDensity_to_density()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.atmosphere.create_msis_atmosphere"><code class="docutils literal notranslate"><span class="pre">create_msis_atmosphere()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.atmosphere.load_atmosphere"><code class="docutils literal notranslate"><span class="pre">load_atmosphere()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.atmosphere.process_pymsis_result"><code class="docutils literal notranslate"><span class="pre">process_pymsis_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.atmosphere.pymsis_wrapper"><code class="docutils literal notranslate"><span class="pre">pymsis_wrapper()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.atmosphere.retrieve_atmosphere_data"><code class="docutils literal notranslate"><span class="pre">retrieve_atmosphere_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Freestream.html#module-titan.Freestream.gram">NASA-GRAM Connection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.gram.generate_script"><code class="docutils literal notranslate"><span class="pre">generate_script()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.gram.read_gram"><code class="docutils literal notranslate"><span class="pre">read_gram()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.gram.read_gram_species"><code class="docutils literal notranslate"><span class="pre">read_gram_species()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.gram.run_single_gram"><code class="docutils literal notranslate"><span class="pre">run_single_gram()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Freestream.html#module-titan.Freestream.mix_mpp">Mixture Mutation++</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_mpp.mixture_mpp"><code class="docutils literal notranslate"><span class="pre">mixture_mpp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Freestream.html#module-titan.Freestream.mix_properties">Mixture properties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_properties.compute_cp_mean"><code class="docutils literal notranslate"><span class="pre">compute_cp_mean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_properties.compute_diameter_mean"><code class="docutils literal notranslate"><span class="pre">compute_diameter_mean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_properties.compute_freestream"><code class="docutils literal notranslate"><span class="pre">compute_freestream()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_properties.compute_gamma_mean"><code class="docutils literal notranslate"><span class="pre">compute_gamma_mean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_properties.compute_gas_contant_mean"><code class="docutils literal notranslate"><span class="pre">compute_gas_contant_mean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_properties.compute_mass_mean"><code class="docutils literal notranslate"><span class="pre">compute_mass_mean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_properties.compute_mole_fraction"><code class="docutils literal notranslate"><span class="pre">compute_mole_fraction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_properties.compute_omega_mean"><code class="docutils literal notranslate"><span class="pre">compute_omega_mean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_properties.compute_stagnation"><code class="docutils literal notranslate"><span class="pre">compute_stagnation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_properties.compute_sutherland"><code class="docutils literal notranslate"><span class="pre">compute_sutherland()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Freestream.html#titan.Freestream.mix_properties.interpolate_atmosphere_knudsen"><code class="docutils literal notranslate"><span class="pre">interpolate_atmosphere_knudsen()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Geometry.html">Geometry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Geometry.html#module-titan.Geometry">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Geometry.html#module-titan.Geometry.assembly">Assembly</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Aerothermo"><code class="docutils literal notranslate"><span class="pre">Aerothermo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Assembly"><code class="docutils literal notranslate"><span class="pre">Assembly</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Assembly_list"><code class="docutils literal notranslate"><span class="pre">Assembly_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Body_force"><code class="docutils literal notranslate"><span class="pre">Body_force</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Dynamics"><code class="docutils literal notranslate"><span class="pre">Dynamics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Freestream"><code class="docutils literal notranslate"><span class="pre">Freestream</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.Wind_force"><code class="docutils literal notranslate"><span class="pre">Wind_force</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.copy_assembly"><code class="docutils literal notranslate"><span class="pre">copy_assembly()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.assembly.create_assembly_flag"><code class="docutils literal notranslate"><span class="pre">create_assembly_flag()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Geometry.html#module-titan.Geometry.component">Component</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.component.Component"><code class="docutils literal notranslate"><span class="pre">Component</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.component.Component_list"><code class="docutils literal notranslate"><span class="pre">Component_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.component.Explosive"><code class="docutils literal notranslate"><span class="pre">Explosive</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.component.PATO"><code class="docutils literal notranslate"><span class="pre">PATO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.component.bloom"><code class="docutils literal notranslate"><span class="pre">bloom</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Geometry.html#module-titan.Geometry.gmsh_api">gmsh API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.gmsh_api.generate_PATO_domain"><code class="docutils literal notranslate"><span class="pre">generate_PATO_domain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.gmsh_api.generate_cfd_domain"><code class="docutils literal notranslate"><span class="pre">generate_cfd_domain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.gmsh_api.generate_inner_domain"><code class="docutils literal notranslate"><span class="pre">generate_inner_domain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.gmsh_api.mesh_Settings"><code class="docutils literal notranslate"><span class="pre">mesh_Settings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.gmsh_api.object_grid"><code class="docutils literal notranslate"><span class="pre">object_grid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.gmsh_api.object_physical"><code class="docutils literal notranslate"><span class="pre">object_physical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.gmsh_api.outer_surface"><code class="docutils literal notranslate"><span class="pre">outer_surface()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.gmsh_api.physical_surf_from_list"><code class="docutils literal notranslate"><span class="pre">physical_surf_from_list()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Geometry.html#module-titan.Geometry.mesh">Mesh</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.Mesh"><code class="docutils literal notranslate"><span class="pre">Mesh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.ProjectCurvatureTensor"><code class="docutils literal notranslate"><span class="pre">ProjectCurvatureTensor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.RotateCoordinateSystem_1d"><code class="docutils literal notranslate"><span class="pre">RotateCoordinateSystem_1d()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.RotateCoordinateSystem_nd"><code class="docutils literal notranslate"><span class="pre">RotateCoordinateSystem_nd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.add_new_surface_facets"><code class="docutils literal notranslate"><span class="pre">add_new_surface_facets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.append"><code class="docutils literal notranslate"><span class="pre">append()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.calculate_curvature"><code class="docutils literal notranslate"><span class="pre">calculate_curvature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.calculate_vertex_normals"><code class="docutils literal notranslate"><span class="pre">calculate_vertex_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.check_tetra_in_surface"><code class="docutils literal notranslate"><span class="pre">check_tetra_in_surface()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.compute_curvature"><code class="docutils literal notranslate"><span class="pre">compute_curvature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.compute_facet_COG"><code class="docutils literal notranslate"><span class="pre">compute_facet_COG()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.compute_facet_area"><code class="docutils literal notranslate"><span class="pre">compute_facet_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.compute_facet_normal"><code class="docutils literal notranslate"><span class="pre">compute_facet_normal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.compute_geometrical_COG"><code class="docutils literal notranslate"><span class="pre">compute_geometrical_COG()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.compute_mesh"><code class="docutils literal notranslate"><span class="pre">compute_mesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.compute_min_max"><code class="docutils literal notranslate"><span class="pre">compute_min_max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.compute_new_volume"><code class="docutils literal notranslate"><span class="pre">compute_new_volume()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.compute_new_volume_v2"><code class="docutils literal notranslate"><span class="pre">compute_new_volume_v2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.compute_nodes_normals"><code class="docutils literal notranslate"><span class="pre">compute_nodes_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.compute_surface_from_tetra"><code class="docutils literal notranslate"><span class="pre">compute_surface_from_tetra()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.create_index"><code class="docutils literal notranslate"><span class="pre">create_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.create_index_mapping"><code class="docutils literal notranslate"><span class="pre">create_index_mapping()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.exponential_moving_average"><code class="docutils literal notranslate"><span class="pre">exponential_moving_average()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.facet_to_vertex_linear"><code class="docutils literal notranslate"><span class="pre">facet_to_vertex_linear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.facet_to_vertex_voronoi"><code class="docutils literal notranslate"><span class="pre">facet_to_vertex_voronoi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.getPrincipalCurvatures"><code class="docutils literal notranslate"><span class="pre">getPrincipalCurvatures()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.map_edges_connectivity"><code class="docutils literal notranslate"><span class="pre">map_edges_connectivity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.map_facets_connectivity"><code class="docutils literal notranslate"><span class="pre">map_facets_connectivity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.map_surf_to_tetra"><code class="docutils literal notranslate"><span class="pre">map_surf_to_tetra()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.read_mesh"><code class="docutils literal notranslate"><span class="pre">read_mesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.remove_ablated_elements"><code class="docutils literal notranslate"><span class="pre">remove_ablated_elements()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.remove_isolated_facets"><code class="docutils literal notranslate"><span class="pre">remove_isolated_facets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.remove_repeated_facets"><code class="docutils literal notranslate"><span class="pre">remove_repeated_facets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.searchableRadius"><code class="docutils literal notranslate"><span class="pre">searchableRadius()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.sphVolSmoothing"><code class="docutils literal notranslate"><span class="pre">sphVolSmoothing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.update_object_mesh_from_tetra"><code class="docutils literal notranslate"><span class="pre">update_object_mesh_from_tetra()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.update_surface_displacement"><code class="docutils literal notranslate"><span class="pre">update_surface_displacement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.update_surface_mesh"><code class="docutils literal notranslate"><span class="pre">update_surface_mesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.update_volume_displacement"><code class="docutils literal notranslate"><span class="pre">update_volume_displacement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.vertex_to_facet_linear"><code class="docutils literal notranslate"><span class="pre">vertex_to_facet_linear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.mesh.vertex_to_facet_voronoi"><code class="docutils literal notranslate"><span class="pre">vertex_to_facet_voronoi()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Geometry.html#module-titan.Geometry.tetra">Tetra</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.tetra.inertia_tetra"><code class="docutils literal notranslate"><span class="pre">inertia_tetra()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Geometry.html#titan.Geometry.tetra.vol_tetra"><code class="docutils literal notranslate"><span class="pre">vol_tetra()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Material.html">Materials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Material.html#module-titan.Material.material">Material module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Material.html#titan.Material.material.Material"><code class="docutils literal notranslate"><span class="pre">Material</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Material.html#titan.Material.material.polynomial_fit"><code class="docutils literal notranslate"><span class="pre">polynomial_fit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Model.html">Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Model.html#module-titan.Model.drag_model">Drag model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Model.html#titan.Model.drag_model.drag_galileo"><code class="docutils literal notranslate"><span class="pre">drag_galileo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Model.html#titan.Model.drag_model.read_csv"><code class="docutils literal notranslate"><span class="pre">read_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Model.html#module-titan.Model.planet">Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Model.html#titan.Model.planet.Legendre"><code class="docutils literal notranslate"><span class="pre">Legendre()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Model.html#titan.Model.planet.ModelPlanet"><code class="docutils literal notranslate"><span class="pre">ModelPlanet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Model.html#module-titan.Model.vehicle">Vehicle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Model.html#titan.Model.vehicle.ModelVehicle"><code class="docutils literal notranslate"><span class="pre">ModelVehicle</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Output.html">Output</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Output.html#module-titan.Output.dynamic_plots">Dynamic plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.dynamic_plots.initialise_figs"><code class="docutils literal notranslate"><span class="pre">initialise_figs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.dynamic_plots.update_plot"><code class="docutils literal notranslate"><span class="pre">update_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.dynamic_plots.update_plot_parameters"><code class="docutils literal notranslate"><span class="pre">update_plot_parameters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Output.html#module-titan.Output.output">Output module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.TITAN_information"><code class="docutils literal notranslate"><span class="pre">TITAN_information()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.create_surface_solution"><code class="docutils literal notranslate"><span class="pre">create_surface_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.generate_surface_solution"><code class="docutils literal notranslate"><span class="pre">generate_surface_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.generate_surface_solution_emissions"><code class="docutils literal notranslate"><span class="pre">generate_surface_solution_emissions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.generate_surface_solution_object"><code class="docutils literal notranslate"><span class="pre">generate_surface_solution_object()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.generate_volume"><code class="docutils literal notranslate"><span class="pre">generate_volume()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.generate_volume_solution"><code class="docutils literal notranslate"><span class="pre">generate_volume_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.iteration"><code class="docutils literal notranslate"><span class="pre">iteration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.options_information"><code class="docutils literal notranslate"><span class="pre">options_information()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.update_surface_solution"><code class="docutils literal notranslate"><span class="pre">update_surface_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.write_output_data"><code class="docutils literal notranslate"><span class="pre">write_output_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.write_surface_solution"><code class="docutils literal notranslate"><span class="pre">write_surface_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Output.html#titan.Output.output.write_to_series"><code class="docutils literal notranslate"><span class="pre">write_to_series()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Postprocess.html">Postprocess</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Postprocess.html#module-titan.Postprocess.postprocess">Postprocess module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess.generate_visualization"><code class="docutils literal notranslate"><span class="pre">generate_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess.postprocess"><code class="docutils literal notranslate"><span class="pre">postprocess()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Postprocess.html#module-titan.Postprocess.postprocess_emissions">Postprocess emissions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess_emissions.compute_billig"><code class="docutils literal notranslate"><span class="pre">compute_billig()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess_emissions.compute_ray_intersection"><code class="docutils literal notranslate"><span class="pre">compute_ray_intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess_emissions.compute_shock_distance"><code class="docutils literal notranslate"><span class="pre">compute_shock_distance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess_emissions.element_gas_densities"><code class="docutils literal notranslate"><span class="pre">element_gas_densities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess_emissions.emissions"><code class="docutils literal notranslate"><span class="pre">emissions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess_emissions.line_of_sight"><code class="docutils literal notranslate"><span class="pre">line_of_sight()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess_emissions.postprocess_emissions"><code class="docutils literal notranslate"><span class="pre">postprocess_emissions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess_emissions.precompute_bvh"><code class="docutils literal notranslate"><span class="pre">precompute_bvh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess_emissions.read_state"><code class="docutils literal notranslate"><span class="pre">read_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Postprocess.html#titan.Postprocess.postprocess_emissions.view_direction"><code class="docutils literal notranslate"><span class="pre">view_direction()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Structural.html">Structural</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Structural.html#module-titan.Structural.structural">Structural module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Structural.html#titan.Structural.structural.run_FENICS"><code class="docutils literal notranslate"><span class="pre">run_FENICS()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Thermal.html">Thermal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Thermal.html#module-titan.Thermal.thermal">Thermal module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.black_body"><code class="docutils literal notranslate"><span class="pre">black_body()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.calculate_partition_function"><code class="docutils literal notranslate"><span class="pre">calculate_partition_function()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.compute_black_body_emissions"><code class="docutils literal notranslate"><span class="pre">compute_black_body_emissions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.compute_black_body_spectral_emissions"><code class="docutils literal notranslate"><span class="pre">compute_black_body_spectral_emissions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.compute_particle_spectral_emissions_AlI"><code class="docutils literal notranslate"><span class="pre">compute_particle_spectral_emissions_AlI()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.compute_particle_spectral_emissions_OI"><code class="docutils literal notranslate"><span class="pre">compute_particle_spectral_emissions_OI()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.compute_thermal"><code class="docutils literal notranslate"><span class="pre">compute_thermal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.compute_thermal_0D"><code class="docutils literal notranslate"><span class="pre">compute_thermal_0D()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.compute_thermal_PATO"><code class="docutils literal notranslate"><span class="pre">compute_thermal_PATO()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.compute_thermal_byproducts"><code class="docutils literal notranslate"><span class="pre">compute_thermal_byproducts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.compute_thermal_tetra"><code class="docutils literal notranslate"><span class="pre">compute_thermal_tetra()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.get_energy_levels"><code class="docutils literal notranslate"><span class="pre">get_energy_levels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.integrate_planck"><code class="docutils literal notranslate"><span class="pre">integrate_planck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.thermal.partition"><code class="docutils literal notranslate"><span class="pre">partition()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Thermal.html#byproducts-module">Byproducts module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Thermal.html#module-titan.Thermal.pato">PATO Connection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.adjacent_facets"><code class="docutils literal notranslate"><span class="pre">adjacent_facets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.buffer_shared"><code class="docutils literal notranslate"><span class="pre">buffer_shared()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.compute_heat_conduction"><code class="docutils literal notranslate"><span class="pre">compute_heat_conduction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.compute_heat_conduction_on_surface"><code class="docutils literal notranslate"><span class="pre">compute_heat_conduction_on_surface()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.compute_thermal"><code class="docutils literal notranslate"><span class="pre">compute_thermal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.identify_object_connections"><code class="docutils literal notranslate"><span class="pre">identify_object_connections()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.interpolateNearestCOG"><code class="docutils literal notranslate"><span class="pre">interpolateNearestCOG()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.mapping_facetCOG_TITAN_PATO"><code class="docutils literal notranslate"><span class="pre">mapping_facetCOG_TITAN_PATO()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.postprocess_PATO_solution"><code class="docutils literal notranslate"><span class="pre">postprocess_PATO_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.postprocess_mass_inertia"><code class="docutils literal notranslate"><span class="pre">postprocess_mass_inertia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.retrieve_surface_vtk_data"><code class="docutils literal notranslate"><span class="pre">retrieve_surface_vtk_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.retrieve_volume_vtk_data"><code class="docutils literal notranslate"><span class="pre">retrieve_volume_vtk_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.run_PATO"><code class="docutils literal notranslate"><span class="pre">run_PATO()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.setup_PATO_simulation"><code class="docutils literal notranslate"><span class="pre">setup_PATO_simulation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.write_All_run"><code class="docutils literal notranslate"><span class="pre">write_All_run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.write_All_run_init"><code class="docutils literal notranslate"><span class="pre">write_All_run_init()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.write_PATO_BC"><code class="docutils literal notranslate"><span class="pre">write_PATO_BC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.write_constant_folder"><code class="docutils literal notranslate"><span class="pre">write_constant_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.write_material_properties"><code class="docutils literal notranslate"><span class="pre">write_material_properties()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.write_origin_folder"><code class="docutils literal notranslate"><span class="pre">write_origin_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Thermal.html#titan.Thermal.pato.write_system_folder"><code class="docutils literal notranslate"><span class="pre">write_system_folder()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan.Uncertainty.html">Uncertainty</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan.Uncertainty.html#guassian-mixture-model-gmm">Guassian Mixture Model (GMM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Uncertainty.html#module-titan.Uncertainty.MC_wrapper">Monte Carlo Wrapper</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.MC_wrapper.log_error"><code class="docutils literal notranslate"><span class="pre">log_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.MC_wrapper.run"><code class="docutils literal notranslate"><span class="pre">run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.MC_wrapper.update_datafile"><code class="docutils literal notranslate"><span class="pre">update_datafile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.MC_wrapper.wrapper"><code class="docutils literal notranslate"><span class="pre">wrapper()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.MC_wrapper.write_datafile"><code class="docutils literal notranslate"><span class="pre">write_datafile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Uncertainty.html#module-titan.Uncertainty.filtering">Filtering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.filtering.FilterPoints"><code class="docutils literal notranslate"><span class="pre">FilterPoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Uncertainty.html#module-titan.Uncertainty.mappings">Uncertainty Mappings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.ECI_position_callback"><code class="docutils literal notranslate"><span class="pre">ECI_position_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.RIC_callback"><code class="docutils literal notranslate"><span class="pre">RIC_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.TVN_callback"><code class="docutils literal notranslate"><span class="pre">TVN_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.assembly_address"><code class="docutils literal notranslate"><span class="pre">assembly_address()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.available_distris"><code class="docutils literal notranslate"><span class="pre">available_distris</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.callbacks"><code class="docutils literal notranslate"><span class="pre">callbacks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.cartesian_callback"><code class="docutils literal notranslate"><span class="pre">cartesian_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.component_address"><code class="docutils literal notranslate"><span class="pre">component_address()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.dynamic_attributes_callback"><code class="docutils literal notranslate"><span class="pre">dynamic_attributes_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.get_component_index_from_name"><code class="docutils literal notranslate"><span class="pre">get_component_index_from_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.library_addresses"><code class="docutils literal notranslate"><span class="pre">library_addresses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.library_assignments"><code class="docutils literal notranslate"><span class="pre">library_assignments</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.library_check"><code class="docutils literal notranslate"><span class="pre">library_check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.option_aero_address"><code class="docutils literal notranslate"><span class="pre">option_aero_address()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.option_free_address"><code class="docutils literal notranslate"><span class="pre">option_free_address()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.option_traj_address"><code class="docutils literal notranslate"><span class="pre">option_traj_address()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.orientation_callback"><code class="docutils literal notranslate"><span class="pre">orientation_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.quat_rotation"><code class="docutils literal notranslate"><span class="pre">quat_rotation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.state_vector_callback"><code class="docutils literal notranslate"><span class="pre">state_vector_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.symmetrize_inertia_callback"><code class="docutils literal notranslate"><span class="pre">symmetrize_inertia_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.mappings.trajectory_address"><code class="docutils literal notranslate"><span class="pre">trajectory_address()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Uncertainty.html#module-titan.Uncertainty.measurement">Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.measurement.StateObservation"><code class="docutils literal notranslate"><span class="pre">StateObservation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.measurement.measurement_from_state"><code class="docutils literal notranslate"><span class="pre">measurement_from_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan.Uncertainty.html#titan.Uncertainty.measurement.measurement_func"><code class="docutils literal notranslate"><span class="pre">measurement_func()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan.Uncertainty.html#uncertainty-utilities">Uncertainty Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+</article><footer class="bz-article-footer">
+  
+  
+    <nav class="bz-related-pages" aria-label="Related pages navigation"></nav>
+  
+
+</footer></main>
+  </div>
+<footer class="bz-footer">
+  <div class="bz-footer-copyright"><p class="bz-copyright">© Copyright 2026, TITAN Contributors</p><p>
+    
+    
+    
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/aksiome/breeze">Breeze theme</a>.
+    
+  </p>
+</div>
+</footer><a href="#" class="bz-back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>
+    </svg>
+    <span>Back to top</span>
+  </a>
+  <label class="bz-overlay bz-overlay-primary" for="bz-sidebar-primary"></label>
+  <label class="bz-overlay bz-overlay-secondary" for="bz-sidebar-secondary"></label>
+  <input type="checkbox" name="bz-sidebar-primary" id="bz-sidebar-primary" aria-label="Toggle section navigation">
+  <input type="checkbox" name="bz-sidebar-secondary" id="bz-sidebar-secondary" aria-label="Toggle table of contents"><script src="_static/documentation_options.js?v=a06e5c19"></script><script src="_static/doctools.js?v=fd6eb6e6"></script><script src="_static/sphinx_highlight.js?v=6ffebe34"></script></body>
+</html>

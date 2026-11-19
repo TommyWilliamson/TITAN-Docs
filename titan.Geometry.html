@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Geometry" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="titan.Geometry.html" />
+<meta property="og:site_name" content="TITAN" />
+<meta property="og:description" content="Module contents: Geometry module - geometric and mesh operations Assembly: assembly module. Component: component module. gmsh API: gmsh_api module. Mesh: mesh module. Tetra: tetra module." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="_images/social_previews/summary_titan.Geometry_37993237.png" />
+<meta property="og:image:alt" content="Module contents: Geometry module - geometric and mesh operations Assembly: assembly module. Component: component module. gmsh API: gmsh_api module. Mesh: mesh module. Tetra: tetra module." />
+<meta name="description" content="Module contents: Geometry module - geometric and mesh operations Assembly: assembly module. Component: component module. gmsh API: gmsh_api module. Mesh: mesh module. Tetra: tetra module." />
+<meta name="twitter:card" content="summary_large_image" />
+<title>Geometry - TITAN v0.2 &#34;Atlas&#34; documentation</title><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Materials" href="titan.Material.html"><link rel="prev" title="Freestream package" href="titan.Freestream.html"><script data-cfasync="false">(function(){
+    const m = localStorage.getItem("breeze-mode") || "auto";
+    const d = document.documentElement.dataset;
+    d.mode = m;
+    d.theme = m === "auto"
+      ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : m;
+  })();
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" /><link rel="stylesheet" type="text/css" href="_static/custom.css?v=3b2811d2" /><link rel="stylesheet" type="text/css" href="_static/styles/breeze.css?v=7c62c100" /><script defer="defer" src="_static/scripts/breeze.js?v=dac9f8c6"></script></head>
+<body>
+  
+  
+  <div class="bz-skip-to-content"><a href="#bz-main-content">Skip to main content</a></div><header class="bz-header-main">
+  <div class="bz-header-start"><a class="bz-header-brand" href="index.html">
+  <img class="only-light" src="_static/titan_icon_light.png" alt="TITAN" />
+  <img class="only-dark" src="_static/titan_icon_dark.png" alt="TITAN" />
+  <span>TITAN v0.2 "Atlas" documentation</span>
+</a>
+  </div>
+  <div class="bz-header-end"><div id="docsearch" class="bz-search-button">
+  <a
+    href="search.html#q"
+    aria-label="Search the docs"
+    data-tooltip="Search the docs"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 -1 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+      />
+    </svg>
+    <span>Search</span>
+    <kbd>Ctrl+K</kbd>
+  </a>
+</div><div class="bz-theme-switcher">
+  <button aria-label="Switch theme" data-tooltip="Switch theme">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-light" fill="currentColor">
+      <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061ZM2.343 2.343a.75.75 0 0 1 1.061 0l1.06 1.061a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-1.06-1.06a.75.75 0 0 1 0-1.06Z"></path>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="only-dark" fill="currentColor">
+      <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z"></path>
+    </svg>
+  </button>
+</div>
+  </div>
+</header><nav class="bz-header-tabs" aria-label="Primary Navigation"><label
+  class="bz-sidebar-primary-toggle"
+  for="bz-sidebar-primary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle site navigation"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h12.5"
+    />
+  </svg>
+</label><ul><li class="toctree-l1"><a class="reference internal" href="titan.html">Docs</a></li><li class="toctree-l1"><a class="reference internal" href="titan.html#module-titan.__main__">Main Functions</a></li><li class="toctree-l1 current"><a class="reference internal" href="titan.html#api-reference">API Reference</a></li></ul><div class="bz-dropdown">
+    <button aria-haspopup="true" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="1" />
+          <circle cx="19" cy="12" r="1" />
+          <circle cx="5" cy="12" r="1" />
+        </g>
+      </svg>
+    </button>
+    <ul role="menu" aria-hidden="true"></ul>
+  </div>
+</nav><hr class="bz-header-hr">
+  <div class="bz-content"><aside class="bz-sidebar-primary" data-drawer="bz-sidebar-primary">
+  
+  
+    <nav class="bz-sidebar-nav" aria-label="Section Navigation"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="titan.Aerothermo.html">Aerothermo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Dynamics.html">Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Explosion.html">Explosion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Forces.html">Forces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Fragmentation.html">Fragmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Freestream.html">Freestream package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Material.html">Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Output.html">Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Postprocess.html">Postprocess</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Structural.html">Structural</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Thermal.html">Thermal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan.Uncertainty.html">Uncertainty</a></li>
+</ul>
+</nav>
+  
+
+</aside><main id="bz-main-content"><header class="bz-article-header">
+  
+  
+    <nav class="bz-breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li class="bz-breadcrumbs-home">
+      <a href="index.html" aria-label="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8.543 2.232a.75.75 0 0 0-1.085 0l-5.25 5.5A.75.75 0 0 0 2.75 9H4v4a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9h1.25a.75.75 0 0 0 .543-1.268l-5.25-5.5Z" />
+        </svg>
+      </a>
+    </li><li class="bz-breadcrumbs-parent">
+      <a href="titan.html">Docs</a>
+    </li><li class="bz-breadcrumbs-current">
+      <span>Geometry</span>
+    </li>
+  </ol>
+</nav>
+  
+<label
+  class="bz-sidebar-secondary-toggle"
+  for="bz-sidebar-secondary"
+  role="button"
+  tabindex="0"
+  aria-label="Toggle table of contents"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3.75 6.75H20.25 M11.25 12H20.25 M7.75 17.25H20.25"
+    />
+  </svg>
+</label></header><article class="bz-article-main" role="main"><div class="bz-page-actions" role="group" aria-label="Page actions">
+  <button data-copy-source="_sources/titan.Geometry.rst.txt">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+    <span>Copy page</span>
+  </button>
+  <div class="bz-dropdown">
+    <button
+      aria-label="More actions"
+      aria-haspopup="true"
+      aria-expanded="false"
+    ></button>
+    <ul role="menu" aria-hidden="true">
+      <li>
+        <a href="#" role="menuitem" data-copy-source="_sources/titan.Geometry.rst.txt">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 0 1-1.75 1.75H8.774a1.75 1.75 0 0 1-1.75-1.75Zm1.75-.25a.25.25 0 0 0-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path><path d="M1.995 10.749a1.75 1.75 0 0 1 1.75-1.751H5.25a.75.75 0 1 1 0 1.5H3.745a.25.25 0 0 0-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 0 0 .25-.25v-1.51a.75.75 0 1 1 1.5 0v1.51A1.75 1.75 0 0 1 13.25 22h-9.5A1.75 1.75 0 0 1 2 20.25l-.005-9.501Z"></path></svg>
+          <span>Copy page</span>
+        </a>
+      </li>
+      <li>
+        <a href="_sources/titan.Geometry.rst.txt" role="menuitem" class="bz-page-actions-external" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3a2 2 0 0 1 2-2h9.982a2 2 0 0 1 1.414.586l4.018 4.018A2 2 0 0 1 21 7.018V21a2 2 0 0 1-2 2H4.75a.75.75 0 0 1 0-1.5H19a.5.5 0 0 0 .5-.5V8.5h-4a2 2 0 0 1-2-2v-4H5a.5.5 0 0 0-.5.5v6.25a.75.75 0 0 1-1.5 0Zm12-.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 0-.146-.336l-4.018-4.018A.5.5 0 0 0 15 2.5Z"></path><path d="M4.53 12.24a.75.75 0 0 1-.039 1.06l-2.639 2.45 2.64 2.45a.75.75 0 1 1-1.022 1.1l-3.23-3a.75.75 0 0 1 0-1.1l3.23-3a.75.75 0 0 1 1.06.04Zm3.979 1.06a.75.75 0 1 1 1.02-1.1l3.231 3a.75.75 0 0 1 0 1.1l-3.23 3a.75.75 0 1 1-1.021-1.1l2.639-2.45-2.64-2.45Z"></path></svg>
+          <span>View source</span>
+        </a>
+      </li></ul>
+  </div>
+</div><section id="geometry">
+<h1>Geometry<a class="headerlink" href="#geometry" title="Link to this heading">#</a></h1>
+<section id="module-titan.Geometry">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-titan.Geometry" title="Link to this heading">#</a></h2>
+<p>Geometry module - geometric and mesh operations</p>
+</section>
+<section id="module-titan.Geometry.assembly">
+<span id="assembly"></span><h2>Assembly<a class="headerlink" href="#module-titan.Geometry.assembly" title="Link to this heading">#</a></h2>
+<p>assembly module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Aerothermo">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.assembly.</span></span><span class="sig-name descname"><span class="pre">Aerothermo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wall_temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Aerothermo" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Documentation for the function.
+:param pressure: Numeric value for pressure.
+:type pressure: float
+:param mach: Value for mach.
+:type mach: Any
+:param gamma: Numeric value for gamma.
+:type gamma: float
+:param knudsen: Value for knudsen.
+:type knudsen: Any
+:param prandtl: Value for prandtl.
+:type prandtl: Any
+:param temperature: Numeric value for temperature.
+:type temperature: float
+:param density: Numeric value for density.
+:type density: float
+:param velocity: Value for velocity.
+:type velocity: Any
+:param R: Value for r.
+:type R: Any
+:param mfp: Value for mfp.
+:type mfp: Any
+:param omega: Value for omega.
+:type omega: Any
+:param diameter: Value for diameter.
+:type diameter: Any
+:param mu: Value for mu.
+:type mu: Any
+:param cp: Value for cp.
+:type cp: Any
+:param cv: Value for cv.
+:type cv: Any</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Aerothermo.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Aerothermo.append" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param n_points: Integer value for n points.
+:type n_points: int
+:param temperature: Numeric value for temperature.
+:type temperature: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Aerothermo.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Aerothermo.delete" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param index: Integer value for index.
+:type index: int</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Aerothermo.heatflux">
+<span class="sig-name descname"><span class="pre">heatflux</span></span><a class="headerlink" href="#titan.Geometry.assembly.Aerothermo.heatflux" title="Link to this definition">#</a></dt>
+<dd><p>[np.array] Heatflux [W]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Aerothermo.pressure">
+<span class="sig-name descname"><span class="pre">pressure</span></span><a class="headerlink" href="#titan.Geometry.assembly.Aerothermo.pressure" title="Link to this definition">#</a></dt>
+<dd><p>[np.array] Pressure [Pa]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Aerothermo.shear">
+<span class="sig-name descname"><span class="pre">shear</span></span><a class="headerlink" href="#titan.Geometry.assembly.Aerothermo.shear" title="Link to this definition">#</a></dt>
+<dd><p>[np.array] Skin friction [Pa]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.assembly.</span></span><span class="sig-name descname"><span class="pre">Assembly</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">aoa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">slip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">roll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Assembly" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class Assembly</p>
+<p>A class to store the information respective to each assemly at every time iteration</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.Aref">
+<span class="sig-name descname"><span class="pre">Aref</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.Aref" title="Link to this definition">#</a></dt>
+<dd><p>[float] Area of reference [meters^2]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.COG">
+<span class="sig-name descname"><span class="pre">COG</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.COG" title="Link to this definition">#</a></dt>
+<dd><p>[array] CYZ coordinates of the center of mass in the body frame [meters]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.Lref">
+<span class="sig-name descname"><span class="pre">Lref</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.Lref" title="Link to this definition">#</a></dt>
+<dd><p>[float] Length of reference [meters]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.aerothermo">
+<span class="sig-name descname"><span class="pre">aerothermo</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.aerothermo" title="Link to this definition">#</a></dt>
+<dd><p>[Aerothermo] Object of class Aerothermo to store the surface quantities</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.aoa">
+<span class="sig-name descname"><span class="pre">aoa</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.aoa" title="Link to this definition">#</a></dt>
+<dd><p>[float] Angle of attack [radians]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.body_force">
+<span class="sig-name descname"><span class="pre">body_force</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.body_force" title="Link to this definition">#</a></dt>
+<dd><p>[Body_force] Object of class Body_force to store the force and moment information in the body frame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.compute_mass_properties">
+<span class="sig-name descname"><span class="pre">compute_mass_properties</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.compute_mass_properties" title="Link to this definition">#</a></dt>
+<dd><p>Computes the inertial properties</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.dynamics">
+<span class="sig-name descname"><span class="pre">dynamics</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.dynamics" title="Link to this definition">#</a></dt>
+<dd><p>[Dynamics] Object of class Dynamics to store the dynamics information</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.freestream">
+<span class="sig-name descname"><span class="pre">freestream</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.freestream" title="Link to this definition">#</a></dt>
+<dd><p>[Freestream] Object of class Freestream to store the freestream information</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.generate_inner_domain">
+<span class="sig-name descname"><span class="pre">generate_inner_domain</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">write</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">output_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">bc_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">size_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">min_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.generate_inner_domain" title="Link to this definition">#</a></dt>
+<dd><p>Generates the 3D structural mesh
+:param write: Value for write.
+:type write: Any
+:param output_folder: Value for output folder.
+:type output_folder: Any
+:param output_filename: Value for output filename.
+:type output_filename: str
+:param bc_ids: Value for bc ids.
+:type bc_ids: Any
+:param size_override: Value for size override.
+:type size_override: Any
+:param min_size: Value for min size.
+:type min_size: Any</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.id" title="Link to this definition">#</a></dt>
+<dd><p>[int] ID of the assembly</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.inertia">
+<span class="sig-name descname"><span class="pre">inertia</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.inertia" title="Link to this definition">#</a></dt>
+<dd><p>[array] Inertia matrix in the body frame [kg/m²]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.mass">
+<span class="sig-name descname"><span class="pre">mass</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.mass" title="Link to this definition">#</a></dt>
+<dd><p>[float] Mass of the assembly [kg]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.mesh">
+<span class="sig-name descname"><span class="pre">mesh</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.mesh" title="Link to this definition">#</a></dt>
+<dd><p>[Mesh] Object of class Mesh containing the grid information</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.objects" title="Link to this definition">#</a></dt>
+<dd><p>[array] List of the components that are part of the assembly</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.rearrange_ids">
+<span class="sig-name descname"><span class="pre">rearrange_ids</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.rearrange_ids" title="Link to this definition">#</a></dt>
+<dd><p>Rearrange the objects ids and connectivity not to break in the fragmentation section</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.slip">
+<span class="sig-name descname"><span class="pre">slip</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.slip" title="Link to this definition">#</a></dt>
+<dd><p>[float] Slip angle [radians]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly.wind_force">
+<span class="sig-name descname"><span class="pre">wind_force</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly.wind_force" title="Link to this definition">#</a></dt>
+<dd><p>[Body_force] Object of class Wind_force to store the force information in the wind frame</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.assembly.</span></span><span class="sig-name descname"><span class="pre">Assembly_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class Assembly list</p>
+<p>A class to store a list of assemblies and respective information, as well as the number of iterations and simulation time</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list.assembly">
+<span class="sig-name descname"><span class="pre">assembly</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list.assembly" title="Link to this definition">#</a></dt>
+<dd><p>[array] List of assemblies</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list.connectivity">
+<span class="sig-name descname"><span class="pre">connectivity</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list.connectivity" title="Link to this definition">#</a></dt>
+<dd><p>[array] List of the linkage information between the different components</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list.create_assembly">
+<span class="sig-name descname"><span class="pre">create_assembly</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">connectivity</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">aoa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">slip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">roll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list.create_assembly" title="Link to this definition">#</a></dt>
+<dd><p>Group connected components into assemblies and initialize their state.</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param connectivity<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Component-link table describing joints and connections.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>options</strong> – Options or configuration object.
+:type options: Options</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list.delta_t">
+<span class="sig-name descname"><span class="pre">delta_t</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list.delta_t" title="Link to this definition">#</a></dt>
+<dd><p>[float] nominal time step</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list.epoch">
+<span class="sig-name descname"><span class="pre">epoch</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list.epoch" title="Link to this definition">#</a></dt>
+<dd><p>[datetime] Epoch time of the simulation start</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list.id" title="Link to this definition">#</a></dt>
+<dd><p>[array] Number ID to identify the assembly. Whenever an assembly is generated (i.e. due to fragmentation/ablation or during the preprocessing phase), it will have this number ID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list.iter">
+<span class="sig-name descname"><span class="pre">iter</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list.iter" title="Link to this definition">#</a></dt>
+<dd><p>[int] Iteration</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list.n_collisions">
+<span class="sig-name descname"><span class="pre">n_collisions</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list.n_collisions" title="Link to this definition">#</a></dt>
+<dd><p>[int] Number of collisions that have ocurred</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list.objects" title="Link to this definition">#</a></dt>
+<dd><p>[array] List of components</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list.post_event_iter">
+<span class="sig-name descname"><span class="pre">post_event_iter</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list.post_event_iter" title="Link to this definition">#</a></dt>
+<dd><p>[int] Iterations in reference to a fragmentation event, necessary for backward difference-style propagators</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Assembly_list.time">
+<span class="sig-name descname"><span class="pre">time</span></span><a class="headerlink" href="#titan.Geometry.assembly.Assembly_list.time" title="Link to this definition">#</a></dt>
+<dd><p>[float] simulation physical time</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Body_force">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.assembly.</span></span><span class="sig-name descname"><span class="pre">Body_force</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([[0.],</span> <span class="pre">[0.],</span> <span class="pre">[0.]])</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">moment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([[0.],</span> <span class="pre">[0.],</span> <span class="pre">[0.]])</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Body_force" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class Body_force</p>
+<p>A class to store the force and moment information that the assembly experiences at each iteration in the body frame</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Body_force.force">
+<span class="sig-name descname"><span class="pre">force</span></span><a class="headerlink" href="#titan.Geometry.assembly.Body_force.force" title="Link to this definition">#</a></dt>
+<dd><p>[np.array] Force array (3x1)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Body_force.moment">
+<span class="sig-name descname"><span class="pre">moment</span></span><a class="headerlink" href="#titan.Geometry.assembly.Body_force.moment" title="Link to this definition">#</a></dt>
+<dd><p>[np.array] Moment array (3x1)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Dynamics">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.assembly.</span></span><span class="sig-name descname"><span class="pre">Dynamics</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">roll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">pitch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">yaw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">vel_roll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">vel_pitch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">vel_yaw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Dynamics" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class Dynamics</p>
+<p>A class to store the dynamics information of the assembly</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Dynamics.acceleration">
+<span class="sig-name descname"><span class="pre">acceleration</span></span><a class="headerlink" href="#titan.Geometry.assembly.Dynamics.acceleration" title="Link to this definition">#</a></dt>
+<dd><p>[float] Instantaneous acceleration vector in m/s^2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Dynamics.pitch">
+<span class="sig-name descname"><span class="pre">pitch</span></span><a class="headerlink" href="#titan.Geometry.assembly.Dynamics.pitch" title="Link to this definition">#</a></dt>
+<dd><p>[float] Pitch angle in radians</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Dynamics.roll">
+<span class="sig-name descname"><span class="pre">roll</span></span><a class="headerlink" href="#titan.Geometry.assembly.Dynamics.roll" title="Link to this definition">#</a></dt>
+<dd><p>[float] Roll angle in radians</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Dynamics.vel_pitch">
+<span class="sig-name descname"><span class="pre">vel_pitch</span></span><a class="headerlink" href="#titan.Geometry.assembly.Dynamics.vel_pitch" title="Link to this definition">#</a></dt>
+<dd><p>[float] Pitch angular velocity in rad/s</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Dynamics.vel_roll">
+<span class="sig-name descname"><span class="pre">vel_roll</span></span><a class="headerlink" href="#titan.Geometry.assembly.Dynamics.vel_roll" title="Link to this definition">#</a></dt>
+<dd><p>[float] Roll angular velocity in rad/s</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Dynamics.vel_yaw">
+<span class="sig-name descname"><span class="pre">vel_yaw</span></span><a class="headerlink" href="#titan.Geometry.assembly.Dynamics.vel_yaw" title="Link to this definition">#</a></dt>
+<dd><p>[float] Yaw angular velocity in rad/s</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Dynamics.yaw">
+<span class="sig-name descname"><span class="pre">yaw</span></span><a class="headerlink" href="#titan.Geometry.assembly.Dynamics.yaw" title="Link to this definition">#</a></dt>
+<dd><p>[float] Yaw angle in radians</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.assembly.</span></span><span class="sig-name descname"><span class="pre">Freestream</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">pressure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">mach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">knudsen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">prandtl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">velocity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">R</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">mfp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">omega</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">diameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">cp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">cv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Freestream" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class Freestream</p>
+<p>A class to store freestream information with respect to the position and velocity of each assembly</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.P1_s">
+<span class="sig-name descname"><span class="pre">P1_s</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.P1_s" title="Link to this definition">#</a></dt>
+<dd><p>[float] Pressure at the stagnation point</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.R">
+<span class="sig-name descname"><span class="pre">R</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.R" title="Link to this definition">#</a></dt>
+<dd><p>[float] Gas constant</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.T1_s">
+<span class="sig-name descname"><span class="pre">T1_s</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.T1_s" title="Link to this definition">#</a></dt>
+<dd><p>[float] Temperature at the stagnation point</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.cp">
+<span class="sig-name descname"><span class="pre">cp</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.cp" title="Link to this definition">#</a></dt>
+<dd><p>[float] Heat capacity at constant pressure</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.cv">
+<span class="sig-name descname"><span class="pre">cv</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.cv" title="Link to this definition">#</a></dt>
+<dd><p>[float] Heat capacity at constant volume</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.density">
+<span class="sig-name descname"><span class="pre">density</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.density" title="Link to this definition">#</a></dt>
+<dd><p>[float] Freestream density [kg/m^3]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.diameter">
+<span class="sig-name descname"><span class="pre">diameter</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.diameter" title="Link to this definition">#</a></dt>
+<dd><p>[float] Mean diameter</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.gamma">
+<span class="sig-name descname"><span class="pre">gamma</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.gamma" title="Link to this definition">#</a></dt>
+<dd><p>[float] Freestream specific heat ratio</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.h1_s">
+<span class="sig-name descname"><span class="pre">h1_s</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.h1_s" title="Link to this definition">#</a></dt>
+<dd><p>[?float?] Specific enthalpy at the stagnation point</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.knudsen">
+<span class="sig-name descname"><span class="pre">knudsen</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.knudsen" title="Link to this definition">#</a></dt>
+<dd><p>[float] Freestream knudsen</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.mach">
+<span class="sig-name descname"><span class="pre">mach</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.mach" title="Link to this definition">#</a></dt>
+<dd><p>[float] Freestream mach</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.mass_fraction">
+<span class="sig-name descname"><span class="pre">mass_fraction</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.mass_fraction" title="Link to this definition">#</a></dt>
+<dd><p>[array (float)] percentage of species in the mixture with respect to mass</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.mfp">
+<span class="sig-name descname"><span class="pre">mfp</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.mfp" title="Link to this definition">#</a></dt>
+<dd><p>[float] mean free path in meters</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.mu">
+<span class="sig-name descname"><span class="pre">mu</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.mu" title="Link to this definition">#</a></dt>
+<dd><p>[float] Mean viscosity</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.mu_s">
+<span class="sig-name descname"><span class="pre">mu_s</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.mu_s" title="Link to this definition">#</a></dt>
+<dd><p>[float] Viscosity at the stagnation point</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.omega">
+<span class="sig-name descname"><span class="pre">omega</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.omega" title="Link to this definition">#</a></dt>
+<dd><p>[float] Mean viscosity coefficient</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.percent_gas">
+<span class="sig-name descname"><span class="pre">percent_gas</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.percent_gas" title="Link to this definition">#</a></dt>
+<dd><p>[array (float)] percentage of species in the mixture with respect to moles</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.prandtl">
+<span class="sig-name descname"><span class="pre">prandtl</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.prandtl" title="Link to this definition">#</a></dt>
+<dd><p>[float] Freestream prandtl</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.pressure">
+<span class="sig-name descname"><span class="pre">pressure</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.pressure" title="Link to this definition">#</a></dt>
+<dd><p>[float] Freestream pressure [Pa]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.rho_s">
+<span class="sig-name descname"><span class="pre">rho_s</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.rho_s" title="Link to this definition">#</a></dt>
+<dd><p>[float] Density at the stagnation point</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.species_index">
+<span class="sig-name descname"><span class="pre">species_index</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.species_index" title="Link to this definition">#</a></dt>
+<dd><p>[array (str)] list of species in the mixture</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.temperature">
+<span class="sig-name descname"><span class="pre">temperature</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.temperature" title="Link to this definition">#</a></dt>
+<dd><p>[float] Freestream temperature [K]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Freestream.velocity">
+<span class="sig-name descname"><span class="pre">velocity</span></span><a class="headerlink" href="#titan.Geometry.assembly.Freestream.velocity" title="Link to this definition">#</a></dt>
+<dd><p>[float] Freestream velocity [m/s]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Wind_force">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.assembly.</span></span><span class="sig-name descname"><span class="pre">Wind_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crosswind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.Wind_force" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class Wind_force</p>
+<p>A class to store the force information that the assembly experiences at each iteration in the wind frame</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Wind_force.crosswind">
+<span class="sig-name descname"><span class="pre">crosswind</span></span><a class="headerlink" href="#titan.Geometry.assembly.Wind_force.crosswind" title="Link to this definition">#</a></dt>
+<dd><p>[float] Crosswind force</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Wind_force.drag">
+<span class="sig-name descname"><span class="pre">drag</span></span><a class="headerlink" href="#titan.Geometry.assembly.Wind_force.drag" title="Link to this definition">#</a></dt>
+<dd><p>[float] Drag force</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.Wind_force.lift">
+<span class="sig-name descname"><span class="pre">lift</span></span><a class="headerlink" href="#titan.Geometry.assembly.Wind_force.lift" title="Link to this definition">#</a></dt>
+<dd><p>[float] Lift force</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.copy_assembly">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.assembly.</span></span><span class="sig-name descname"><span class="pre">copy_assembly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_assemblies</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.copy_assembly" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param list_assemblies: Value for list assemblies.
+:type list_assemblies: Any
+:param options: Options or configuration object.
+:type options: Options
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.assembly.create_assembly_flag">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.assembly.</span></span><span class="sig-name descname"><span class="pre">create_assembly_flag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_bodies</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Flags</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.assembly.create_assembly_flag" title="Link to this definition">#</a></dt>
+<dd><p>Build connected-component membership from bodies and joint links.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_bodies</strong> (<em>Any</em>) – Components considered when forming assemblies.</p></li>
+<li><p><strong>Flags</strong> (<em>Any</em>) – Component-index pairs that represent connectivity links.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Boolean rows indicating component membership for each assembly.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-titan.Geometry.component">
+<span id="component"></span><h2>Component<a class="headerlink" href="#module-titan.Geometry.component" title="Link to this heading">#</a></h2>
+<p>component module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.component.</span></span><span class="sig-name descname"><span class="pre">Component</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">file_type</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">inner_stl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">trigger_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Indestructible'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">trigger_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">fenics_bc_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">material</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Unittest'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">parent_part</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">global_ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">bloom_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">mixture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">mass_fractions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">species</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">explosive_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.component.Component" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represent one geometric component and its physical properties.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.COG">
+<span class="sig-name descname"><span class="pre">COG</span></span><a class="headerlink" href="#titan.Geometry.component.Component.COG" title="Link to this definition">#</a></dt>
+<dd><p>[meters] Center of mass in XYZ coordinates</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.compute_mass_properties">
+<span class="sig-name descname"><span class="pre">compute_mass_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.component.Component.compute_mass_properties" title="Link to this definition">#</a></dt>
+<dd><p>Compute the inertia properties
+:param coords: Value for coords.
+:type coords: Any
+:param elements: Value for elements.
+:type elements: Any
+:param density: Numeric value for density.
+:type density: float</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#titan.Geometry.component.Component.id" title="Link to this definition">#</a></dt>
+<dd><p>[int] ID of the component</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.inertia">
+<span class="sig-name descname"><span class="pre">inertia</span></span><a class="headerlink" href="#titan.Geometry.component.Component.inertia" title="Link to this definition">#</a></dt>
+<dd><p>[kg/m^2] Inertia matrix</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.mass">
+<span class="sig-name descname"><span class="pre">mass</span></span><a class="headerlink" href="#titan.Geometry.component.Component.mass" title="Link to this definition">#</a></dt>
+<dd><p>[kg] Mass of the component</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.material">
+<span class="sig-name descname"><span class="pre">material</span></span><a class="headerlink" href="#titan.Geometry.component.Component.material" title="Link to this definition">#</a></dt>
+<dd><p>[Material] Object of class Material to store the material properties</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.mesh">
+<span class="sig-name descname"><span class="pre">mesh</span></span><a class="headerlink" href="#titan.Geometry.component.Component.mesh" title="Link to this definition">#</a></dt>
+<dd><p>[Mesh] Object of class mesh that stores the mesh information</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#titan.Geometry.component.Component.name" title="Link to this definition">#</a></dt>
+<dd><p>[str] Name of the file where the mesh is stores</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.temperature">
+<span class="sig-name descname"><span class="pre">temperature</span></span><a class="headerlink" href="#titan.Geometry.component.Component.temperature" title="Link to this definition">#</a></dt>
+<dd><p>[K] Temperature</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.trigger_type">
+<span class="sig-name descname"><span class="pre">trigger_type</span></span><a class="headerlink" href="#titan.Geometry.component.Component.trigger_type" title="Link to this definition">#</a></dt>
+<dd><p>[str] Type of trigger for type joint (Altitude, Temperature, Stress)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.trigger_value">
+<span class="sig-name descname"><span class="pre">trigger_value</span></span><a class="headerlink" href="#titan.Geometry.component.Component.trigger_value" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of the trigger criteria</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#titan.Geometry.component.Component.type" title="Link to this definition">#</a></dt>
+<dd><p>[str] Type of the component (joint, primitive). Several sub-components can be used to form a larger component</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component_list">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.component.</span></span><span class="sig-name descname"><span class="pre">Component_list</span></span><a class="headerlink" href="#titan.Geometry.component.Component_list" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Maintain components and assign their local identifiers.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan.Geometry.component.Component_list.insert_component">
+<span class="sig-name descname"><span class="pre">insert_component</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">file_type</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">inner_stl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">trigger_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Indestructible'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">trigger_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">fenics_bc_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">material</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Unittest'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">global_ID</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">bloom_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">mixture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">mass_fractions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">species</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">explosive_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.component.Component_list.insert_component" title="Link to this definition">#</a></dt>
+<dd><p>Create a component and append it to this collection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – Mesh or geometry filename for the component.</p></li>
+<li><p><strong>file_type</strong> (<em>str</em>) – Component category, such as a primitive or joint.</p></li>
+<li><p><strong>inner_stl</strong> (<em>str</em>) – Optional filename for an inner surface mesh.</p></li>
+<li><p><strong>id</strong> (<em>int</em>) – Identifier argument retained for API compatibility; the
+collection assigns its own sequential identifier.</p></li>
+<li><p><strong>binary</strong> (<em>bool</em>) – Whether mesh input should be read as binary.</p></li>
+<li><p><strong>trigger_type</strong> (<em>str</em>) – Failure or fragmentation trigger mode.</p></li>
+<li><p><strong>trigger_value</strong> (<em>float</em>) – Threshold associated with the trigger mode.</p></li>
+<li><p><strong>fenics_bc_id</strong> (<em>int</em>) – Boundary-condition identifier for FEniCS.</p></li>
+<li><p><strong>material</strong> (<em>str</em>) – Material name used to initialize the component.</p></li>
+<li><p><strong>temperature</strong> (<em>float</em>) – Initial component temperature in kelvin.</p></li>
+<li><p><strong>options</strong> (<a class="reference internal" href="titan.Configuration.html#titan.Configuration.configuration.Options" title="titan.Configuration.configuration.Options"><em>Options</em></a>) – Simulation configuration.</p></li>
+<li><p><strong>global_ID</strong> (<em>int</em>) – Global identifier associated with the source object.</p></li>
+<li><p><strong>bloom_config</strong> (<em>list</em>) – Boundary-layer mesh configuration values.</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – Component-specific scaling parameter.</p></li>
+<li><p><strong>mixture</strong> (<em>str</em><em> or </em><em>None</em>) – Optional gas-mixture name for ablation products.</p></li>
+<li><p><strong>mass_fractions</strong> (<em>list</em><em> or </em><em>None</em>) – Initial species mass fractions.</p></li>
+<li><p><strong>species</strong> (<em>list</em><em> or </em><em>None</em>) – Species names associated with the mixture.</p></li>
+<li><p><strong>explosive_parameters</strong> (<em>dict</em><em> or </em><em>None</em>) – Optional explosive-fragmentation settings.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.component.Explosive">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.component.</span></span><span class="sig-name descname"><span class="pre">Explosive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explosive_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.component.Explosive" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Explosive.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Explosive.char_velocity">
+<span class="sig-name descname"><span class="pre">char_velocity</span></span><a class="headerlink" href="#titan.Geometry.component.Explosive.char_velocity" title="Link to this definition">#</a></dt>
+<dd><p>[float] Characteristic velocity of explosion, overwritten by energy if using nasa_conservation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Explosive.crack_width">
+<span class="sig-name descname"><span class="pre">crack_width</span></span><a class="headerlink" href="#titan.Geometry.component.Explosive.crack_width" title="Link to this definition">#</a></dt>
+<dd><p>[float] Wider fractures remove more of an objects initial volume (and mass) but make the fracture algorithm more robust</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Explosive.energy">
+<span class="sig-name descname"><span class="pre">energy</span></span><a class="headerlink" href="#titan.Geometry.component.Explosive.energy" title="Link to this definition">#</a></dt>
+<dd><p>[float] Explosive Energy (J)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Explosive.kinetic_factor">
+<span class="sig-name descname"><span class="pre">kinetic_factor</span></span><a class="headerlink" href="#titan.Geometry.component.Explosive.kinetic_factor" title="Link to this definition">#</a></dt>
+<dd><p>[float] Amount of energy converted into in kinetic energy if using nasa_conservation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.Explosive.n_fragments">
+<span class="sig-name descname"><span class="pre">n_fragments</span></span><a class="headerlink" href="#titan.Geometry.component.Explosive.n_fragments" title="Link to this definition">#</a></dt>
+<dd><p>[int] Number of fragments to explode into</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.component.PATO">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.component.</span></span><span class="sig-name descname"><span class="pre">PATO</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">len_facets</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">bloom_config</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">object_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.component.PATO" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class PATO</p>
+<p>A class to store the PATO simulation</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.PATO.flag">
+<span class="sig-name descname"><span class="pre">flag</span></span><a class="headerlink" href="#titan.Geometry.component.PATO.flag" title="Link to this definition">#</a></dt>
+<dd><p>[bool] Flag value indicating the use of PATO for the thermal model</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.PATO.mass_loss">
+<span class="sig-name descname"><span class="pre">mass_loss</span></span><a class="headerlink" href="#titan.Geometry.component.PATO.mass_loss" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of mass loss due to ablation</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.component.bloom">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.component.</span></span><span class="sig-name descname"><span class="pre">bloom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bloom_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.component.bloom" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>bloom.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.bloom.flag">
+<span class="sig-name descname"><span class="pre">flag</span></span><a class="headerlink" href="#titan.Geometry.component.bloom.flag" title="Link to this definition">#</a></dt>
+<dd><p>[bool] Flag value indicating the use of Bloom to generate the boundary layer mesh</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.bloom.growth_rate">
+<span class="sig-name descname"><span class="pre">growth_rate</span></span><a class="headerlink" href="#titan.Geometry.component.bloom.growth_rate" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of the growth rate, starting at the first element</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.bloom.layers">
+<span class="sig-name descname"><span class="pre">layers</span></span><a class="headerlink" href="#titan.Geometry.component.bloom.layers" title="Link to this definition">#</a></dt>
+<dd><p>[int] Number of Layers in the boundary layer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan.Geometry.component.bloom.spacing">
+<span class="sig-name descname"><span class="pre">spacing</span></span><a class="headerlink" href="#titan.Geometry.component.bloom.spacing" title="Link to this definition">#</a></dt>
+<dd><p>[float] Value of spacing of the first element in the boundary layer</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-titan.Geometry.gmsh_api">
+<span id="gmsh-api"></span><h2>gmsh API<a class="headerlink" href="#module-titan.Geometry.gmsh_api" title="Link to this heading">#</a></h2>
+<p>gmsh_api module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.gmsh_api.generate_PATO_domain">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.gmsh_api.</span></span><span class="sig-name descname"><span class="pre">generate_PATO_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.gmsh_api.generate_PATO_domain" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param obj: Value for obj.
+:type obj: Any
+:param output_folder: Value for output folder.
+:type output_folder: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.gmsh_api.generate_cfd_domain">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.gmsh_api.</span></span><span class="sig-name descname"><span class="pre">generate_cfd_domain</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ref_size_surf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ref_size_far</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">output_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">output_grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Grid.su2'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.gmsh_api.generate_cfd_domain" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param assembly: Assembly object to process.
+:type assembly: object
+:param dim: Value for dim.
+:type dim: Any
+:param ref_size_surf: Value for ref size surf.
+:type ref_size_surf: Any
+:param ref_size_far: Value for ref size far.
+:type ref_size_far: Any
+:param output_folder: Value for output folder.
+:type output_folder: Any
+:param output_grid: Value for output grid.
+:type output_grid: Any
+:param options: Options or configuration object.
+:type options: Options</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.gmsh_api.generate_inner_domain">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.gmsh_api.</span></span><span class="sig-name descname"><span class="pre">generate_inner_domain</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">assembly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">write</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">output_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">bc_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ref_obj_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">min_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.gmsh_api.generate_inner_domain" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param mesh: Value for mesh.
+:type mesh: Any
+:param assembly: Assembly object to process.
+:type assembly: object
+:param write: Value for write.
+:type write: Any
+:param output_folder: Value for output folder.
+:type output_folder: Any
+:param output_filename: Value for output filename.
+:type output_filename: str
+:param bc_ids: Value for bc ids.
+:type bc_ids: Any
+:param ref_obj_override: Value for ref obj override.
+:type ref_obj_override: Any
+:param min_size: Value for min size.
+:type min_size: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.gmsh_api.mesh_Settings">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.gmsh_api.</span></span><span class="sig-name descname"><span class="pre">mesh_Settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmsh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.gmsh_api.mesh_Settings" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param gmsh: Value for gmsh.
+:type gmsh: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.gmsh_api.object_grid">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.gmsh_api.</span></span><span class="sig-name descname"><span class="pre">object_grid</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">gmsh</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">edges</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">facet_edges</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">node_ref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">edge_ref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">surf_ref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">factory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.gmsh_api.object_grid" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param gmsh: Value for gmsh.
+:type gmsh: Any
+:param nodes: Value for nodes.
+:type nodes: Any
+:param edges: Value for edges.
+:type edges: Any
+:param facet_edges: Value for facet edges.
+:type facet_edges: Any
+:param ref: Value for ref.
+:type ref: Any
+:param node_ref: Value for node ref.
+:type node_ref: Any
+:param edge_ref: Value for edge ref.
+:type edge_ref: Any
+:param surf_ref: Value for surf ref.
+:type surf_ref: Any
+:param factory: Value for factory.
+:type factory: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.gmsh_api.object_physical">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.gmsh_api.</span></span><span class="sig-name descname"><span class="pre">object_physical</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">gmsh</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">init_ref_surf</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">end_ref_surf</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ref_phys_surface</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">factory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.gmsh_api.object_physical" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param gmsh: Value for gmsh.
+:type gmsh: Any
+:param init_ref_surf: Value for init ref surf.
+:type init_ref_surf: Any
+:param end_ref_surf: Value for end ref surf.
+:type end_ref_surf: Any
+:param ref_phys_surface: Value for ref phys surface.
+:type ref_phys_surface: Any
+:param name: Name of the item.
+:type name: str
+:param factory: Value for factory.
+:type factory: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.gmsh_api.outer_surface">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.gmsh_api.</span></span><span class="sig-name descname"><span class="pre">outer_surface</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">gmsh</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">surf_ref</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ref_phys_surface</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.gmsh_api.outer_surface" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param gmsh: Value for gmsh.
+:type gmsh: Any
+:param ref: Value for ref.
+:type ref: Any
+:param surf_ref: Value for surf ref.
+:type surf_ref: Any
+:param xmin: Value for xmin.
+:type xmin: Any
+:param xmax: Value for xmax.
+:type xmax: Any
+:param ref_phys_surface: Value for ref phys surface.
+:type ref_phys_surface: Any
+:param options: Options or configuration object.
+:type options: Options</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.gmsh_api.physical_surf_from_list">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.gmsh_api.</span></span><span class="sig-name descname"><span class="pre">physical_surf_from_list</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">gmsh</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">surf_list</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ref_phys_surface</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.gmsh_api.physical_surf_from_list" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param gmsh: Value for gmsh.
+:type gmsh: Any
+:param surf_list: List of surf.
+:type surf_list: list
+:param ref_phys_surface: Value for ref phys surface.
+:type ref_phys_surface: Any
+:param name: Name of the item.
+:type name: str</p>
+</dd></dl>
+
+</section>
+<section id="module-titan.Geometry.mesh">
+<span id="mesh"></span><h2>Mesh<a class="headerlink" href="#module-titan.Geometry.mesh" title="Link to this heading">#</a></h2>
+<p>mesh module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.Mesh">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">Mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.Mesh" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Store surface and volume mesh geometry and derived properties.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.ProjectCurvatureTensor">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">ProjectCurvatureTensor</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">uf</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">vf</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">nf</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">old_ku</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">old_kuv</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">old_kv</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">up</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">vp</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.ProjectCurvatureTensor" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param uf: Value for uf.
+:type uf: Any
+:param vf: Value for vf.
+:type vf: Any
+:param nf: Value for nf.
+:type nf: Any
+:param old_ku: Value for old ku.
+:type old_ku: Any
+:param old_kuv: Value for old kuv.
+:type old_kuv: Any
+:param old_kv: Value for old kv.
+:type old_kv: Any
+:param up: Value for up.
+:type up: Any
+:param vp: Value for vp.
+:type vp: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.RotateCoordinateSystem_1d">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">RotateCoordinateSystem_1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">up</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.RotateCoordinateSystem_1d" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param up: Value for up.
+:type up: Any
+:param vp: Value for vp.
+:type vp: Any
+:param nf: Value for nf.
+:type nf: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.RotateCoordinateSystem_nd">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">RotateCoordinateSystem_nd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">up</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.RotateCoordinateSystem_nd" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param up: Value for up.
+:type up: Any
+:param vp: Value for vp.
+:type vp: Any
+:param nf: Value for nf.
+:type nf: Any
+:param axis: Value for axis.
+:type axis: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.add_new_surface_facets">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">add_new_surface_facets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tetras_index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.add_new_surface_facets" title="Link to this definition">#</a></dt>
+<dd><p>Function to
+:param assembly: Assembly object to process.
+:type assembly: object
+:param tetras_index: Value for tetras index.
+:type tetras_index: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.append">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.append" title="Link to this definition">#</a></dt>
+<dd><p>Append a component mesh’s surface arrays to an assembly mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh_assembly</strong> (<em>Any</em>) – Mesh object that receives the component’s facets.</p></li>
+<li><p><strong>mesh_obj</strong> (<em>Any</em>) – Component mesh whose surface data is appended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated assembly mesh.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#titan.Geometry.mesh.Mesh" title="titan.Geometry.mesh.Mesh">Mesh</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.calculate_curvature">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">calculate_curvature</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">VertexNormals</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">Avertex</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">Acorner</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">up</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">vp</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">facets</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">facet_normals</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v2</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.calculate_curvature" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param VertexNormals: Value for vertexnormals.
+:type VertexNormals: Any
+:param Avertex: Value for avertex.
+:type Avertex: Any
+:param Acorner: Value for acorner.
+:type Acorner: Any
+:param up: Value for up.
+:type up: Any
+:param vp: Value for vp.
+:type vp: Any
+:param nodes: Value for nodes.
+:type nodes: Any
+:param facets: Value for facets.
+:type facets: Any
+:param facet_normals: Value for facet normals.
+:type facet_normals: Any
+:param v0: Value for v0.
+:type v0: Any
+:param v1: Value for v1.
+:type v1: Any
+:param v2: Value for v2.
+:type v2: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.calculate_vertex_normals">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">calculate_vertex_normals</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">facets</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">facet_normals</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">facets_area</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v2</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.calculate_vertex_normals" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param nodes: Value for nodes.
+:type nodes: Any
+:param facets: Value for facets.
+:type facets: Any
+:param facet_normals: Value for facet normals.
+:type facet_normals: Any
+:param facets_area: Value for facets area.
+:type facets_area: Any
+:param v0: Value for v0.
+:type v0: Any
+:param v1: Value for v1.
+:type v1: Any
+:param v2: Value for v2.
+:type v2: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.check_tetra_in_surface">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">check_tetra_in_surface</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">surface_facets</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">surface_nodes</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">tetra_elements</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">tetra_nodes</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.check_tetra_in_surface" title="Link to this definition">#</a></dt>
+<dd><p>Check which tetras are inside a watetight surface by performing a raycast operation on all the tetras provided
+:param surface_facets: Value for surface facets.
+:type surface_facets: Any
+:param surface_nodes: Value for surface nodes.
+:type surface_nodes: Any
+:param tetra_elements: Value for tetra elements.
+:type tetra_elements: Any
+:param tetra_nodes: Value for tetra nodes.
+:type tetra_nodes: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.compute_curvature">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">compute_curvature</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">_nodes</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">_facets</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">_nodes_normal</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">_facet_normals</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">_facets_area</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">_v0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">_v1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">_v2</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.compute_curvature" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param _nodes: Value for  nodes.
+:type _nodes: Any
+:param _facets: Value for  facets.
+:type _facets: Any
+:param _nodes_normal: Value for  nodes normal.
+:type _nodes_normal: Any
+:param _facet_normals: Value for  facet normals.
+:type _facet_normals: Any
+:param _facets_area: Value for  facets area.
+:type _facets_area: Any
+:param _v0: Value for  v0.
+:type _v0: Any
+:param _v1: Value for  v1.
+:type _v1: Any
+:param _v2: Value for  v2.
+:type _v2: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.compute_facet_COG">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">compute_facet_COG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.compute_facet_COG" title="Link to this definition">#</a></dt>
+<dd><p>Compute the centroid of each triangle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v0</strong> (<em>Any</em>) – Coordinates of the first vertex of each triangle.</p></li>
+<li><p><strong>v1</strong> (<em>Any</em>) – Coordinates of the second vertex of each triangle.</p></li>
+<li><p><strong>v2</strong> (<em>Any</em>) – Coordinates of the third vertex of each triangle.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Triangle centroids with shape <code class="docutils literal notranslate"><span class="pre">(n_facets,</span> <span class="pre">3)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.compute_facet_area">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">compute_facet_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.compute_facet_area" title="Link to this definition">#</a></dt>
+<dd><p>Compute triangle areas from their three vertex arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v0</strong> (<em>Any</em>) – Coordinates of the first vertex of each triangle.</p></li>
+<li><p><strong>v1</strong> (<em>Any</em>) – Coordinates of the second vertex of each triangle.</p></li>
+<li><p><strong>v2</strong> (<em>Any</em>) – Coordinates of the third vertex of each triangle.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>One area value per triangle.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.compute_facet_normal">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">compute_facet_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">COG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet_COG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.compute_facet_normal" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param COG: Value for cog.
+:type COG: Any
+:param facet_COG: Value for facet cog.
+:type facet_COG: Any
+:param v0: Value for v0.
+:type v0: Any
+:param v1: Value for v1.
+:type v1: Any
+:param v2: Value for v2.
+:type v2: Any
+:param area: Value for area.
+:type area: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.compute_geometrical_COG">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">compute_geometrical_COG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">facet_COG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet_area</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.compute_geometrical_COG" title="Link to this definition">#</a></dt>
+<dd><p>Compute the area-weighted centroid of a triangulated surface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>facet_COG</strong> (<em>Any</em>) – Centroid coordinates for each triangle.</p></li>
+<li><p><strong>facet_area</strong> (<em>Any</em>) – Area of each triangle.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Area-weighted geometric centre of the surface.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.compute_mesh">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">compute_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.compute_mesh" title="Link to this definition">#</a></dt>
+<dd><p>Compute geometric properties and connectivity for a surface mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh</strong> (<em>Any</em>) – Mesh whose derived geometry fields are populated.</p></li>
+<li><p><strong>compute_radius</strong> (<em>Any</em>) – Whether to estimate node and facet curvature radii.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The mesh with computed areas, normals, centres, and connectivity.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#titan.Geometry.mesh.Mesh" title="titan.Geometry.mesh.Mesh">Mesh</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.compute_min_max">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">compute_min_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.compute_min_max" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param nodes: Value for nodes.
+:type nodes: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.compute_new_volume">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">compute_new_volume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.compute_new_volume" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param assembly: Assembly object to process.
+:type assembly: object
+:param old_nodes: Value for old nodes.
+:type old_nodes: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.compute_new_volume_v2">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">compute_new_volume_v2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_objects</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.compute_new_volume_v2" title="Link to this definition">#</a></dt>
+<dd><p>Function to split the Tetras among the new assemblies
+:param original_mesh: Value for original mesh.
+:type original_mesh: Any
+:param new_mesh: Value for new mesh.
+:type new_mesh: Any
+:param new_objects: Value for new objects.
+:type new_objects: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.compute_nodes_normals">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">compute_nodes_normals</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">facets</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">facet_COG</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">v2</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.compute_nodes_normals" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param num_nodes: Integer value for num nodes.
+:type num_nodes: int
+:param facets: Value for facets.
+:type facets: Any
+:param facet_COG: Value for facet cog.
+:type facet_COG: Any
+:param v0: Value for v0.
+:type v0: Any
+:param v1: Value for v1.
+:type v1: Any
+:param v2: Value for v2.
+:type v2: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.compute_surface_from_tetra">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">compute_surface_from_tetra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elements</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.compute_surface_from_tetra" title="Link to this definition">#</a></dt>
+<dd><p>Function to compute the v0,v1 and v2 given the tetras
+:param coords: Value for coords.
+:type coords: Any
+:param elements: Value for elements.
+:type elements: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.create_index">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">create_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_atr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj_atr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.create_index" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param body_atr: Value for body atr.
+:type body_atr: Any
+:param obj_atr: Value for obj atr.
+:type obj_atr: Any
+:param round_value: Value for round value.
+:type round_value: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.create_index_mapping">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">create_index_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_atr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj_atr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.create_index_mapping" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param body_atr: Value for body atr.
+:type body_atr: Any
+:param obj_atr: Value for obj atr.
+:type obj_atr: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.exponential_moving_average">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">exponential_moving_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.exponential_moving_average" title="Link to this definition">#</a></dt>
+<dd><p>Calculate the N-point exponential moving average of a signal
+:param signal: Value for signal.
+:type signal: Any
+:param points: Value for points.
+:type points: list[float]
+:param smoothing: Value for smoothing.
+:type smoothing: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.facet_to_vertex_linear">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">facet_to_vertex_linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.facet_to_vertex_linear" title="Link to this definition">#</a></dt>
+<dd><p>Using Voronoi area of vertex
+:param mesh: Value for mesh.
+:type mesh: Any
+:param facet_value: Value for facet value.
+:type facet_value: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.facet_to_vertex_voronoi">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">facet_to_vertex_voronoi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.facet_to_vertex_voronoi" title="Link to this definition">#</a></dt>
+<dd><p>Using Voronoi area for interpolation
+:param mesh: Value for mesh.
+:type mesh: Any
+:param facet_value: Value for facet value.
+:type facet_value: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.getPrincipalCurvatures">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">getPrincipalCurvatures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VertexSFM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">up</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.getPrincipalCurvatures" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param nodes: Value for nodes.
+:type nodes: Any
+:param VertexSFM: Value for vertexsfm.
+:type VertexSFM: Any
+:param up: Value for up.
+:type up: Any
+:param vp: Value for vp.
+:type vp: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.map_edges_connectivity">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">map_edges_connectivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">facets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.map_edges_connectivity" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param facets: Value for facets.
+:type facets: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.map_facets_connectivity">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">map_facets_connectivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.map_facets_connectivity" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param v0: Value for v0.
+:type v0: Any
+:param v1: Value for v1.
+:type v1: Any
+:param v2: Value for v2.
+:type v2: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.map_surf_to_tetra">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">map_surf_to_tetra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vol_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vol_elements</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.map_surf_to_tetra" title="Link to this definition">#</a></dt>
+<dd><p>Function to map the surface elements to the respective tetra.
+:param vol_coords: Value for vol coords.
+:type vol_coords: Any
+:param vol_elements: Value for vol elements.
+:type vol_elements: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.read_mesh">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">read_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.read_mesh" title="Link to this definition">#</a></dt>
+<dd><p>Read triangular surface facets from a mesh file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Path to the relevant file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The three vertex-coordinate arrays for each triangle.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[numpy.ndarray, numpy.ndarray, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.remove_ablated_elements">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">remove_ablated_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_array</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.remove_ablated_elements" title="Link to this definition">#</a></dt>
+<dd><p>Function to remove ablated tetras from the object.
+:param assembly: Assembly object to process.
+:type assembly: object
+:param delete_array: Value for delete array.
+:type delete_array: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.remove_isolated_facets">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">remove_isolated_facets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.remove_isolated_facets" title="Link to this definition">#</a></dt>
+<dd><ul class="simple">
+<li><p>removes isolated facets from object mesh</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>assembly</strong> (<em>object</em>) – Assembly object to process.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.remove_repeated_facets">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">remove_repeated_facets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assembly_mesh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.remove_repeated_facets" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param assembly_mesh: Value for assembly mesh.
+:type assembly_mesh: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.searchableRadius">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">searchableRadius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SearchRadius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nsmooth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.searchableRadius" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param center: Value for center.
+:type center: Any
+:param nodes: Value for nodes.
+:type nodes: Any
+:param SearchRadius: Value for searchradius.
+:type SearchRadius: Any
+:param Nsmooth: Value for nsmooth.
+:type Nsmooth: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.sphVolSmoothing">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">sphVolSmoothing</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">InnerPointsInd</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">propOnVerts</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">avType</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">Nsmooth</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">MaxRefRadius</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">flatEdge</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">flatWeightFlag</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.sphVolSmoothing" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param InnerPointsInd: Value for innerpointsind.
+:type InnerPointsInd: Any
+:param propOnVerts: Value for proponverts.
+:type propOnVerts: Any
+:param avType: Value for avtype.
+:type avType: Any
+:param Nsmooth: Value for nsmooth.
+:type Nsmooth: Any
+:param MaxRefRadius: Value for maxrefradius.
+:type MaxRefRadius: Any
+:param flatEdge: Value for flatedge.
+:type flatEdge: Any
+:param flatWeightFlag: Value for flatweightflag.
+:type flatWeightFlag: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.update_object_mesh_from_tetra">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">update_object_mesh_from_tetra</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">assembly_mesh</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">curvature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.update_object_mesh_from_tetra" title="Link to this definition">#</a></dt>
+<dd><p>NOT USED AT THE MOMENT
+:param obj: Value for obj.
+:type obj: Any
+:param assembly_mesh: Value for assembly mesh.
+:type assembly_mesh: Any
+:param curvature: Value for curvature.
+:type curvature: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.update_surface_displacement">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">update_surface_displacement</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">surface_displacement_vector</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.update_surface_displacement" title="Link to this definition">#</a></dt>
+<dd><p>Displace surface nodes and refresh dependent geometric properties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh</strong> (<em>Any</em>) – Surface mesh to update in place.</p></li>
+<li><p><strong>surface_displacement_vector</strong> (<em>Any</em>) – Per-node displacement vectors.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.update_surface_mesh">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">update_surface_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">curvature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.update_surface_mesh" title="Link to this definition">#</a></dt>
+<dd><p>Updates the surface properties
+:param mesh: Value for mesh.
+:type mesh: Any
+:param curvature: Value for curvature.
+:type curvature: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.update_volume_displacement">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">update_volume_displacement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volume_displacement_vector</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.update_volume_displacement" title="Link to this definition">#</a></dt>
+<dd><p>Apply a displacement field to the mesh’s volume coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh</strong> (<em>Any</em>) – Mesh whose volume coordinates are updated in place.</p></li>
+<li><p><strong>volume_displacement_vector</strong> (<em>Any</em>) – Per-node volume displacement vectors.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.vertex_to_facet_linear">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">vertex_to_facet_linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertex_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.vertex_to_facet_linear" title="Link to this definition">#</a></dt>
+<dd><p>Using Voronoi area of vertex
+:param mesh: Value for mesh.
+:type mesh: Any
+:param vertex_value: Value for vertex value.
+:type vertex_value: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.mesh.vertex_to_facet_voronoi">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.mesh.</span></span><span class="sig-name descname"><span class="pre">vertex_to_facet_voronoi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertex_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.mesh.vertex_to_facet_voronoi" title="Link to this definition">#</a></dt>
+<dd><p>Using Voronoi area for interpolation Using Laplace weights
+:param mesh: Value for mesh.
+:type mesh: Any
+:param vertex_value: Value for vertex value.
+:type vertex_value: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+</section>
+<section id="module-titan.Geometry.tetra">
+<span id="tetra"></span><h2>Tetra<a class="headerlink" href="#module-titan.Geometry.tetra" title="Link to this heading">#</a></h2>
+<p>tetra module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.tetra.inertia_tetra">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.tetra.</span></span><span class="sig-name descname"><span class="pre">inertia_tetra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">COG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.tetra.inertia_tetra" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param v0: Value for v0.
+:type v0: Any
+:param v1: Value for v1.
+:type v1: Any
+:param v2: Value for v2.
+:type v2: Any
+:param v3: Value for v3.
+:type v3: Any
+:param vol: Value for vol.
+:type vol: Any
+:param COG: Value for cog.
+:type COG: Any
+:param rho: Value for rho.
+:type rho: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="titan.Geometry.tetra.vol_tetra">
+<span class="sig-prename descclassname"><span class="pre">titan.Geometry.tetra.</span></span><span class="sig-name descname"><span class="pre">vol_tetra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan.Geometry.tetra.vol_tetra" title="Link to this definition">#</a></dt>
+<dd><p>Documentation for the function.
+:param v0: Value for v0.
+:type v0: Any
+:param v1: Value for v1.
+:type v1: Any
+:param v2: Value for v2.
+:type v2: Any
+:param v3: Value for v3.
+:type v3: Any
+:return: Return value.
+:rtype: Any</p>
+</dd></dl>
+
+</section>
+</section>
+
+</article><footer class="bz-article-footer">
+  
+  
+    <nav class="bz-related-pages" aria-label="Related pages navigation"><a class="bz-related-pages-previous" href="titan.Freestream.html" rel="prev">
+    <span>Previous</span><span class="bz-related-pages-title">Freestream package</span></a><a class="bz-related-pages-next" href="titan.Material.html" rel="next">
+    <span>Next</span>
+    <span class="bz-related-pages-title">Materials</span>
+  </a></nav>
+  
+
+</footer><aside class="bz-sidebar-secondary" data-drawer="bz-sidebar-secondary">
+  
+  
+    <nav class="bz-sidebar-toc" aria-label="Table of contents">
+  <p>On this page</p><ul>
+<li><a class="reference internal" href="#module-titan.Geometry">Module contents</a></li>
+<li><a class="reference internal" href="#module-titan.Geometry.assembly">Assembly</a><ul>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Aerothermo"><code class="docutils literal notranslate"><span class="pre">Aerothermo</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Aerothermo.append"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.append()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Aerothermo.delete"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.delete()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Aerothermo.heatflux"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.heatflux</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Aerothermo.pressure"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.pressure</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Aerothermo.shear"><code class="docutils literal notranslate"><span class="pre">Aerothermo​.shear</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly"><code class="docutils literal notranslate"><span class="pre">Assembly</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.Aref"><code class="docutils literal notranslate"><span class="pre">Assembly​.Aref</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.COG"><code class="docutils literal notranslate"><span class="pre">Assembly​.COG</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.Lref"><code class="docutils literal notranslate"><span class="pre">Assembly​.Lref</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.aerothermo"><code class="docutils literal notranslate"><span class="pre">Assembly​.aerothermo</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.aoa"><code class="docutils literal notranslate"><span class="pre">Assembly​.aoa</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.body_force"><code class="docutils literal notranslate"><span class="pre">Assembly​.body_​force</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.compute_mass_properties"><code class="docutils literal notranslate"><span class="pre">Assembly​.compute_​mass_​properties()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.dynamics"><code class="docutils literal notranslate"><span class="pre">Assembly​.dynamics</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.freestream"><code class="docutils literal notranslate"><span class="pre">Assembly​.freestream</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.generate_inner_domain"><code class="docutils literal notranslate"><span class="pre">Assembly​.generate_​inner_​domain()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.id"><code class="docutils literal notranslate"><span class="pre">Assembly​.id</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.inertia"><code class="docutils literal notranslate"><span class="pre">Assembly​.inertia</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.mass"><code class="docutils literal notranslate"><span class="pre">Assembly​.mass</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.mesh"><code class="docutils literal notranslate"><span class="pre">Assembly​.mesh</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.objects"><code class="docutils literal notranslate"><span class="pre">Assembly​.objects</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.rearrange_ids"><code class="docutils literal notranslate"><span class="pre">Assembly​.rearrange_​ids()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.slip"><code class="docutils literal notranslate"><span class="pre">Assembly​.slip</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly.wind_force"><code class="docutils literal notranslate"><span class="pre">Assembly​.wind_​force</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list"><code class="docutils literal notranslate"><span class="pre">Assembly_​list</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list.assembly"><code class="docutils literal notranslate"><span class="pre">Assembly_​list​.assembly</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list.connectivity"><code class="docutils literal notranslate"><span class="pre">Assembly_​list​.connectivity</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list.create_assembly"><code class="docutils literal notranslate"><span class="pre">Assembly_​list​.create_​assembly()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list.delta_t"><code class="docutils literal notranslate"><span class="pre">Assembly_​list​.delta_​t</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list.epoch"><code class="docutils literal notranslate"><span class="pre">Assembly_​list​.epoch</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list.id"><code class="docutils literal notranslate"><span class="pre">Assembly_​list​.id</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list.iter"><code class="docutils literal notranslate"><span class="pre">Assembly_​list​.iter</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list.n_collisions"><code class="docutils literal notranslate"><span class="pre">Assembly_​list​.n_​collisions</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list.objects"><code class="docutils literal notranslate"><span class="pre">Assembly_​list​.objects</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list.post_event_iter"><code class="docutils literal notranslate"><span class="pre">Assembly_​list​.post_​event_​iter</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Assembly_list.time"><code class="docutils literal notranslate"><span class="pre">Assembly_​list​.time</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Body_force"><code class="docutils literal notranslate"><span class="pre">Body_​force</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Body_force.force"><code class="docutils literal notranslate"><span class="pre">Body_​force​.force</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Body_force.moment"><code class="docutils literal notranslate"><span class="pre">Body_​force​.moment</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Dynamics"><code class="docutils literal notranslate"><span class="pre">Dynamics</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Dynamics.acceleration"><code class="docutils literal notranslate"><span class="pre">Dynamics​.acceleration</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Dynamics.pitch"><code class="docutils literal notranslate"><span class="pre">Dynamics​.pitch</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Dynamics.roll"><code class="docutils literal notranslate"><span class="pre">Dynamics​.roll</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Dynamics.vel_pitch"><code class="docutils literal notranslate"><span class="pre">Dynamics​.vel_​pitch</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Dynamics.vel_roll"><code class="docutils literal notranslate"><span class="pre">Dynamics​.vel_​roll</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Dynamics.vel_yaw"><code class="docutils literal notranslate"><span class="pre">Dynamics​.vel_​yaw</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Dynamics.yaw"><code class="docutils literal notranslate"><span class="pre">Dynamics​.yaw</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream"><code class="docutils literal notranslate"><span class="pre">Freestream</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.P1_s"><code class="docutils literal notranslate"><span class="pre">Freestream​.P1_​s</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.R"><code class="docutils literal notranslate"><span class="pre">Freestream​.R</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.T1_s"><code class="docutils literal notranslate"><span class="pre">Freestream​.T1_​s</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.cp"><code class="docutils literal notranslate"><span class="pre">Freestream​.cp</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.cv"><code class="docutils literal notranslate"><span class="pre">Freestream​.cv</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.density"><code class="docutils literal notranslate"><span class="pre">Freestream​.density</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.diameter"><code class="docutils literal notranslate"><span class="pre">Freestream​.diameter</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.gamma"><code class="docutils literal notranslate"><span class="pre">Freestream​.gamma</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.h1_s"><code class="docutils literal notranslate"><span class="pre">Freestream​.h1_​s</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.knudsen"><code class="docutils literal notranslate"><span class="pre">Freestream​.knudsen</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.mach"><code class="docutils literal notranslate"><span class="pre">Freestream​.mach</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.mass_fraction"><code class="docutils literal notranslate"><span class="pre">Freestream​.mass_​fraction</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.mfp"><code class="docutils literal notranslate"><span class="pre">Freestream​.mfp</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.mu"><code class="docutils literal notranslate"><span class="pre">Freestream​.mu</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.mu_s"><code class="docutils literal notranslate"><span class="pre">Freestream​.mu_​s</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.omega"><code class="docutils literal notranslate"><span class="pre">Freestream​.omega</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.percent_gas"><code class="docutils literal notranslate"><span class="pre">Freestream​.percent_​gas</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.prandtl"><code class="docutils literal notranslate"><span class="pre">Freestream​.prandtl</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.pressure"><code class="docutils literal notranslate"><span class="pre">Freestream​.pressure</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.rho_s"><code class="docutils literal notranslate"><span class="pre">Freestream​.rho_​s</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.species_index"><code class="docutils literal notranslate"><span class="pre">Freestream​.species_​index</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.temperature"><code class="docutils literal notranslate"><span class="pre">Freestream​.temperature</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Freestream.velocity"><code class="docutils literal notranslate"><span class="pre">Freestream​.velocity</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Wind_force"><code class="docutils literal notranslate"><span class="pre">Wind_​force</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Wind_force.crosswind"><code class="docutils literal notranslate"><span class="pre">Wind_​force​.crosswind</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Wind_force.drag"><code class="docutils literal notranslate"><span class="pre">Wind_​force​.drag</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.Wind_force.lift"><code class="docutils literal notranslate"><span class="pre">Wind_​force​.lift</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.copy_assembly"><code class="docutils literal notranslate"><span class="pre">copy_​assembly()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.assembly.create_assembly_flag"><code class="docutils literal notranslate"><span class="pre">create_​assembly_​flag()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Geometry.component">Component</a><ul>
+<li><a class="reference internal" href="#titan.Geometry.component.Component"><code class="docutils literal notranslate"><span class="pre">Component</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.COG"><code class="docutils literal notranslate"><span class="pre">Component​.COG</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.compute_mass_properties"><code class="docutils literal notranslate"><span class="pre">Component​.compute_​mass_​properties()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.id"><code class="docutils literal notranslate"><span class="pre">Component​.id</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.inertia"><code class="docutils literal notranslate"><span class="pre">Component​.inertia</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.mass"><code class="docutils literal notranslate"><span class="pre">Component​.mass</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.material"><code class="docutils literal notranslate"><span class="pre">Component​.material</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.mesh"><code class="docutils literal notranslate"><span class="pre">Component​.mesh</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.name"><code class="docutils literal notranslate"><span class="pre">Component​.name</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.temperature"><code class="docutils literal notranslate"><span class="pre">Component​.temperature</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.trigger_type"><code class="docutils literal notranslate"><span class="pre">Component​.trigger_​type</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.trigger_value"><code class="docutils literal notranslate"><span class="pre">Component​.trigger_​value</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component.type"><code class="docutils literal notranslate"><span class="pre">Component​.type</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Geometry.component.Component_list"><code class="docutils literal notranslate"><span class="pre">Component_​list</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.component.Component_list.insert_component"><code class="docutils literal notranslate"><span class="pre">Component_​list​.insert_​component()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Geometry.component.Explosive"><code class="docutils literal notranslate"><span class="pre">Explosive</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.component.Explosive.char_velocity"><code class="docutils literal notranslate"><span class="pre">Explosive​.char_​velocity</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Explosive.crack_width"><code class="docutils literal notranslate"><span class="pre">Explosive​.crack_​width</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Explosive.energy"><code class="docutils literal notranslate"><span class="pre">Explosive​.energy</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Explosive.kinetic_factor"><code class="docutils literal notranslate"><span class="pre">Explosive​.kinetic_​factor</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.Explosive.n_fragments"><code class="docutils literal notranslate"><span class="pre">Explosive​.n_​fragments</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Geometry.component.PATO"><code class="docutils literal notranslate"><span class="pre">PATO</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.component.PATO.flag"><code class="docutils literal notranslate"><span class="pre">PATO​.flag</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.PATO.mass_loss"><code class="docutils literal notranslate"><span class="pre">PATO​.mass_​loss</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan.Geometry.component.bloom"><code class="docutils literal notranslate"><span class="pre">bloom</span></code></a><ul>
+<li><a class="reference internal" href="#titan.Geometry.component.bloom.flag"><code class="docutils literal notranslate"><span class="pre">bloom​.flag</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.bloom.growth_rate"><code class="docutils literal notranslate"><span class="pre">bloom​.growth_​rate</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.bloom.layers"><code class="docutils literal notranslate"><span class="pre">bloom​.layers</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.component.bloom.spacing"><code class="docutils literal notranslate"><span class="pre">bloom​.spacing</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Geometry.gmsh_api">gmsh API</a><ul>
+<li><a class="reference internal" href="#titan.Geometry.gmsh_api.generate_PATO_domain"><code class="docutils literal notranslate"><span class="pre">generate_​PATO_​domain()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.gmsh_api.generate_cfd_domain"><code class="docutils literal notranslate"><span class="pre">generate_​cfd_​domain()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.gmsh_api.generate_inner_domain"><code class="docutils literal notranslate"><span class="pre">generate_​inner_​domain()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.gmsh_api.mesh_Settings"><code class="docutils literal notranslate"><span class="pre">mesh_​Settings()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.gmsh_api.object_grid"><code class="docutils literal notranslate"><span class="pre">object_​grid()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.gmsh_api.object_physical"><code class="docutils literal notranslate"><span class="pre">object_​physical()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.gmsh_api.outer_surface"><code class="docutils literal notranslate"><span class="pre">outer_​surface()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.gmsh_api.physical_surf_from_list"><code class="docutils literal notranslate"><span class="pre">physical_​surf_​from_​list()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Geometry.mesh">Mesh</a><ul>
+<li><a class="reference internal" href="#titan.Geometry.mesh.Mesh"><code class="docutils literal notranslate"><span class="pre">Mesh</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.ProjectCurvatureTensor"><code class="docutils literal notranslate"><span class="pre">ProjectCurvatureTensor()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.RotateCoordinateSystem_1d"><code class="docutils literal notranslate"><span class="pre">RotateCoordinateSystem_​1d()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.RotateCoordinateSystem_nd"><code class="docutils literal notranslate"><span class="pre">RotateCoordinateSystem_​nd()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.add_new_surface_facets"><code class="docutils literal notranslate"><span class="pre">add_​new_​surface_​facets()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.append"><code class="docutils literal notranslate"><span class="pre">append()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.calculate_curvature"><code class="docutils literal notranslate"><span class="pre">calculate_​curvature()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.calculate_vertex_normals"><code class="docutils literal notranslate"><span class="pre">calculate_​vertex_​normals()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.check_tetra_in_surface"><code class="docutils literal notranslate"><span class="pre">check_​tetra_​in_​surface()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.compute_curvature"><code class="docutils literal notranslate"><span class="pre">compute_​curvature()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.compute_facet_COG"><code class="docutils literal notranslate"><span class="pre">compute_​facet_​COG()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.compute_facet_area"><code class="docutils literal notranslate"><span class="pre">compute_​facet_​area()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.compute_facet_normal"><code class="docutils literal notranslate"><span class="pre">compute_​facet_​normal()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.compute_geometrical_COG"><code class="docutils literal notranslate"><span class="pre">compute_​geometrical_​COG()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.compute_mesh"><code class="docutils literal notranslate"><span class="pre">compute_​mesh()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.compute_min_max"><code class="docutils literal notranslate"><span class="pre">compute_​min_​max()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.compute_new_volume"><code class="docutils literal notranslate"><span class="pre">compute_​new_​volume()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.compute_new_volume_v2"><code class="docutils literal notranslate"><span class="pre">compute_​new_​volume_​v2()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.compute_nodes_normals"><code class="docutils literal notranslate"><span class="pre">compute_​nodes_​normals()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.compute_surface_from_tetra"><code class="docutils literal notranslate"><span class="pre">compute_​surface_​from_​tetra()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.create_index"><code class="docutils literal notranslate"><span class="pre">create_​index()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.create_index_mapping"><code class="docutils literal notranslate"><span class="pre">create_​index_​mapping()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.exponential_moving_average"><code class="docutils literal notranslate"><span class="pre">exponential_​moving_​average()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.facet_to_vertex_linear"><code class="docutils literal notranslate"><span class="pre">facet_​to_​vertex_​linear()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.facet_to_vertex_voronoi"><code class="docutils literal notranslate"><span class="pre">facet_​to_​vertex_​voronoi()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.getPrincipalCurvatures"><code class="docutils literal notranslate"><span class="pre">getPrincipalCurvatures()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.map_edges_connectivity"><code class="docutils literal notranslate"><span class="pre">map_​edges_​connectivity()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.map_facets_connectivity"><code class="docutils literal notranslate"><span class="pre">map_​facets_​connectivity()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.map_surf_to_tetra"><code class="docutils literal notranslate"><span class="pre">map_​surf_​to_​tetra()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.read_mesh"><code class="docutils literal notranslate"><span class="pre">read_​mesh()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.remove_ablated_elements"><code class="docutils literal notranslate"><span class="pre">remove_​ablated_​elements()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.remove_isolated_facets"><code class="docutils literal notranslate"><span class="pre">remove_​isolated_​facets()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.remove_repeated_facets"><code class="docutils literal notranslate"><span class="pre">remove_​repeated_​facets()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.searchableRadius"><code class="docutils literal notranslate"><span class="pre">searchableRadius()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.sphVolSmoothing"><code class="docutils literal notranslate"><span class="pre">sphVolSmoothing()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.update_object_mesh_from_tetra"><code class="docutils literal notranslate"><span class="pre">update_​object_​mesh_​from_​tetra()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.update_surface_displacement"><code class="docutils literal notranslate"><span class="pre">update_​surface_​displacement()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.update_surface_mesh"><code class="docutils literal notranslate"><span class="pre">update_​surface_​mesh()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.update_volume_displacement"><code class="docutils literal notranslate"><span class="pre">update_​volume_​displacement()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.vertex_to_facet_linear"><code class="docutils literal notranslate"><span class="pre">vertex_​to_​facet_​linear()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.mesh.vertex_to_facet_voronoi"><code class="docutils literal notranslate"><span class="pre">vertex_​to_​facet_​voronoi()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-titan.Geometry.tetra">Tetra</a><ul>
+<li><a class="reference internal" href="#titan.Geometry.tetra.inertia_tetra"><code class="docutils literal notranslate"><span class="pre">inertia_​tetra()</span></code></a></li>
+<li><a class="reference internal" href="#titan.Geometry.tetra.vol_tetra"><code class="docutils literal notranslate"><span class="pre">vol_​tetra()</span></code></a></li>
+</ul>
+</li>
+</ul></nav>
+  
+    
+
+
+  
+    
+  
+    
+  
+
+</aside></main>
+  </div>
+<footer class="bz-footer">
+  <div class="bz-footer-copyright"><p class="bz-copyright">© Copyright 2026, TITAN Contributors</p><p>
+    
+    
+    
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/aksiome/breeze">Breeze theme</a>.
+    
+  </p>
+</div>
+</footer><a href="#" class="bz-back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>
+    </svg>
+    <span>Back to top</span>
+  </a>
+  <label class="bz-overlay bz-overlay-primary" for="bz-sidebar-primary"></label>
+  <label class="bz-overlay bz-overlay-secondary" for="bz-sidebar-secondary"></label>
+  <input type="checkbox" name="bz-sidebar-primary" id="bz-sidebar-primary" aria-label="Toggle section navigation">
+  <input type="checkbox" name="bz-sidebar-secondary" id="bz-sidebar-secondary" aria-label="Toggle table of contents"><script src="_static/documentation_options.js?v=a06e5c19"></script><script src="_static/doctools.js?v=fd6eb6e6"></script><script src="_static/sphinx_highlight.js?v=6ffebe34"></script></body>
+</html>
